@@ -1,19 +1,48 @@
 package me.nickpierson.StatisticsSolver;
 
+import java.util.HashMap;
+
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.RelativeLayout;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 
-public class HomeView {
+import com.thecellutioncenter.mvplib.DataActionHandler;
 
-	private RelativeLayout view;
+public class HomeView extends DataActionHandler {
 
-	public HomeView(HomeActivity homeActivity) {
-		view = (RelativeLayout) LayoutInflater.from(homeActivity).inflate(R.layout.home, null);
+	public enum Types {
+		BUTTON_CLICKED;
+	}
+	
+	private LinearLayout view;
+	private HomeActivity activity;
+	private Button btnFirst;
+
+	public HomeView(HomeActivity activity) {
+		this.activity = activity;
+		view = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.home, null);
+		btnFirst = (Button) view.findViewById(R.id.home_btnFirst);
+		
+		btnFirst.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				HashMap<Enum<?>, Integer> map = new HashMap<Enum<?>, Integer>();
+				map.put(Types.BUTTON_CLICKED, btnFirst.getId());
+				dataEvent(Types.BUTTON_CLICKED, map);
+			}
+		});
 	}
 
-	public View getView() {
+	public LinearLayout getView() {
 		return view;
+	}
+
+	public void showToast(String message) {
+		Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
 	}
 
 }

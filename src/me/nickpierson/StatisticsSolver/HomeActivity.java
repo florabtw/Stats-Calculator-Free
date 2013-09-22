@@ -15,7 +15,7 @@ public class HomeActivity extends Activity {
 		
 		view = new HomeView(this);
 		model = new HomeModel();
-		HomePresenter.create(model, view);
+		HomePresenter.create(this, model, view);
 		
 		setContentView(view.getView());
 	}
