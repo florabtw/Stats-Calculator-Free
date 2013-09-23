@@ -3,7 +3,7 @@ package me.nickpierson.StatisticsSolver;
 import java.util.HashMap;
 
 import me.nickpierson.StatisticsSolver.basic.BasicActivity;
-
+import me.nickpierson.StatisticsSolver.utils.MyConstants;
 import android.content.Intent;
 
 import com.thecellutioncenter.mvplib.DataActionListener;
@@ -15,20 +15,17 @@ public class HomePresenter {
 
 			@Override
 			public void fire(HashMap<Enum<?>, ?> data) {
-				openCorrespondingCalculator(activity, view, (Integer) data.get(HomeView.Types.BUTTON_CLICKED));
+				openCorrespondingCalculator(activity, view, (String) data.get(HomeView.Types.BUTTON_CLICKED));
 			}
 		}, HomeView.Types.BUTTON_CLICKED);
 	}
 
-	public static void openCorrespondingCalculator(HomeActivity activity, HomeView view, int buttonId) {
+	public static void openCorrespondingCalculator(HomeActivity activity, HomeView view, String description) {
 		Intent intent;
 
-		switch (buttonId) {
-		case R.id.home_btnBasic:
+		if(description.equals(MyConstants.BASIC)){
 			intent = new Intent(activity, BasicActivity.class);
-			break;
-
-		default:
+		} else {
 			view.showToast(activity.getString(R.string.buttonError));
 			return;
 		}

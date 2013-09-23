@@ -8,6 +8,8 @@ import static org.mockito.Mockito.verify;
 
 import java.util.HashMap;
 
+import me.nickpierson.StatisticsSolver.utils.MyConstants;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -38,7 +40,7 @@ public class HomePresenterTest {
 
 	@Test
 	public void ifAnErrorOccursOnButtonPress_ThenToastIsShown() {
-		buttonSetup(-5);
+		buttonSetup("Not a real description");
 
 		/* Doesn't actually test that the correct string is retrieved.
 		 * The any() is for clarity since no matter what integer is put there,
@@ -49,23 +51,23 @@ public class HomePresenterTest {
 	
 	@Test
 	public void ifAnErrorOccursOnButtonPress_ThenNoActivityIsOpened() {
-		buttonSetup(-5);
+		buttonSetup("Not a real description");
 		
 		verify(activity, never()).startActivity(any(Intent.class));
 	}
 
 	@Test
 	public void whenBasicButtonIsClicked_ThenBasicCalculatorIsOpened() {
-		buttonSetup(R.id.home_btnBasic);
+		buttonSetup(MyConstants.BASIC);
 
 		verify(activity).startActivity(any(Intent.class));
 	}
 
-	private void buttonSetup(int buttonId) {
+	private void buttonSetup(String description) {
 		createPresenter();
 		ArgumentCaptor<DataActionListener> listener = ArgumentCaptor.forClass(DataActionListener.class);
-		HashMap<Enum<?>, Integer> map = new HashMap<Enum<?>, Integer>();
-		map.put(HomeView.Types.BUTTON_CLICKED, new Integer(buttonId));
+		HashMap<Enum<?>, String> map = new HashMap<Enum<?>, String>();
+		map.put(HomeView.Types.BUTTON_CLICKED, description);
 		
 		verify(view).addListener(listener.capture(), eq(HomeView.Types.BUTTON_CLICKED));
 		
