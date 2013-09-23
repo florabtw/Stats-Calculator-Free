@@ -4,5 +4,16 @@
     <string name="app_name">Statistics Solver</string>
     <string name="action_settings">Settings</string>
     <string name="buttonError">Could not determine button. Please restart the app. If problem persists, please contact developer.</string>
+    <string name="basicInputHint">Hit next after each number.</string>
+    <string name="sizeHeader">Size:</string>
+    <string name="sumHeader">Sum:</string>
+    <string name="meanHeader">Mean:</string>
+    <string name="medianHeader">Median:</string>
+    <string name="modeHeader">Mode:</string>
+    <string name="rangeHeader">Range:</string>
+    <string name="varianceSampleHeader">Variance (Sample):</string>
+    <string name="variancePopHeader">Variance (Pop.):</string>
+    <string name="stdDevSampleHeader">Std. Deviation (Sample):</string>
+    <string name="stdDevPopHeader">Std. Deviation (Pop.):</string>
 
 </resources>
