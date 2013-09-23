@@ -5,9 +5,8 @@
     android:orientation="horizontal" >
 
     <TableLayout
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="8" >
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
 
         <TableRow
             android:layout_width="fill_parent"
@@ -34,6 +33,13 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="3" />
+            
+            <Button
+                android:id="@+id/keypad_backspace"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="Bkspc" />
         </TableRow>
 
         <TableRow
@@ -61,6 +67,13 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="6" />
+            
+            <Button
+                android:id="@+id/keypad_decimal"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="." />
         </TableRow>
 
         <TableRow
@@ -88,13 +101,20 @@
                 android:layout_height="fill_parent"
                 android:layout_weight="1"
                 android:text="9" />
+            
+            <Button
+                android:id="@+id/keypad_negative"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_weight="1"
+                android:text="-" />
         </TableRow>
 
         <TableRow
             android:layout_width="fill_parent"
             android:layout_height="0dp"
             android:layout_weight="3" >
-
+            
             <Button
                 android:id="@+id/keypad_zero"
                 android:layout_width="0dp"
@@ -103,11 +123,11 @@
                 android:text="0" />
 
             <Button
-                android:id="@+id/keypad_decimal"
+                android:id="@+id/keypad_next"
                 android:layout_width="0dp"
                 android:layout_height="fill_parent"
-                android:layout_weight="1"
-                android:text="." />
+                android:layout_weight="2"
+                android:text="Next" />
 
             <Button
                 android:id="@+id/keypad_done"
@@ -117,12 +137,4 @@
                 android:text="Done" />
         </TableRow>
     </TableLayout>
-
-    <Button
-        android:id="@+id/keypad_next"
-        android:layout_width="0dp"
-        android:layout_height="fill_parent"
-        android:layout_weight="2"
-        android:text="N\nE\nX\nT" />
-
 </LinearLayout>
