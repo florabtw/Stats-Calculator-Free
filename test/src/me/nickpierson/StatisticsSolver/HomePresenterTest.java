@@ -55,8 +55,8 @@ public class HomePresenterTest {
 	}
 
 	@Test
-	public void whenFirstButtonIsClicked_ThenFirstPageIsOpened() {
-		buttonSetup(R.id.home_btnFirst);
+	public void whenBasicButtonIsClicked_ThenBasicCalculatorIsOpened() {
+		buttonSetup(R.id.home_btnBasic);
 
 		verify(activity).startActivity(any(Intent.class));
 	}
