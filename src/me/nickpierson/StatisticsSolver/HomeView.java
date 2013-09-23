@@ -24,7 +24,7 @@ public class HomeView extends DataActionHandler {
 	public HomeView(HomeActivity activity) {
 		this.activity = activity;
 		view = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.home, null);
-		btnFirst = (Button) view.findViewById(R.id.home_btnFirst);
+		btnFirst = (Button) view.findViewById(R.id.home_btnBasic);
 		
 		btnFirst.setOnClickListener(new OnClickListener() {
 			

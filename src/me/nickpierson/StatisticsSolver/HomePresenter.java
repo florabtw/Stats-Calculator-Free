@@ -12,28 +12,27 @@ public class HomePresenter {
 
 	public static void create(final HomeActivity activity, HomeModel model, final HomeView view) {
 		view.addListener(new DataActionListener() {
-			
+
 			@Override
 			public void fire(HashMap<Enum<?>, ?> data) {
 				openCorrespondingCalculator(activity, view, (Integer) data.get(HomeView.Types.BUTTON_CLICKED));
 			}
 		}, HomeView.Types.BUTTON_CLICKED);
-
 	}
-	
-	public static void openCorrespondingCalculator(HomeActivity activity, HomeView view, int buttonID){
+
+	public static void openCorrespondingCalculator(HomeActivity activity, HomeView view, int buttonId) {
 		Intent intent;
-		
-		switch (buttonID) {
-		case R.id.home_btnFirst:
+
+		switch (buttonId) {
+		case R.id.home_btnBasic:
 			intent = new Intent(activity, BasicActivity.class);
 			break;
-			
+
 		default:
 			view.showToast(activity.getString(R.string.buttonError));
 			return;
 		}
-		
+
 		activity.startActivity(intent);
 	}
 
