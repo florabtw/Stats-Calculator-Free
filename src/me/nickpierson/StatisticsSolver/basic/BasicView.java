@@ -1,7 +1,8 @@
 package me.nickpierson.StatisticsSolver.basic;
 
+import java.util.LinkedHashMap;
+
 import me.nickpierson.StatisticsSolver.R;
-import me.nickpierson.StatisticsSolver.utils.BasicResult;
 import me.nickpierson.StatisticsSolver.utils.MyConstants;
 import android.annotation.SuppressLint;
 import android.os.Build;
@@ -69,17 +70,17 @@ public class BasicView extends ActionHandler {
 		}
 	}
 
-	public void showResults(BasicResult results) {
-		((TextView) svResults.findViewById(R.id.basic_tvSizeResult)).setText(String.valueOf(results.size));
-		((TextView) svResults.findViewById(R.id.basic_tvSumResult)).setText(String.valueOf(results.sum));
-		((TextView) svResults.findViewById(R.id.basic_tvMeanResult)).setText(String.valueOf(results.mean));
-		((TextView) svResults.findViewById(R.id.basic_tvMedianResult)).setText(String.valueOf(results.median));
-		((TextView) svResults.findViewById(R.id.basic_tvModeResult)).setText(String.valueOf(results.mode));
-		((TextView) svResults.findViewById(R.id.basic_tvRangeResult)).setText(String.valueOf(results.range));
-		((TextView) svResults.findViewById(R.id.basic_tvVarSampleResult)).setText(String.valueOf(results.sampleVariance));
-		((TextView) svResults.findViewById(R.id.basic_tvVarPopResult)).setText(String.valueOf(results.popVariance));
-		((TextView) svResults.findViewById(R.id.basic_tvStdDevSampleResult)).setText(String.valueOf(results.sampleDeviation));
-		((TextView) svResults.findViewById(R.id.basic_tvStdDevPopResult)).setText(String.valueOf(results.popDeviation));
+	public void showResults(LinkedHashMap<String, Double> result) {
+		((TextView) svResults.findViewById(R.id.basic_tvSizeResult)).setText(result.get(MyConstants.SIZE).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvSumResult)).setText(result.get(MyConstants.SUM).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvMeanResult)).setText(result.get(MyConstants.MEAN).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvMedianResult)).setText(result.get(MyConstants.MEDIAN).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvModeResult)).setText(result.get(MyConstants.MODE).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvRangeResult)).setText(result.get(MyConstants.RANGE).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvVarSampleResult)).setText(result.get(MyConstants.SAMPLE_VAR).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvVarPopResult)).setText(result.get(MyConstants.POP_VAR).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvStdDevSampleResult)).setText(result.get(MyConstants.SAMPLE_DEV).toString());
+		((TextView) svResults.findViewById(R.id.basic_tvStdDevPopResult)).setText(result.get(MyConstants.POP_DEV).toString());
 
 		flContent.removeAllViews();
 		flContent.addView(svResults);

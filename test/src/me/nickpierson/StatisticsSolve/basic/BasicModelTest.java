@@ -3,9 +3,10 @@ package me.nickpierson.StatisticsSolve.basic;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import me.nickpierson.StatisticsSolver.basic.BasicModel;
-import me.nickpierson.StatisticsSolver.utils.BasicResult;
+import me.nickpierson.StatisticsSolver.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +29,7 @@ public class BasicModelTest {
 	@Test
 	public void convertInputReturnsCorrectListOfIntegers_WithCorrectInput() {
 		String input = "45,89,.334,99.999999,0,-.12,45.00001";
-		ArrayList<Double> expectedReturn = makeValidList(45,89,.334,99.999999,0,-.12,45.00001);
+		ArrayList<Double> expectedReturn = makeValidList(45, 89, .334, 99.999999, 0, -.12, 45.00001);
 
 		assertEquals(expectedReturn, model.convertInput(input));
 	}
@@ -58,30 +59,29 @@ public class BasicModelTest {
 	@Test
 	public void calculateResults_CalculatesCorrectResult() {
 		ArrayList<Double> sampleInput = makeValidList(45, 68.1, 29.4, -54, -.19, 3.0001);
-		BasicResult expectedResult = new BasicResult();
-		expectedResult.sum = 91.3101;
-		expectedResult.size = 6;
-		expectedResult.mean = 15.21835;
-		expectedResult.median = 16.20005;
-		expectedResult.mode = null;
-		expectedResult.range = 122.1;
-		expectedResult.popVariance = 1510.402939;
-		expectedResult.sampleVariance = 1812.483527;
-		expectedResult.popDeviation = 38.863902;
-		expectedResult.sampleDeviation = 42.573272;
-		
-		BasicResult actualResult = model.calculateResults(sampleInput);
-		
-		assertEquals(expectedResult.sum, actualResult.sum, DELTA);
-		assertEquals(expectedResult.size, actualResult.size);
-		assertEquals(expectedResult.mean, actualResult.mean, DELTA);
-		assertEquals(expectedResult.median, actualResult.median, DELTA);
-		assertEquals(expectedResult.mode, actualResult.mode);
-		assertEquals(expectedResult.range, actualResult.range, DELTA);
-		assertEquals(expectedResult.popVariance, actualResult.popVariance, DELTA);
-		assertEquals(expectedResult.sampleVariance, actualResult.sampleVariance, DELTA);
-		assertEquals(expectedResult.popDeviation, expectedResult.popDeviation, DELTA);
-		assertEquals(expectedResult.sampleDeviation, actualResult.sampleDeviation, DELTA);
+		LinkedHashMap<String, Double> expectedResult = new LinkedHashMap<String, Double>();
+		expectedResult.put(MyConstants.SUM, 91.3101);
+		expectedResult.put(MyConstants.SIZE, 6.0);
+		expectedResult.put(MyConstants.MEAN, 15.21835);
+		expectedResult.put(MyConstants.MEDIAN, 16.20005);
+		expectedResult.put(MyConstants.MODE, null);
+		expectedResult.put(MyConstants.RANGE, 122.1);
+		expectedResult.put(MyConstants.POP_VAR, 1510.402939);
+		expectedResult.put(MyConstants.SAMPLE_VAR, 1812.483527);
+		expectedResult.put(MyConstants.POP_DEV, 38.863902);
+		expectedResult.put(MyConstants.SAMPLE_DEV, 42.573272);
+
+		LinkedHashMap<String, Double> actualResult = model.calculateResults(sampleInput);
+		assertEquals(expectedResult.get(MyConstants.SUM), actualResult.get(MyConstants.SUM));
+		assertEquals(expectedResult.get(MyConstants.SIZE), actualResult.get(MyConstants.SIZE));
+		assertEquals(expectedResult.get(MyConstants.MEAN), actualResult.get(MyConstants.MEAN), DELTA);
+		assertEquals(expectedResult.get(MyConstants.MEDIAN), actualResult.get(MyConstants.MEDIAN), DELTA);
+		assertEquals(expectedResult.get(MyConstants.MODE), actualResult.get(MyConstants.MODE));
+		assertEquals(expectedResult.get(MyConstants.RANGE), actualResult.get(MyConstants.RANGE), DELTA);
+		assertEquals(expectedResult.get(MyConstants.POP_VAR), actualResult.get(MyConstants.POP_VAR), DELTA);
+		assertEquals(expectedResult.get(MyConstants.SAMPLE_VAR), actualResult.get(MyConstants.SAMPLE_VAR), DELTA);
+		assertEquals(expectedResult.get(MyConstants.POP_DEV), actualResult.get(MyConstants.POP_DEV), DELTA);
+		assertEquals(expectedResult.get(MyConstants.SAMPLE_DEV), actualResult.get(MyConstants.SAMPLE_DEV), DELTA);
 	}
 
 	private ArrayList<Double> makeValidList(double... args) {
