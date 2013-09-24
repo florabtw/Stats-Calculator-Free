@@ -4,6 +4,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -41,6 +42,12 @@ public class BasicPresenterTest {
 
 	public void createPresenter() {
 		BasicPresenter.create(model, view);
+	}
+
+	@Test
+	public void viewIsInitializedByPresenter() {
+		createPresenter();
+		verify(view).showResults(model.getResultMap());
 	}
 
 	@Test
@@ -87,7 +94,7 @@ public class BasicPresenterTest {
 
 		listener.getValue().fire();
 
-		verify(view).showResults(model.calculateResults(validList));
+		verify(view, times(2)).showResults(model.calculateResults(validList));
 	}
 
 	@Test
