@@ -12,6 +12,24 @@ import me.nickpierson.StatisticsSolver.utils.MyConstants;
 public class BasicModel {
 
 	private int previousErrorIndex;
+	private LinkedHashMap<String, Double> result;
+
+	public BasicModel() {
+		/* Initialize results hash map that will be used throughout this activity
+		 * This sets the initial order and values.
+		 */
+		result = new LinkedHashMap<String, Double>();
+		result.put(MyConstants.SIZE, 0.0);
+		result.put(MyConstants.SUM, 0.0);
+		result.put(MyConstants.MEAN, 0.0);
+		result.put(MyConstants.MEDIAN, 0.0);
+		result.put(MyConstants.MODE, null);
+		result.put(MyConstants.RANGE, 0.0);
+		result.put(MyConstants.POP_VAR, 0.0);
+		result.put(MyConstants.SAMPLE_VAR, 0.0);
+		result.put(MyConstants.POP_DEV, 0.0);
+		result.put(MyConstants.SAMPLE_DEV, 0.0);
+	}
 
 	public ArrayList<Double> convertInput(String input) {
 		ArrayList<Double> result = new ArrayList<Double>();
@@ -38,19 +56,16 @@ public class BasicModel {
 	}
 
 	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
-		LinkedHashMap<String, Double> result = new LinkedHashMap<String, Double>();
-		result.put(MyConstants.SIZE, 		(double) numberList.size());
-		result.put(MyConstants.SUM, 		calculateSum(numberList));
-		result.put(MyConstants.MEAN, 		result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
-		result.put(MyConstants.MEDIAN, 		calculateMedian(numberList, result.get(MyConstants.SIZE)));
-		result.put(MyConstants.MODE, 		calculateMode(numberList));
-		result.put(MyConstants.RANGE, 		calculateRange(numberList));
-		result.put(MyConstants.POP_VAR, 	calculatePopVariance(numberList,
-											result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
-		result.put(MyConstants.SAMPLE_VAR, 	calculateSampleVariance(numberList,
-											result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
-		result.put(MyConstants.POP_DEV, 	Math.sqrt(result.get(MyConstants.POP_VAR)));
-		result.put(MyConstants.SAMPLE_DEV, 	Math.sqrt(result.get(MyConstants.SAMPLE_VAR)));
+		result.put(MyConstants.SIZE, (double) numberList.size());
+		result.put(MyConstants.SUM, calculateSum(numberList));
+		result.put(MyConstants.MEAN, result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
+		result.put(MyConstants.MEDIAN, calculateMedian(numberList, result.get(MyConstants.SIZE)));
+		result.put(MyConstants.MODE, calculateMode(numberList));
+		result.put(MyConstants.RANGE, calculateRange(numberList));
+		result.put(MyConstants.POP_VAR, calculatePopVariance(numberList, result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
+		result.put(MyConstants.SAMPLE_VAR, calculateSampleVariance(numberList, result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
+		result.put(MyConstants.POP_DEV, Math.sqrt(result.get(MyConstants.POP_VAR)));
+		result.put(MyConstants.SAMPLE_DEV, Math.sqrt(result.get(MyConstants.SAMPLE_VAR)));
 
 		return result;
 	}
@@ -129,6 +144,10 @@ public class BasicModel {
 			sum += Math.pow(num - average, 2);
 		}
 		return sum;
+	}
+	
+	public LinkedHashMap<String, Double> getResultMap() {
+		return result;
 	}
 
 	public int getPreviousErrorIndex() {

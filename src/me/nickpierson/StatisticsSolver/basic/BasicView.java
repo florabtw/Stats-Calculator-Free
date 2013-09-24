@@ -15,10 +15,9 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TableLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thecellutioncenter.mvplib.ActionHandler;
@@ -31,10 +30,11 @@ public class BasicView extends ActionHandler {
 
 	private RelativeLayout view;
 	private FrameLayout flContent;
-	private ScrollView svResults;
+	private ListView lvResults;
 	private TableLayout tlKeypad;
 	private EditText etInput;
 	private BasicActivity activity;
+	private BasicAdapter resultsAdapter;
 
 	public BasicView(BasicActivity activity) {
 		this.activity = activity;
@@ -42,10 +42,12 @@ public class BasicView extends ActionHandler {
 		flContent = (FrameLayout) view.findViewById(R.id.basic_flContent);
 		etInput = (EditText) view.findViewById(R.id.basic_etInput);
 
-		svResults = (ScrollView) LayoutInflater.from(activity).inflate(R.layout.basic_results, null);
 		tlKeypad = (TableLayout) LayoutInflater.from(activity).inflate(R.layout.keypad, null);
+		lvResults = (ListView) LayoutInflater.from(activity).inflate(R.layout.basic_results, null);
+		resultsAdapter = new BasicAdapter(activity, R.layout.basic_result_item);
+		lvResults.setAdapter(resultsAdapter);
 
-		flContent.addView(svResults);
+		flContent.addView(lvResults);
 
 		etInput.setOnTouchListener(new OnTouchListener() {
 
@@ -59,6 +61,10 @@ public class BasicView extends ActionHandler {
 		disableSoftInputFromAppearing();
 	}
 
+	/*
+	 * TODO: Figure out why Lint must be suppressed This should work due to the
+	 * if...
+	 */
 	@SuppressLint("NewApi")
 	private void disableSoftInputFromAppearing() {
 		if (Build.VERSION.SDK_INT >= 11) {
@@ -71,19 +77,11 @@ public class BasicView extends ActionHandler {
 	}
 
 	public void showResults(LinkedHashMap<String, Double> result) {
-		((TextView) svResults.findViewById(R.id.basic_tvSizeResult)).setText(result.get(MyConstants.SIZE).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvSumResult)).setText(result.get(MyConstants.SUM).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvMeanResult)).setText(result.get(MyConstants.MEAN).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvMedianResult)).setText(result.get(MyConstants.MEDIAN).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvModeResult)).setText(result.get(MyConstants.MODE).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvRangeResult)).setText(result.get(MyConstants.RANGE).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvVarSampleResult)).setText(result.get(MyConstants.SAMPLE_VAR).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvVarPopResult)).setText(result.get(MyConstants.POP_VAR).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvStdDevSampleResult)).setText(result.get(MyConstants.SAMPLE_DEV).toString());
-		((TextView) svResults.findViewById(R.id.basic_tvStdDevPopResult)).setText(result.get(MyConstants.POP_DEV).toString());
+		resultsAdapter.clear();
+		resultsAdapter.addAll(result.entrySet());
 
 		flContent.removeAllViews();
-		flContent.addView(svResults);
+		flContent.addView(lvResults);
 	}
 
 	public void showKeypad() {

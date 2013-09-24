@@ -7,6 +7,9 @@ import com.thecellutioncenter.mvplib.ActionListener;
 public class BasicPresenter {
 
 	public static void create(final BasicModel model, final BasicView view) {
+		/* Show initial empty data */
+		view.showResults(model.getResultMap());
+		
 		view.addListener(new ActionListener() {
 
 			@Override
