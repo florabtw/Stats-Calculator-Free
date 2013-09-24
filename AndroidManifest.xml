@@ -24,7 +24,8 @@
         </activity>
         <activity
             android:name="me.nickpierson.StatisticsSolver.basic.BasicActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
     </application>
 
