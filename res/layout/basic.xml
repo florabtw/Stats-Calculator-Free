@@ -8,7 +8,6 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/basicInputHint"
-        android:focusable="false"
         android:inputType="text" />
 
     <FrameLayout
