@@ -11,7 +11,7 @@ public class MyConstants {
 	public static final String MODE = "Mode";
 	public static final String RANGE = "Range";
 	public static final String POP_VAR = "Population Variance";
-	public static final String SAMPLE_VAR = "Sample VAriance";
+	public static final String SAMPLE_VAR = "Sample Variance";
 	public static final String POP_DEV = "Population Std. Deviation";
 	public static final String SAMPLE_DEV = "Sample Std. Deviation";
 
