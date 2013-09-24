@@ -3,6 +3,17 @@ package me.nickpierson.StatisticsSolver.utils;
 import android.view.KeyEvent;
 
 public class MyConstants {
+	
+	public static final String SIZE = "Size";
+	public static final String SUM = "Sum";
+	public static final String MEAN = "Mean";
+	public static final String MEDIAN = "Median";
+	public static final String MODE = "Mode";
+	public static final String RANGE = "Range";
+	public static final String POP_VAR = "Population Variance";
+	public static final String SAMPLE_VAR = "Sample VAriance";
+	public static final String POP_DEV = "Population Std. Deviation";
+	public static final String SAMPLE_DEV = "Sample Std. Deviation";
 
 	public static final String BASIC = "Basic (Mean, Median, Mode, Range, Variance, Standard Deviation)";
 	public static final String PERM_COMB = "Permutation / Combination";

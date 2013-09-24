@@ -12,7 +12,6 @@ import java.util.ArrayList;
 import me.nickpierson.StatisticsSolver.basic.BasicModel;
 import me.nickpierson.StatisticsSolver.basic.BasicPresenter;
 import me.nickpierson.StatisticsSolver.basic.BasicView;
-import me.nickpierson.StatisticsSolver.utils.BasicResult;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -88,7 +87,7 @@ public class BasicPresenterTest {
 
 		listener.getValue().fire();
 
-		verify(view).showResults(any(BasicResult.class));
+		verify(view).showResults(model.calculateResults(validList));
 	}
 
 	@Test

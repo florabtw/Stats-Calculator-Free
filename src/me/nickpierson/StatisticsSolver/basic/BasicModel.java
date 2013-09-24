@@ -3,10 +3,11 @@ package me.nickpierson.StatisticsSolver.basic;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.nickpierson.StatisticsSolver.utils.BasicResult;
+import me.nickpierson.StatisticsSolver.utils.MyConstants;
 
 public class BasicModel {
 
@@ -36,18 +37,21 @@ public class BasicModel {
 		}
 	}
 
-	public BasicResult calculateResults(List<Double> numberList) {
-		BasicResult result = new BasicResult();
-		result.size = numberList.size();
-		result.sum = calculateSum(numberList);
-		result.mean = result.sum / result.size;
-		result.median = calculateMedian(numberList, result.size);
-		result.mode = calculateMode(numberList);
-		result.range = calculateRange(numberList);
-		result.popVariance = calculatePopVariance(numberList, result.mean, result.size);
-		result.sampleVariance = calculateSampleVariance(numberList, result.mean, result.size);
-		result.popDeviation = Math.sqrt(result.popVariance);
-		result.sampleDeviation = Math.sqrt(result.sampleVariance);
+	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
+		LinkedHashMap<String, Double> result = new LinkedHashMap<String, Double>();
+		result.put(MyConstants.SIZE, 		(double) numberList.size());
+		result.put(MyConstants.SUM, 		calculateSum(numberList));
+		result.put(MyConstants.MEAN, 		result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
+		result.put(MyConstants.MEDIAN, 		calculateMedian(numberList, result.get(MyConstants.SIZE)));
+		result.put(MyConstants.MODE, 		calculateMode(numberList));
+		result.put(MyConstants.RANGE, 		calculateRange(numberList));
+		result.put(MyConstants.POP_VAR, 	calculatePopVariance(numberList,
+											result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
+		result.put(MyConstants.SAMPLE_VAR, 	calculateSampleVariance(numberList,
+											result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
+		result.put(MyConstants.POP_DEV, 	Math.sqrt(result.get(MyConstants.POP_VAR)));
+		result.put(MyConstants.SAMPLE_DEV, 	Math.sqrt(result.get(MyConstants.SAMPLE_VAR)));
+
 		return result;
 	}
 
@@ -59,7 +63,8 @@ public class BasicModel {
 		return sum;
 	}
 
-	private double calculateMedian(List<Double> numberList, int size) {
+	private double calculateMedian(List<Double> numberList, double length) {
+		int size = (int) length;
 		Collections.sort(numberList);
 		if (size % 2 == 1) {
 			int index = (int) Math.floor(size / 2.0);
@@ -108,12 +113,12 @@ public class BasicModel {
 		return max - min;
 	}
 
-	private double calculatePopVariance(List<Double> numberList, double average, int size) {
+	private double calculatePopVariance(List<Double> numberList, double average, double size) {
 		double numerator = calculateVarianceNumerator(numberList, average);
 		return numerator / size;
 	}
 
-	private double calculateSampleVariance(List<Double> numberList, double average, int size) {
+	private double calculateSampleVariance(List<Double> numberList, double average, double size) {
 		double numerator = calculateVarianceNumerator(numberList, average);
 		return numerator / (size - 1);
 	}
