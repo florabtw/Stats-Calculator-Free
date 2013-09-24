@@ -11,7 +11,9 @@ public class BasicPresenter {
 
 			@Override
 			public void fire() {
-				view.showKeypad();
+				if (!view.isKeyPadVisible()) {
+					view.showKeypad();
+				}
 			}
 		}, BasicView.Types.EDITTEXT_CLICKED);
 
@@ -20,8 +22,8 @@ public class BasicPresenter {
 			@Override
 			public void fire() {
 				ArrayList<Double> input = model.convertInput(view.getInput());
-				if(input == null){
-					view.showToast("Could not parse input. Please fix item #" + model.getPreviousErrorIndex());
+				if (input == null) {
+					view.showToast("Invalid input. Please fix item #" + model.getPreviousErrorIndex() + 1);
 				} else {
 					view.showResults(model.calculateResults(input));
 				}

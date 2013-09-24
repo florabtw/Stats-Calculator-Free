@@ -29,6 +29,7 @@ public class BasicModel {
 		}
 
 		if (result.size() == 0) {
+			previousErrorIndex = 0;
 			return null;
 		} else {
 			return result;
