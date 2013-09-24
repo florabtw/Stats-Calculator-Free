@@ -99,9 +99,6 @@ public class BasicModel {
 			if (num > max) {
 				max = num;
 			}
-		}
-
-		for (double num : numberList) {
 			if (num < min) {
 				min = num;
 			}

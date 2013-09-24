@@ -12,10 +12,10 @@ public class MyConstants {
 	public static final String POISSON = "Poisson Distribution";
 
 	public static final String[] descriptions = { BASIC, PERM_COMB, DENSITY_TABLE, BINOMIAL, NEGATIVE_BINOMIAL, POISSON };
-	
-	public static int getKeyEvent(char c){
-		switch(c){
-		case 0:
+
+	public static int getKeyEvent(char c) {
+		switch (c) {
+		case '0':
 			return KeyEvent.KEYCODE_0;
 		case '1':
 			return KeyEvent.KEYCODE_1;
