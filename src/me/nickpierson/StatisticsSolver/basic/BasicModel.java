@@ -15,8 +15,9 @@ public class BasicModel {
 	private LinkedHashMap<String, Double> result;
 
 	public BasicModel() {
-		/* Initialize results hash map that will be used throughout this activity
-		 * This sets the initial order and values.
+		/*
+		 * Initialize results hash map that will be used throughout this
+		 * activity This sets the initial order and values.
 		 */
 		result = new LinkedHashMap<String, Double>();
 		result.put(MyConstants.SIZE, 0.0);
@@ -39,9 +40,16 @@ public class BasicModel {
 				continue;
 			}
 
-			try {
+			if (hasMultiplier(numbers[i]) && isWellFormed(numbers[i])) {
+				double num = getNumber(numbers[i]);
+				int multiplier = getMultiplier(numbers[i]);
+
+				for (int j = 0; j < multiplier; j++) {
+					result.add(num);
+				}
+			} else if (isWellFormed(numbers[i])) {
 				result.add(Double.valueOf(numbers[i]));
-			} catch (NumberFormatException e) {
+			} else {
 				previousErrorIndex = i;
 				return null;
 			}
@@ -53,6 +61,43 @@ public class BasicModel {
 		} else {
 			return result;
 		}
+	}
+
+	private boolean isWellFormed(String string) {
+		if (hasMultiplier(string)) {
+			String[] values = string.split("x");
+
+			if (values.length > 2) {
+				return false;
+			}
+
+			try {
+				Double.valueOf(values[0]);
+				Integer.valueOf(values[1]);
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		} else {
+			try {
+				Double.valueOf(string);
+			} catch (NumberFormatException e) {
+				return false;
+			}
+		}
+
+		return true;
+	}
+
+	private boolean hasMultiplier(String string) {
+		return string.contains("x");
+	}
+
+	private double getNumber(String value) {
+		return Double.valueOf(value.substring(0, value.indexOf('x')));
+	}
+
+	private int getMultiplier(String value) {
+		return Integer.valueOf(value.substring(value.indexOf('x') + 1, value.length()));
 	}
 
 	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
@@ -98,16 +143,17 @@ public class BasicModel {
 		}
 
 		double mode = 0;
-		int max = 0;
+		int max = 0, prevMax = 0;
 		for (Map.Entry<Double, Integer> entry : freqs.entrySet()) {
 			int freq = entry.getValue();
-			if (freq > max) {
+			if (freq >= max) {
+				prevMax = max;
 				max = freq;
 				mode = entry.getKey();
 			}
 		}
 
-		if (max == 1) {
+		if (max == prevMax) {
 			return null;
 		} else {
 			return mode;
@@ -145,7 +191,7 @@ public class BasicModel {
 		}
 		return sum;
 	}
-	
+
 	public LinkedHashMap<String, Double> getResultMap() {
 		return result;
 	}
