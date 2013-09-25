@@ -67,7 +67,7 @@ public class BasicModel {
 		if (hasMultiplier(string)) {
 			String[] values = string.split("x");
 
-			if (values.length > 2) {
+			if (values.length != 2 || values[0].length() < 1 || values[1].length() < 1) {
 				return false;
 			}
 

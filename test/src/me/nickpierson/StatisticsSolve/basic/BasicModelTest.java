@@ -72,6 +72,19 @@ public class BasicModelTest {
 		assertEquals(null, model.convertInput(input1));
 		assertEquals(null, model.convertInput(input2));
 	}
+	
+	@Test
+	public void convertInputReturnsNull_WhenTimesSignIsInputIncorrectly() {
+		String input1 = "23x2,45,2x2.0,3";
+		String input2 = "4x7,3xx8,7,7,";
+		String input3 = "4,6x,3,9";
+		String input4 = "99,x7,12.3";
+		
+		assertEquals(null, model.convertInput(input1));
+		assertEquals(null, model.convertInput(input2));
+		assertEquals(null, model.convertInput(input3));
+		assertEquals(null, model.convertInput(input4));
+	}
 
 	@Test
 	public void calculateResults_CalculatesCorrectResult() {
