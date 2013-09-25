@@ -52,6 +52,8 @@ public class MyConstants {
 			return KeyEvent.KEYCODE_PERIOD;
 		case ',':
 			return KeyEvent.KEYCODE_COMMA;
+		case 'x':
+			return KeyEvent.KEYCODE_X;
 		default:
 			return -1;
 		}
