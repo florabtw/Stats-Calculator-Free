@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.LinkedHashMap;
 
 import me.nickpierson.StatisticsSolver.basic.BasicModel;
 import me.nickpierson.StatisticsSolver.basic.BasicPresenter;
@@ -31,12 +32,14 @@ public class BasicPresenterTest {
 	BasicModel model;
 
 	ArgumentCaptor<ActionListener> listener;
+	private LinkedHashMap<String, Double> myMap;
 
 	@Before
 	public void setup() {
 		view = mock(BasicView.class);
 		model = mock(BasicModel.class);
 
+		myMap = new LinkedHashMap<String, Double>();
 		listener = ArgumentCaptor.forClass(ActionListener.class);
 	}
 
@@ -47,6 +50,8 @@ public class BasicPresenterTest {
 	@Test
 	public void viewIsInitializedByPresenter() {
 		createPresenter();
+		when(model.getResultMap()).thenReturn(myMap);
+		
 		verify(view).showResults(model.getResultMap());
 	}
 
@@ -62,7 +67,7 @@ public class BasicPresenterTest {
 	}
 
 	@Test
-	public void whenDoneIsClicked_ThenInputIsCleaned() {
+	public void whenDoneIsClicked_ThenInputIsConverted() {
 		createPresenter();
 
 		verify(view).addListener(listener.capture(), eq(BasicView.Types.DONE_CLICKED));
