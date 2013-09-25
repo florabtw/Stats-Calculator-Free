@@ -38,6 +38,7 @@
             android:layout_height="fill_parent"
             android:layout_weight="1"
             android:onClick="backSpace"
+            android:longClickable="true"
             android:text="@string/backspace" />
     </TableRow>
 

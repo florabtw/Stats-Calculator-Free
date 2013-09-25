@@ -11,6 +11,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,8 +42,8 @@ public class BasicView extends ActionHandler {
 		view = (RelativeLayout) LayoutInflater.from(activity).inflate(R.layout.basic, null);
 		flContent = (FrameLayout) view.findViewById(R.id.basic_flContent);
 		etInput = (EditText) view.findViewById(R.id.basic_etInput);
+		disableSoftInputFromAppearing();
 
-		tlKeypad = (TableLayout) LayoutInflater.from(activity).inflate(R.layout.keypad, null);
 		lvResults = (ListView) LayoutInflater.from(activity).inflate(R.layout.basic_results, null);
 		resultsAdapter = new BasicAdapter(activity, R.layout.basic_result_item);
 		lvResults.setAdapter(resultsAdapter);
@@ -58,7 +59,17 @@ public class BasicView extends ActionHandler {
 			}
 		});
 
-		disableSoftInputFromAppearing();
+		tlKeypad = (TableLayout) LayoutInflater.from(activity).inflate(R.layout.keypad, null);
+
+		Button btnBackspace = (Button) tlKeypad.findViewById(R.id.keypad_backspace);
+		btnBackspace.setOnLongClickListener(new OnLongClickListener() {
+
+			@Override
+			public boolean onLongClick(View v) {
+				etInput.setText(etInput.getText().subSequence(etInput.getSelectionEnd(), etInput.getText().length()));
+				return true;
+			}
+		});
 	}
 
 	/*
