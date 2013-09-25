@@ -31,5 +31,14 @@
     <string name="comma">,</string>
     <string name="done">Done</string>
     <string name="times">x</string>
+    <string name="pc_default_value">n/a</string>
+    <string name="pc_n">n =</string>
+    <string name="pc_r">r =</string>
+    <string name="pc_ns">n1,n2,n3,n4,...=</string>
+    <string name="n_fact">n!</string>
+    <string name="r_fact">r!</string>
+    <string name="n_perm_r">nPr</string>
+    <string name="n_comb_r">nCr</string>
+    <string name="indistinct_perm">Indistinguishable Permutations</string>
 
 </resources>

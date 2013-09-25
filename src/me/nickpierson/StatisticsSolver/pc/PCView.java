@@ -39,11 +39,11 @@ public class PCView extends ActionHandler {
 	}
 
 	public void displayDefaultValues() {
-		tvNFact.setText("n/a");
-		tvRFact.setText("n/a");
-		tvNPermR.setText("n/a");
-		tvNChooseR.setText("n/a");
-		tvIndistinct.setText("n/a");
+		tvNFact.setText(R.string.pc_default_value);
+		tvRFact.setText(R.string.pc_default_value);
+		tvNPermR.setText(R.string.pc_default_value);
+		tvNChooseR.setText(R.string.pc_default_value);
+		tvIndistinct.setText(R.string.pc_default_value);
 	}
 
 	public void displayNFactorial(int nFact) {
