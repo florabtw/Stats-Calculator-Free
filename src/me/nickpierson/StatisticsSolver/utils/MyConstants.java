@@ -15,14 +15,11 @@ public class MyConstants {
 	public static final String POP_DEV = "Population Std. Deviation";
 	public static final String SAMPLE_DEV = "Sample Std. Deviation";
 
-	public static final String BASIC = "Basic (Mean, Median, Mode, Range, Variance, Standard Deviation)";
-	public static final String PERM_COMB = "Permutation / Combination";
-	public static final String DENSITY_TABLE = "Density Table";
-	public static final String BINOMIAL = "Binomial Distribution";
-	public static final String NEGATIVE_BINOMIAL = "Negative Binomial Distribution";
-	public static final String POISSON = "Poisson Distribution";
+	public static final String BASIC = "Descriptive Stats";
+	public static final String PERM_COMB = "Permutations & Combinations";
+	public static final String PROB_DISTS = "Probability Distributions";
 
-	public static final String[] descriptions = { BASIC, PERM_COMB, DENSITY_TABLE, BINOMIAL, NEGATIVE_BINOMIAL, POISSON };
+	public static final String[] descriptions = { BASIC, PERM_COMB, PROB_DISTS };
 
 	public static int getKeyEvent(char c) {
 		switch (c) {
