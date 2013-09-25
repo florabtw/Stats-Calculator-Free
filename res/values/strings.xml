@@ -30,5 +30,6 @@
     <string name="zero">0</string>
     <string name="comma">,</string>
     <string name="done">Done</string>
+    <string name="times">x</string>
 
 </resources>

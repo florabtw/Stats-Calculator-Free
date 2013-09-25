@@ -25,9 +25,9 @@ public class BasicModelTest {
 	public void setup() {
 		model = new BasicModel();
 	}
-	
+
 	@Test
-	public void whenModelIsCreated_ResultsAreInitializedToZero(){
+	public void whenModelIsCreated_ResultsAreInitializedToZero() {
 		assertEquals(model.getResultMap().get(MyConstants.SIZE), 0.0, DELTA);
 		assertEquals(model.getResultMap().get(MyConstants.SUM), 0.0, DELTA);
 		assertEquals(model.getResultMap().get(MyConstants.MEAN), 0.0, DELTA);
@@ -42,10 +42,13 @@ public class BasicModelTest {
 
 	@Test
 	public void convertInputReturnsCorrectListOfIntegers_WithCorrectInput() {
-		String input = "45,89,.334,99.999999,0,-.12,45.00001";
-		ArrayList<Double> expectedReturn = makeValidList(45, 89, .334, 99.999999, 0, -.12, 45.00001);
+		String input1 = "45,89,.334,99.999999,0,-.12,45.00001";
+		String input2 = ".39x2,-3x6,-.2x3,1,-112.333x2";
+		ArrayList<Double> expectedReturn1 = makeValidList(45, 89, .334, 99.999999, 0, -.12, 45.00001);
+		ArrayList<Double> expectedReturn2 = makeValidList(.39, .39, -3, -3, -3, -3, -3, -3, -.2, -.2, -.2, 1, -112.333, -112.333);
 
-		assertEquals(expectedReturn, model.convertInput(input));
+		assertEquals(expectedReturn1, model.convertInput(input1));
+		assertEquals(expectedReturn2, model.convertInput(input2));
 	}
 
 	@Test
@@ -68,6 +71,19 @@ public class BasicModelTest {
 		assertEquals(null, model.convertInput(input));
 		assertEquals(null, model.convertInput(input1));
 		assertEquals(null, model.convertInput(input2));
+	}
+	
+	@Test
+	public void convertInputReturnsNull_WhenTimesSignIsInputIncorrectly() {
+		String input1 = "23x2,45,2x2.0,3";
+		String input2 = "4x7,3xx8,7,7,";
+		String input3 = "4,6x,3,9";
+		String input4 = "99,x7,12.3";
+		
+		assertEquals(null, model.convertInput(input1));
+		assertEquals(null, model.convertInput(input2));
+		assertEquals(null, model.convertInput(input3));
+		assertEquals(null, model.convertInput(input4));
 	}
 
 	@Test
