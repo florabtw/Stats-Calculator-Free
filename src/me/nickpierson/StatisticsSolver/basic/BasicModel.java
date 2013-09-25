@@ -143,17 +143,20 @@ public class BasicModel {
 		}
 
 		double mode = 0;
-		int max = 0, prevMax = 0;
+		int max = 0;
+		boolean isSimilarMax = true;
 		for (Map.Entry<Double, Integer> entry : freqs.entrySet()) {
 			int freq = entry.getValue();
-			if (freq >= max) {
-				prevMax = max;
+			if (freq > max) {
+				isSimilarMax = false;
 				max = freq;
 				mode = entry.getKey();
+			} else if (freq == max) {
+				isSimilarMax = true;
 			}
 		}
 
-		if (max == prevMax) {
+		if (isSimilarMax) {
 			return null;
 		} else {
 			return mode;
