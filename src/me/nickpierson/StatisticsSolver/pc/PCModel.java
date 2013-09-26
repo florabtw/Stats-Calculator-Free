@@ -1,72 +1,80 @@
 package me.nickpierson.StatisticsSolver.pc;
 
+import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import me.nickpierson.StatisticsSolver.utils.BaseModel;
 
 public class PCModel extends BaseModel {
 
-	HashMap<Long, Long> factCache = new HashMap<Long, Long>();
-
-	public long calculateFact(long num) {
-		Long fact = factCache.get(num);
-		if (fact != null) {
-			return fact;
+	public BigInteger calculateFact(int num) {
+		if (num > 1000) {
+			/* TODO: Approximate */
 		}
-		
+
 		if (num < 0) {
-			return 0;
-		} else if (num <= 1) {
-			return 1;
+			return BigInteger.valueOf(0);
 		}
 
-		long answer = num * calculateFact(num - 1);
-		factCache.put(num, answer);
+		BigInteger answer = BigInteger.valueOf(1);
+
+		for (int i = num; i > 1; i--) {
+			answer = answer.multiply(BigInteger.valueOf(i));
+		}
+
 		return answer;
 	}
 
-	public long calculatePermutation(long n, long r) {
-		if (n < r) {
-			return 0;
-		}
-
-		return calculateFact(n) / calculateFact(n - r);
+	private BigInteger approximateFactorial(int num) {
+		return BigDecimal.valueOf((Math.sqrt(Math.PI * 2 * num) * Math.pow((num / Math.E), num))).toBigInteger();
 	}
 
-	public long calculateCombination(long n, long r) {
+	public BigInteger calculatePermutation(int n, int r) {
 		if (n < r) {
-			return 0;
+			return BigInteger.valueOf(0);
 		}
 
-		return calculateFact(n) / (calculateFact(r) * calculateFact(n - r));
+		return calculateFact(n).divide(calculateFact(n - r));
 	}
 
-	public long calculateIndistinctPerm(long nVal, String input) {
+	public BigInteger calculateCombination(int n, int r) {
+		if (n < r) {
+			return BigInteger.valueOf(0);
+		}
+
+		return calculateFact(n).divide(calculateFact(r).multiply(calculateFact(n - r)));
+	}
+
+	public BigInteger calculateIndistinctPerm(int nVal, String input) {
 		ArrayList<Double> nVals = convertInput(input);
 
-		if (isInvalidInput(nVal, nVals)) {
-			return 0;
+		if (!isValidInput(nVal, nVals)) {
+			return BigInteger.valueOf(0);
 		}
 
-		long denominator = 1;
+		BigInteger denominator = BigInteger.valueOf(1);
 		for (double val : nVals) {
-			denominator *= calculateFact((long) val);
+			denominator = denominator.multiply(calculateFact((int) val));
 		}
 
-		return calculateFact(nVal) / denominator;
+		return calculateFact(nVal).divide(denominator);
 	}
 
-	private boolean isInvalidInput(long nVal, ArrayList<Double> nVals) {
+	private boolean isValidInput(long nVal, ArrayList<Double> nVals) {
 		long sum = 0;
 		for (double val : nVals) {
 			sum += val;
+
+			if (val != (int) Integer.valueOf((int) val)) {
+				return false;
+			}
 		}
 
 		if (sum > nVal) {
-			return true;
-		} else {
 			return false;
+		} else {
+			return true;
 		}
 	}
 

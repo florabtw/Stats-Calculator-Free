@@ -1,5 +1,7 @@
 package me.nickpierson.StatisticsSolver.pc;
 
+import java.math.BigInteger;
+
 import me.nickpierson.StatisticsSolver.R;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -57,23 +59,23 @@ public class PCView extends ActionHandler {
 		tvIndistinct.setText(R.string.pc_default_value);
 	}
 
-	public void displayNFactorial(Long nFact) {
-		tvNFact.setText(nFact.toString());
+	public void displayNFactorial(BigInteger nFact) {
+		tvNFact.setText(String.valueOf(nFact));
 	}
 
-	public void displayRFactorial(Long rFact) {
+	public void displayRFactorial(BigInteger rFact) {
 		tvRFact.setText(rFact.toString());
 	}
 
-	public void displayPermutation(Long permutation) {
+	public void displayPermutation(BigInteger permutation) {
 		tvNPermR.setText(permutation.toString());
 	}
 
-	public void displayCombination(Long combination) {
+	public void displayCombination(BigInteger combination) {
 		tvNChooseR.setText(combination.toString());
 	}
 
-	public void displayIndistinct(Long indistinct) {
+	public void displayIndistinct(BigInteger indistinct) {
 		tvIndistinct.setText(indistinct.toString());
 	}
 
@@ -89,12 +91,12 @@ public class PCView extends ActionHandler {
 		return etNVals.getText().length() > 0;
 	}
 
-	public long getNVal() {
-		return Long.valueOf(etNVal.getText().toString());
+	public int getNVal() {
+		return Integer.valueOf(etNVal.getText().toString());
 	}
 
-	public long getRVal() {
-		return Long.valueOf(etRVal.getText().toString());
+	public int getRVal() {
+		return Integer.valueOf(etRVal.getText().toString());
 	}
 
 	public String getNVals() {
@@ -104,5 +106,4 @@ public class PCView extends ActionHandler {
 	public View getView() {
 		return view;
 	}
-
 }

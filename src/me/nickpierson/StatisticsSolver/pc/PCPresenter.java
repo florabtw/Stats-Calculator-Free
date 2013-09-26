@@ -14,11 +14,11 @@ public class PCPresenter {
 				view.displayDefaultValues();
 
 				if (view.hasNVal()) {
-					long n = view.getNVal();
+					int n = view.getNVal();
 					view.displayNFactorial(model.calculateFact(n));
 					
 					if(view.hasRVal()){
-						long r = view.getRVal();
+						int r = view.getRVal();
 						view.displayPermutation(model.calculatePermutation(n, r));
 						view.displayCombination(model.calculateCombination(n, r));
 					}
