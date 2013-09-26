@@ -3,6 +3,8 @@ package me.nickpierson.StatisticsSolver.pc;
 import me.nickpierson.StatisticsSolver.R;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -24,6 +26,7 @@ public class PCView extends ActionHandler {
 	private TextView tvNPermR;
 	private TextView tvNChooseR;
 	private TextView tvIndistinct;
+	private Button btnCalculate;
 
 	public PCView(PCActivity pcActivity) {
 		view = (LinearLayout) LayoutInflater.from(pcActivity).inflate(R.layout.perm_comb, null);
@@ -32,6 +35,14 @@ public class PCView extends ActionHandler {
 		tvNPermR = (TextView) view.findViewById(R.id.pc_tvNPermR);
 		tvNChooseR = (TextView) view.findViewById(R.id.pc_tvNChooseR);
 		tvIndistinct = (TextView) view.findViewById(R.id.pc_tvIndistinct);
+		btnCalculate = (Button) view.findViewById(R.id.pc_btnCalculate);
+		btnCalculate.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				event(Types.CALCULATE_PRESSED);
+			}
+		});
 
 		etNVal = (EditText) view.findViewById(R.id.pc_etNVal);
 		etRVal = (EditText) view.findViewById(R.id.pc_etRVal);
@@ -46,24 +57,24 @@ public class PCView extends ActionHandler {
 		tvIndistinct.setText(R.string.pc_default_value);
 	}
 
-	public void displayNFactorial(int nFact) {
-		tvNFact.setText(nFact);
+	public void displayNFactorial(Long nFact) {
+		tvNFact.setText(nFact.toString());
 	}
 
-	public void displayRFactorial(int rFact) {
-		tvRFact.setText(rFact);
+	public void displayRFactorial(Long rFact) {
+		tvRFact.setText(rFact.toString());
 	}
 
-	public void displayPermutation(int permutation) {
-		tvNPermR.setText(permutation);
+	public void displayPermutation(Long permutation) {
+		tvNPermR.setText(permutation.toString());
 	}
 
-	public void displayCombination(int combination) {
-		tvNChooseR.setText(combination);
+	public void displayCombination(Long combination) {
+		tvNChooseR.setText(combination.toString());
 	}
 
-	public void displayIndistinct(int indistinct) {
-		tvIndistinct.setText(indistinct);
+	public void displayIndistinct(Long indistinct) {
+		tvIndistinct.setText(indistinct.toString());
 	}
 
 	public boolean hasNVal() {
@@ -78,12 +89,12 @@ public class PCView extends ActionHandler {
 		return etNVals.getText().length() > 0;
 	}
 
-	public int getNVal() {
-		return Integer.valueOf(etNVal.getText().toString());
+	public long getNVal() {
+		return Long.valueOf(etNVal.getText().toString());
 	}
 
-	public int getRVal() {
-		return Integer.valueOf(etRVal.getText().toString());
+	public long getRVal() {
+		return Long.valueOf(etRVal.getText().toString());
 	}
 
 	public String getNVals() {

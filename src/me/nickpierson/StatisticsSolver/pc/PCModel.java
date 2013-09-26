@@ -1,26 +1,32 @@
 package me.nickpierson.StatisticsSolver.pc;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import me.nickpierson.StatisticsSolver.utils.BaseModel;
 
 public class PCModel extends BaseModel {
 
-	/* TODO: Cache & test large values */
-	public int calculateFact(int num) {
+	HashMap<Long, Long> factCache = new HashMap<Long, Long>();
+
+	public long calculateFact(long num) {
+		Long fact = factCache.get(num);
+		if (fact != null) {
+			return fact;
+		}
+		
 		if (num < 0) {
 			return 0;
+		} else if (num <= 1) {
+			return 1;
 		}
 
-		int total = 1;
-		for (int i = num; i > 1; i--) {
-			total *= i;
-		}
-
-		return total;
+		long answer = num * calculateFact(num - 1);
+		factCache.put(num, answer);
+		return answer;
 	}
 
-	public int calculatePermutation(int n, int r) {
+	public long calculatePermutation(long n, long r) {
 		if (n < r) {
 			return 0;
 		}
@@ -28,7 +34,7 @@ public class PCModel extends BaseModel {
 		return calculateFact(n) / calculateFact(n - r);
 	}
 
-	public int calculateCombination(int n, int r) {
+	public long calculateCombination(long n, long r) {
 		if (n < r) {
 			return 0;
 		}
@@ -36,28 +42,28 @@ public class PCModel extends BaseModel {
 		return calculateFact(n) / (calculateFact(r) * calculateFact(n - r));
 	}
 
-	public int calculateIndistinctPerm(int nVal, String input) {
+	public long calculateIndistinctPerm(long nVal, String input) {
 		ArrayList<Double> nVals = convertInput(input);
-		
+
 		if (isInvalidInput(nVal, nVals)) {
 			return 0;
 		}
-		
-		int denominator = 1;
+
+		long denominator = 1;
 		for (double val : nVals) {
-			denominator *= calculateFact((int) val);
+			denominator *= calculateFact((long) val);
 		}
 
 		return calculateFact(nVal) / denominator;
 	}
 
-	private boolean isInvalidInput(int nVal, ArrayList<Double> nVals) {
-		int sum = 0;
-		for(double val : nVals){
+	private boolean isInvalidInput(long nVal, ArrayList<Double> nVals) {
+		long sum = 0;
+		for (double val : nVals) {
 			sum += val;
 		}
-		
-		if(sum > nVal){
+
+		if (sum > nVal) {
 			return true;
 		} else {
 			return false;
