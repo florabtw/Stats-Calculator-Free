@@ -7,6 +7,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.math.BigInteger;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,13 +33,13 @@ public class PCPresenterTest {
 
 		listener = ArgumentCaptor.forClass(ActionListener.class);
 
-		when(view.getNVal()).thenReturn(5L);
-		when(view.getRVal()).thenReturn(6L);
+		when(view.getNVal()).thenReturn(5);
+		when(view.getRVal()).thenReturn(6);
 		when(view.getNVals()).thenReturn("2,4,6");
-		when(model.calculateFact(any(Long.class))).thenReturn(1L);
-		when(model.calculateCombination(any(Long.class), any(Long.class))).thenReturn(2L);
-		when(model.calculatePermutation(any(Long.class), any(Long.class))).thenReturn(3L);
-		when(model.calculateIndistinctPerm(any(Long.class), any(String.class))).thenReturn(4L);
+		when(model.calculateFact(any(Integer.class))).thenReturn(BigInteger.valueOf(1));
+		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(2));
+		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(3));
+		when(model.calculateIndistinctPerm(any(Integer.class), any(String.class))).thenReturn(BigInteger.valueOf(4));
 	}
 
 	public void createPresenter() {
@@ -132,23 +134,23 @@ public class PCPresenterTest {
 
 	private void verifyIndisctinctPermutation() {
 		verify(model).calculateIndistinctPerm(view.getNVal(), view.getNVals());
-		verify(view).displayIndistinct(model.calculateIndistinctPerm(any(Long.class), any(String.class)));
+		verify(view).displayIndistinct(model.calculateIndistinctPerm(any(Integer.class), any(String.class)));
 	}
 
 	private void verifyPermutationAndCombination() {
 		verify(model).calculatePermutation(view.getNVal(), view.getRVal());
-		verify(view).displayPermutation(model.calculatePermutation(any(Long.class), any(Long.class)));
+		verify(view).displayPermutation(model.calculatePermutation(any(Integer.class), any(Integer.class)));
 		verify(model).calculateCombination(view.getNVal(), view.getRVal());
-		verify(view).displayCombination(model.calculateCombination(any(Long.class), any(Long.class)));
+		verify(view).displayCombination(model.calculateCombination(any(Integer.class), any(Integer.class)));
 	}
 
 	private void verifyNFact() {
 		verify(model).calculateFact(view.getNVal());
-		verify(view).displayNFactorial(model.calculateFact(any(Long.class)));
+		verify(view).displayNFactorial(model.calculateFact(any(Integer.class)));
 	}
 
 	private void verifyRFact() {
 		verify(model).calculateFact(view.getRVal());
-		verify(view).displayRFactorial(model.calculateFact(any(Long.class)));
+		verify(view).displayRFactorial(model.calculateFact(any(Integer.class)));
 	}
 }
