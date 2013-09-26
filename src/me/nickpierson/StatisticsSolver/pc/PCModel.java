@@ -5,15 +5,21 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 
 import me.nickpierson.StatisticsSolver.utils.BaseModel;
+import android.util.SparseArray;
 
 public class PCModel extends BaseModel {
+	
+	SparseArray<BigInteger> factCache = new SparseArray<BigInteger>();
 
 	public BigInteger calculateFact(int num) {
+		BigInteger cachedValue = factCache.get(num);
+		if(cachedValue != null){
+			return cachedValue;
+		}
+		
 		if (num > 1000) {
 			/* TODO: Approximate */
-		}
-
-		if (num < 0) {
+		} else if (num < 0) {
 			return BigInteger.valueOf(0);
 		}
 
@@ -23,6 +29,7 @@ public class PCModel extends BaseModel {
 			answer = answer.multiply(BigInteger.valueOf(i));
 		}
 
+		factCache.put(num, answer);
 		return answer;
 	}
 

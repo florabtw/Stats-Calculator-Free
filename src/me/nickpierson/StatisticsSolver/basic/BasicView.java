@@ -73,7 +73,7 @@ public class BasicView extends ActionHandler {
 		});
 	}
 
-	/* Figure out why this is necessary. I just ran this on API 8
+	/* TODO: Figure out why this is necessary. I just ran this on API 8
 	 * phone and it worked just fine.
 	 */
 	@SuppressLint("NewApi")
