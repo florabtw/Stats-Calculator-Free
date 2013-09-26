@@ -16,14 +16,14 @@ public class PCPresenter {
 				if (view.hasNVal()) {
 					int n = view.getNVal();
 					view.displayNFactorial(model.calculateFact(n));
-					
-					if(view.hasRVal()){
+
+					if (view.hasRVal()) {
 						int r = view.getRVal();
 						view.displayPermutation(model.calculatePermutation(n, r));
 						view.displayCombination(model.calculateCombination(n, r));
 					}
-					
-					if(view.hasNVals()){
+
+					if (view.hasNVals()) {
 						view.displayIndistinct(model.calculateIndistinctPerm(n, view.getNVals()));
 					}
 				}

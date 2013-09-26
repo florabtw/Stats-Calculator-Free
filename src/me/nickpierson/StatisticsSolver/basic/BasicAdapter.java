@@ -1,6 +1,9 @@
 package me.nickpierson.StatisticsSolver.basic;
 
+import java.util.Collection;
 import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import me.nickpierson.StatisticsSolver.R;
 import android.content.Context;
@@ -37,5 +40,4 @@ public class BasicAdapter extends ArrayAdapter<LinkedHashMap.Entry<String, Doubl
 
 		return item;
 	}
-
 }
