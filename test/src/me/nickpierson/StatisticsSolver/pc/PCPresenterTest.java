@@ -202,4 +202,15 @@ public class PCPresenterTest {
 		verify(model).calculateIndistinct(testNVal, testNVals);
 		verify(view).setIndistinct(model.calculateIndistinct(testNVal, testNVals).toString());
 	}
+
+	@Test
+	public void PCPresenterHandlesInvalidInputCorrectly() {
+		createPresenter();
+
+		verify(model).addListener(listener.capture(), eq(PCModel.Types.INPUT_OVER_MAX_VALUE));
+		
+		listener.getValue().fire();
+		
+		verify(view).showToast(MyConstants.MESSAGE_INPUT_OVER_MAX);
+	}
 }

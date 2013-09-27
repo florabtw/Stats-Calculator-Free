@@ -17,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.thecellutioncenter.mvplib.ActionListener;
 import com.thecellutioncenter.mvplib.DataActionListener;
 
 @Config(manifest = Config.NONE)
@@ -75,6 +76,18 @@ public class PCModelTest {
 		listenerAll = mock(DataActionListener.class);
 	}
 
+	@Test
+	public void validateInputNotifiesPresenter_IfValueOverOneThousandIsEntered() {
+		ActionListener listener = mock(ActionListener.class);
+		model.addListener(listener, PCModel.Types.INPUT_OVER_MAX_VALUE);
+
+		model.validateInput("1001", "", "");
+		model.validateInput("", "1001", "");
+		model.validateInput("1001", "1001", "");
+
+		verify(listener, times(6)).fire();
+	}
+
 	@SuppressWarnings("unchecked")
 	@Test
 	public void validateInputHandlesInputCorrectly_ForNoValidValues() {
@@ -82,6 +95,7 @@ public class PCModelTest {
 
 		model.validateInput("", "", "");
 		model.validateInput("", "", "3,4");
+		model.validateInput("1001", "", "");
 		model.validateInput("", "", "2147483657,5,20");
 		model.validateInput("", "2147483657", "");
 		model.validateInput("52147483657", "", "");

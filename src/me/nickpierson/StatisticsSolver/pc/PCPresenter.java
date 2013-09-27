@@ -93,6 +93,14 @@ public class PCPresenter {
 				setIndistinct(model, view, n, nVals);
 			}
 		}, PCModel.Types.ALL_VALUES_VALID);
+
+		model.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				view.showToast(MyConstants.MESSAGE_INPUT_OVER_MAX);
+			}
+		}, PCModel.Types.INPUT_OVER_MAX_VALUE);
 	}
 
 	private static void setNFactorial(final PCModel model, final PCView view, int n) {

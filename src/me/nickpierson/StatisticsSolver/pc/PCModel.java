@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import me.nickpierson.StatisticsSolver.utils.MyConstants;
 import android.util.SparseArray;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;
@@ -12,7 +13,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class PCModel extends DataActionHandler {
 
 	public enum Types {
-		ONLY_VALID_N, ONLY_VALID_R, VALID_N_AND_R, VALID_N_AND_NS, ALL_VALUES_VALID;
+		ONLY_VALID_N, ONLY_VALID_R, VALID_N_AND_R, VALID_N_AND_NS, ALL_VALUES_VALID, INPUT_OVER_MAX_VALUE;
 	}
 
 	public enum Keys {
@@ -97,13 +98,19 @@ public class PCModel extends DataActionHandler {
 	}
 
 	private boolean isValid(String string) {
-		return string.length() != 0 && !willOverflow(string);
+		return string.length() != 0 && !isTooBig(string);
 	}
 
-	private boolean willOverflow(String input) {
+	private boolean isTooBig(String input) {
 		try {
-			Integer.parseInt(input);
-			return false;
+			int n = Integer.parseInt(input);
+
+			if (n > MyConstants.PC_MAX_INPUT) {
+				event(Types.INPUT_OVER_MAX_VALUE);
+				return true;
+			} else {
+				return false;
+			}
 		} catch (NumberFormatException e) {
 			return true;
 		}

@@ -30,6 +30,7 @@ public class PCView extends ActionHandler {
 	private TextView tvIndistinct;
 	private Button btnCalculate;
 	private PCActivity activity;
+	private Toast toast;
 
 	public PCView(PCActivity activity) {
 		this.activity = activity;
@@ -52,7 +53,7 @@ public class PCView extends ActionHandler {
 		etRVal = (EditText) view.findViewById(R.id.pc_etRVal);
 		etNVals = (EditText) view.findViewById(R.id.pc_etNVals);
 	}
-	
+
 	public void showDefaultValues() {
 		setNFactorial(MyConstants.NOT_APPLICABLE);
 		setRFactorial(MyConstants.NOT_APPLICABLE);
@@ -98,6 +99,12 @@ public class PCView extends ActionHandler {
 	}
 
 	public void showToast(String message) {
-		Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+		try {
+			toast.getView().isShown();
+			toast.setText(message);
+		} catch (Exception e) {
+			toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT);
+		}
+		toast.show();
 	}
 }
