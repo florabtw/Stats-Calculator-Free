@@ -1,6 +1,5 @@
 package me.nickpierson.StatisticsSolver.pc;
 
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -101,19 +100,26 @@ public class PCModel extends DataActionHandler {
 		return string.length() != 0 && !willOverflow(string);
 	}
 
+	private boolean willOverflow(String input) {
+		try {
+			Integer.parseInt(input);
+			return false;
+		} catch (NumberFormatException e) {
+			return true;
+		}
+	}
+
 	public BigInteger calculateFact(int num) {
 		BigInteger cachedValue = factCache.get(num);
 		if (cachedValue != null) {
 			return cachedValue;
 		}
 
-		if (num > 1000) {
-			/* TODO: Approximate */
-		} else if (num < 0) {
-			return BigInteger.valueOf(0);
+		if (num < 0) {
+			return BigInteger.ZERO;
 		}
 
-		BigInteger answer = BigInteger.valueOf(1);
+		BigInteger answer = BigInteger.ONE;
 
 		for (int i = num; i > 1; i--) {
 			answer = answer.multiply(BigInteger.valueOf(i));
@@ -123,13 +129,9 @@ public class PCModel extends DataActionHandler {
 		return answer;
 	}
 
-	private BigInteger approximateFactorial(int num) {
-		return BigDecimal.valueOf((Math.sqrt(Math.PI * 2 * num) * Math.pow((num / Math.E), num))).toBigInteger();
-	}
-
 	public BigInteger calculatePermutation(int n, int r) {
 		if (n < r) {
-			return BigInteger.valueOf(0);
+			return BigInteger.ZERO;
 		}
 
 		return calculateFact(n).divide(calculateFact(n - r));
@@ -137,44 +139,18 @@ public class PCModel extends DataActionHandler {
 
 	public BigInteger calculateCombination(int n, int r) {
 		if (n < r) {
-			return BigInteger.valueOf(0);
+			return BigInteger.ZERO;
 		}
 
 		return calculateFact(n).divide(calculateFact(r).multiply(calculateFact(n - r)));
 	}
 
 	public BigInteger calculateIndistinct(int n, List<Integer> nVals) {
-		BigInteger denom = BigInteger.valueOf(1);
+		BigInteger denom = BigInteger.ONE;
 		for (int val : nVals) {
 			denom = denom.multiply(calculateFact(val));
 		}
-		
+
 		return calculateFact(n).divide(denom);
-	}
-
-	private boolean isValidInput(int nVal, ArrayList<Double> nVals) {
-		int sum = 0;
-		for (double val : nVals) {
-			sum += val;
-
-			if (val != (int) Integer.valueOf((int) val)) {
-				return false;
-			}
-		}
-
-		if (sum > nVal) {
-			return false;
-		} else {
-			return true;
-		}
-	}
-
-	private boolean willOverflow(String input) {
-		try {
-			Integer.parseInt(input);
-			return false;
-		} catch (NumberFormatException e) {
-			return true;
-		}
 	}
 }

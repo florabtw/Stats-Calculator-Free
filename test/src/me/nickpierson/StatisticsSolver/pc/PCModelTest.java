@@ -179,11 +179,9 @@ public class PCModelTest {
 	public void factorialReturnsCorrectValue() {
 		assertEquals(BigInteger.valueOf(120), model.calculateFact(5));
 		assertEquals(BigInteger.valueOf(479001600), model.calculateFact(12));
-		assertEquals(BigInteger.valueOf(1), model.calculateFact(1));
-		assertEquals(BigInteger.valueOf(1), model.calculateFact(0));
-		assertEquals(BigInteger.valueOf(0), model.calculateFact(-1));
-
-		/* TODO: Test Approximate numbers */
+		assertEquals(BigInteger.ONE, model.calculateFact(1));
+		assertEquals(BigInteger.ONE, model.calculateFact(0));
+		assertEquals(BigInteger.ZERO, model.calculateFact(-1));
 	}
 
 	@Test
@@ -192,38 +190,31 @@ public class PCModelTest {
 		assertEquals(BigInteger.valueOf(151200), model.calculatePermutation(10, 6));
 		assertEquals(BigInteger.valueOf(5040), model.calculatePermutation(7, 7));
 		assertEquals(BigInteger.valueOf(5), model.calculatePermutation(5, 1));
-		assertEquals(BigInteger.valueOf(1), model.calculatePermutation(6, 0));
-		assertEquals(BigInteger.valueOf(0), model.calculatePermutation(3, 4));
-
-		/* TODO: Test Approximate numbers */
+		assertEquals(BigInteger.ONE, model.calculatePermutation(6, 0));
+		assertEquals(BigInteger.ZERO, model.calculatePermutation(3, 4));
 	}
 
 	@Test
 	public void combinationReturnsCorrectValue() {
 		assertEquals(BigInteger.valueOf(10), model.calculateCombination(5, 3));
 		assertEquals(BigInteger.valueOf(210), model.calculateCombination(10, 6));
-		assertEquals(BigInteger.valueOf(1), model.calculateCombination(7, 7));
+		assertEquals(BigInteger.ONE, model.calculateCombination(7, 7));
 		assertEquals(BigInteger.valueOf(5), model.calculateCombination(5, 1));
-		assertEquals(BigInteger.valueOf(1), model.calculateCombination(6, 0));
-		assertEquals(BigInteger.valueOf(0), model.calculateCombination(3, 4));
-
-		/* TODO: Test Approximate numbers */
+		assertEquals(BigInteger.ONE, model.calculateCombination(6, 0));
+		assertEquals(BigInteger.ZERO, model.calculateCombination(3, 4));
 	}
 
 	@Test
 	public void indistinctPermutationReturnsCorrectValue() {
-		assertEquals(BigInteger.valueOf(60), model.calculateIndistinct(6, makeArrayList(3,2)));
-		assertEquals(BigInteger.valueOf(2), model.calculateIndistinct(2, makeArrayList(1,1)));
-		assertEquals(BigInteger.valueOf(1), model.calculateIndistinct(1, makeArrayList(1)));
+		assertEquals(BigInteger.valueOf(60), model.calculateIndistinct(6, makeArrayList(3, 2)));
+		assertEquals(BigInteger.valueOf(2), model.calculateIndistinct(2, makeArrayList(1, 1)));
+		assertEquals(BigInteger.ONE, model.calculateIndistinct(1, makeArrayList(1)));
 		assertEquals(BigInteger.valueOf(120), model.calculateIndistinct(5, makeArrayList(0)));
-
-		/* TODO: Test Approximate numbers */
-
 	}
 
 	public ArrayList<Integer> makeArrayList(int... values) {
 		ArrayList<Integer> list = new ArrayList<Integer>();
-		for(int val : values){
+		for (int val : values) {
 			list.add(val);
 		}
 		return list;

@@ -43,7 +43,7 @@ public class PCPresenterTest {
 		when(view.getNVal()).thenReturn("nval");
 		when(view.getRVal()).thenReturn("rval");
 		when(view.getNVals()).thenReturn("nval,nval");
-		when(model.calculateFact(any(Integer.class))).thenReturn(BigInteger.valueOf(1));
+		when(model.calculateFact(any(Integer.class))).thenReturn(BigInteger.ONE);
 		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(2));
 		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(3));
 		when(model.calculateIndistinct(any(Integer.class), anyListOf(Integer.class))).thenReturn(BigInteger.valueOf(4));
@@ -51,6 +51,17 @@ public class PCPresenterTest {
 
 	public void createPresenter() {
 		PCPresenter.create(model, view);
+	}
+
+	@Test
+	public void whenCalculateButtonIsPressed_ThenDisplayedValuesAreCleared() {
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
+
+		listener.getValue().fire();
+
+		verify(view).showDefaultValues();
 	}
 
 	@Test

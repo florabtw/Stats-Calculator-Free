@@ -1,6 +1,7 @@
 package me.nickpierson.StatisticsSolver.pc;
 
 import me.nickpierson.StatisticsSolver.R;
+import me.nickpierson.StatisticsSolver.utils.MyConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -8,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.thecellutioncenter.mvplib.ActionHandler;
 
@@ -27,9 +29,11 @@ public class PCView extends ActionHandler {
 	private TextView tvNChooseR;
 	private TextView tvIndistinct;
 	private Button btnCalculate;
+	private PCActivity activity;
 
-	public PCView(PCActivity pcActivity) {
-		view = (ScrollView) LayoutInflater.from(pcActivity).inflate(R.layout.perm_comb, null);
+	public PCView(PCActivity activity) {
+		this.activity = activity;
+		view = (ScrollView) LayoutInflater.from(activity).inflate(R.layout.perm_comb, null);
 		tvNFact = (TextView) view.findViewById(R.id.pc_tvNFact);
 		tvRFact = (TextView) view.findViewById(R.id.pc_tvRFact);
 		tvNPermR = (TextView) view.findViewById(R.id.pc_tvNPermR);
@@ -47,6 +51,14 @@ public class PCView extends ActionHandler {
 		etNVal = (EditText) view.findViewById(R.id.pc_etNVal);
 		etRVal = (EditText) view.findViewById(R.id.pc_etRVal);
 		etNVals = (EditText) view.findViewById(R.id.pc_etNVals);
+	}
+	
+	public void showDefaultValues() {
+		setNFactorial(MyConstants.NOT_APPLICABLE);
+		setRFactorial(MyConstants.NOT_APPLICABLE);
+		setPermutation(MyConstants.NOT_APPLICABLE);
+		setCombination(MyConstants.NOT_APPLICABLE);
+		setIndistinct(MyConstants.NOT_APPLICABLE);
 	}
 
 	public void setNFactorial(String text) {
@@ -83,5 +95,9 @@ public class PCView extends ActionHandler {
 
 	public View getView() {
 		return view;
+	}
+
+	public void showToast(String message) {
+		Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
 	}
 }

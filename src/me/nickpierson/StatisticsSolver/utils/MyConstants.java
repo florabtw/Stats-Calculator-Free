@@ -3,7 +3,7 @@ package me.nickpierson.StatisticsSolver.utils;
 import android.view.KeyEvent;
 
 public class MyConstants {
-	
+
 	public static final String SIZE = "Size";
 	public static final String SUM = "Sum";
 	public static final String MEAN = "Mean";
@@ -22,7 +22,7 @@ public class MyConstants {
 	public static final String[] descriptions = { BASIC, PERM_COMB, PROB_DISTS };
 
 	public static final String NOT_APPLICABLE = "n/a";
-	
+
 	public static int getKeyEvent(char c) {
 		switch (c) {
 		case '0':

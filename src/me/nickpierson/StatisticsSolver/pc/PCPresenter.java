@@ -15,6 +15,7 @@ public class PCPresenter {
 
 			@Override
 			public void fire() {
+				view.showDefaultValues();
 				model.validateInput(view.getNVal(), view.getRVal(), view.getNVals());
 			}
 		}, PCView.Types.CALCULATE_PRESSED);
@@ -24,7 +25,7 @@ public class PCPresenter {
 			@Override
 			public void fire(HashMap<Enum<?>, ?> data) {
 				int n = (Integer) data.get(PCModel.Keys.N_VALUE);
-				
+
 				setNFactorial(model, view, n);
 				view.setRFactorial(MyConstants.NOT_APPLICABLE);
 				view.setPermutation(MyConstants.NOT_APPLICABLE);
@@ -38,7 +39,7 @@ public class PCPresenter {
 			@Override
 			public void fire(HashMap<Enum<?>, ?> data) {
 				int r = (Integer) data.get(PCModel.Keys.R_VALUE);
-				
+
 				view.setNFactorial(MyConstants.NOT_APPLICABLE);
 				setRFactorial(model, view, r);
 				view.setPermutation(MyConstants.NOT_APPLICABLE);
@@ -53,7 +54,7 @@ public class PCPresenter {
 			public void fire(HashMap<Enum<?>, ?> data) {
 				int n = (Integer) data.get(PCModel.Keys.N_VALUE);
 				int r = (Integer) data.get(PCModel.Keys.R_VALUE);
-				
+
 				setNFactorial(model, view, n);
 				setRFactorial(model, view, r);
 				setPermAndComb(model, view, n, r);
@@ -68,7 +69,7 @@ public class PCPresenter {
 			public void fire(HashMap<Enum<?>, ?> data) {
 				int n = (Integer) data.get(PCModel.Keys.N_VALUE);
 				ArrayList<Integer> nVals = (ArrayList<Integer>) data.get(PCModel.Keys.N_VALUES);
-				
+
 				setNFactorial(model, view, n);
 				view.setRFactorial(MyConstants.NOT_APPLICABLE);
 				view.setPermutation(MyConstants.NOT_APPLICABLE);
@@ -85,7 +86,7 @@ public class PCPresenter {
 				int n = (Integer) data.get(PCModel.Keys.N_VALUE);
 				int r = (Integer) data.get(PCModel.Keys.R_VALUE);
 				ArrayList<Integer> nVals = (ArrayList<Integer>) data.get(PCModel.Keys.N_VALUES);
-				
+
 				setNFactorial(model, view, n);
 				setRFactorial(model, view, r);
 				setPermAndComb(model, view, n, r);
