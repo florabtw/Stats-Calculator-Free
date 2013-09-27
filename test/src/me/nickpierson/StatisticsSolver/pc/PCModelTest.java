@@ -1,7 +1,11 @@
 package me.nickpierson.StatisticsSolver.pc;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -71,16 +75,17 @@ public class PCModelTest {
 		listenerAll = mock(DataActionListener.class);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void validateInputHandlesInputCorrectly_ForNoValidValues() {
 		addAllListeners();
-		
+
 		model.validateInput("", "", "");
 		model.validateInput("", "", "3,4");
 		model.validateInput("", "", "2147483657,5,20");
 		model.validateInput("", "2147483657", "");
 		model.validateInput("52147483657", "", "");
-		
+
 		verify(listenerN, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 		verify(listenerR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 		verify(listenerNAndR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
@@ -97,13 +102,14 @@ public class PCModelTest {
 		model.validateInput(testN, "", "10,11");
 
 		verify(listenerN, times(2)).fire(mapN);
-		
+
 		verify(listenerR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 		verify(listenerNAndR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 		verify(listenerNAndNs, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 		verify(listenerAll, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void validateInputHandlesInputCorrectly_ForOnlyValidRValue() {
 		addAllListeners();
@@ -113,49 +119,52 @@ public class PCModelTest {
 
 		verify(listenerR, times(2)).fire(mapR);
 
-		verify(listenerN, never()).fire(mapN);
-		verify(listenerNAndR, never()).fire(mapNAndR);
-		verify(listenerNAndNs, never()).fire(mapNAndNs);
-		verify(listenerAll, never()).fire(mapAll);
+		verify(listenerN, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerNAndR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerNAndNs, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerAll, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void validateInputHandlesInputCorrectly_ForNAndRValues() {
 		addAllListeners();
 
 		model.validateInput(testN, testR, "");
 
-		verify(listenerN, never()).fire(mapN);
-		verify(listenerR, never()).fire(mapR);
 		verify(listenerNAndR).fire(mapNAndR);
-		verify(listenerNAndNs, never()).fire(mapNAndNs);
-		verify(listenerAll, never()).fire(mapAll);
+		verify(listenerN, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerNAndNs, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerAll, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void validateInputHandlesInputCorrectly_ForNAndNValues() {
 		addAllListeners();
 
 		model.validateInput(testN, "", testNs);
 
-		verify(listenerN, never()).fire(mapN);
-		verify(listenerR, never()).fire(mapR);
-		verify(listenerNAndR, never()).fire(mapNAndR);
 		verify(listenerNAndNs).fire(mapNAndNs);
-		verify(listenerAll, never()).fire(mapAll);
+		verify(listenerN, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerNAndR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerAll, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
 	public void validateInputHandlesInputCorrectly_ForAllValues() {
 		addAllListeners();
 
 		model.validateInput(testN, testR, testNs);
 
-		verify(listenerN, never()).fire(mapN);
-		verify(listenerR, never()).fire(mapR);
-		verify(listenerNAndR, never()).fire(mapNAndR);
-		verify(listenerNAndNs, never()).fire(mapNAndNs);
 		verify(listenerAll).fire(mapAll);
+		verify(listenerN, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerNAndR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(listenerNAndNs, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
 	private void addAllListeners() {
@@ -203,18 +212,20 @@ public class PCModelTest {
 
 	@Test
 	public void indistinctPermutationReturnsCorrectValue() {
-		// assertEquals(BigInteger.valueOf(60), model.calculateIndistinctPerm(6,
-		// "3,2"));
-		// assertEquals(BigInteger.valueOf(2), model.calculateIndistinctPerm(2,
-		// "1,1,"));
-		// assertEquals(BigInteger.valueOf(1), model.calculateIndistinctPerm(1,
-		// "1"));
-		// assertEquals(BigInteger.valueOf(120),
-		// model.calculateIndistinctPerm(5, "0"));
-		// assertEquals(BigInteger.valueOf(0), model.calculateIndistinct(5,
-		// "3,3"));
+		assertEquals(BigInteger.valueOf(60), model.calculateIndistinct(6, makeArrayList(3,2)));
+		assertEquals(BigInteger.valueOf(2), model.calculateIndistinct(2, makeArrayList(1,1)));
+		assertEquals(BigInteger.valueOf(1), model.calculateIndistinct(1, makeArrayList(1)));
+		assertEquals(BigInteger.valueOf(120), model.calculateIndistinct(5, makeArrayList(0)));
 
 		/* TODO: Test Approximate numbers */
 
+	}
+
+	public ArrayList<Integer> makeArrayList(int... values) {
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int val : values){
+			list.add(val);
+		}
+		return list;
 	}
 }

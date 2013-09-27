@@ -144,7 +144,12 @@ public class PCModel extends DataActionHandler {
 	}
 
 	public BigInteger calculateIndistinct(int n, List<Integer> nVals) {
-		return BigInteger.valueOf(0);
+		BigInteger denom = BigInteger.valueOf(1);
+		for (int val : nVals) {
+			denom = denom.multiply(calculateFact(val));
+		}
+		
+		return calculateFact(n).divide(denom);
 	}
 
 	private boolean isValidInput(int nVal, ArrayList<Double> nVals) {
@@ -165,10 +170,10 @@ public class PCModel extends DataActionHandler {
 	}
 
 	private boolean willOverflow(String input) {
-		try{
+		try {
 			Integer.parseInt(input);
 			return false;
-		} catch(NumberFormatException e){
+		} catch (NumberFormatException e) {
 			return true;
 		}
 	}
