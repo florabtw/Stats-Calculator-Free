@@ -1,7 +1,5 @@
 package me.nickpierson.StatisticsSolver.pc;
 
-import java.math.BigInteger;
-
 import me.nickpierson.StatisticsSolver.R;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,52 +49,32 @@ public class PCView extends ActionHandler {
 		etNVals = (EditText) view.findViewById(R.id.pc_etNVals);
 	}
 
-	public void displayDefaultValues() {
-		tvNFact.setText(R.string.pc_default_value);
-		tvRFact.setText(R.string.pc_default_value);
-		tvNPermR.setText(R.string.pc_default_value);
-		tvNChooseR.setText(R.string.pc_default_value);
-		tvIndistinct.setText(R.string.pc_default_value);
+	public void setNFactorial(String text) {
+		tvNFact.setText(text);
 	}
 
-	public void displayNFactorial(BigInteger nFact) {
-		tvNFact.setText(String.valueOf(nFact));
+	public void setRFactorial(String text) {
+		tvRFact.setText(text);
 	}
 
-	public void displayRFactorial(BigInteger rFact) {
-		tvRFact.setText(rFact.toString());
+	public void setPermutation(String text) {
+		tvNPermR.setText(text);
 	}
 
-	public void displayPermutation(BigInteger permutation) {
-		tvNPermR.setText(permutation.toString());
+	public void setCombination(String text) {
+		tvNChooseR.setText(text);
 	}
 
-	public void displayCombination(BigInteger combination) {
-		tvNChooseR.setText(combination.toString());
+	public void setIndistinct(String text) {
+		tvIndistinct.setText(text);
 	}
 
-	public void displayIndistinct(BigInteger indistinct) {
-		tvIndistinct.setText(indistinct.toString());
+	public String getNVal() {
+		return etNVal.getText().toString();
 	}
 
-	public boolean hasNVal() {
-		return etNVal.getText().length() > 0;
-	}
-
-	public boolean hasRVal() {
-		return etRVal.getText().length() > 0;
-	}
-
-	public boolean hasNVals() {
-		return etNVals.getText().length() > 0;
-	}
-
-	public int getNVal() {
-		return Integer.valueOf(etNVal.getText().toString());
-	}
-
-	public int getRVal() {
-		return Integer.valueOf(etRVal.getText().toString());
+	public String getRVal() {
+		return etRVal.getText().toString();
 	}
 
 	public String getNVals() {

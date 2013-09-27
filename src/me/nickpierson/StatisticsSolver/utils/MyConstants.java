@@ -21,6 +21,8 @@ public class MyConstants {
 
 	public static final String[] descriptions = { BASIC, PERM_COMB, PROB_DISTS };
 
+	public static final String NOT_APPLICABLE = "n/a";
+	
 	public static int getKeyEvent(char c) {
 		switch (c) {
 		case '0':

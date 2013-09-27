@@ -1,13 +1,17 @@
 package me.nickpierson.StatisticsSolver.pc;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+import me.nickpierson.StatisticsSolver.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +21,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.thecellutioncenter.mvplib.ActionListener;
+import com.thecellutioncenter.mvplib.DataActionListener;
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
@@ -25,6 +30,7 @@ public class PCPresenterTest {
 	private PCView view;
 	private PCModel model;
 	ArgumentCaptor<ActionListener> listener;
+	ArgumentCaptor<DataActionListener> dataListener;
 
 	@Before
 	public void setup() {
@@ -32,14 +38,15 @@ public class PCPresenterTest {
 		model = mock(PCModel.class);
 
 		listener = ArgumentCaptor.forClass(ActionListener.class);
+		dataListener = ArgumentCaptor.forClass(DataActionListener.class);
 
-		when(view.getNVal()).thenReturn(5);
-		when(view.getRVal()).thenReturn(6);
-		when(view.getNVals()).thenReturn("2,4,6");
+		when(view.getNVal()).thenReturn("nval");
+		when(view.getRVal()).thenReturn("rval");
+		when(view.getNVals()).thenReturn("nval,nval");
 		when(model.calculateFact(any(Integer.class))).thenReturn(BigInteger.valueOf(1));
-		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(2));
-		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(3));
-		when(model.calculateIndistinctPerm(any(Integer.class), any(String.class))).thenReturn(BigInteger.valueOf(4));
+		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(2));
+		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(3));
+		when(model.calculateIndistinct(any(Integer.class), anyListOf(Integer.class))).thenReturn(BigInteger.valueOf(4));
 	}
 
 	public void createPresenter() {
@@ -47,110 +54,141 @@ public class PCPresenterTest {
 	}
 
 	@Test
-	public void whenCalculateButtonIsPressed_ThenValuesAreSetToDefault() {
+	public void whenCalculateButtonIsPressed_ThenModelValidatesInput() {
 		createPresenter();
 
 		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
 
 		listener.getValue().fire();
 
-		verify(view, times(2)).displayDefaultValues();
+		verify(model).validateInput(view.getNVal(), view.getRVal(), view.getNVals());
 	}
 
 	@Test
-	public void whenCalculateButtonIsPressedWithAtLeastNVal_ThenViewIsShownWithNFactorial() {
+	public void whenOnlyNValueIsShownValid_ThenRelatedValuesAreDisplayed() {
 		createPresenter();
-		when(view.hasNVal()).thenReturn(true);
+		HashMap<Enum<?>, Integer> map = new HashMap<Enum<?>, Integer>();
+		int testNVal = 6;
+		map.put(PCModel.Keys.N_VALUE, testNVal);
 
-		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
+		verify(model).addListener(dataListener.capture(), eq(PCModel.Types.ONLY_VALID_N));
 
-		listener.getValue().fire();
+		dataListener.getValue().fire(map);
 
-		verify(view, times(2)).displayDefaultValues();
-		verifyNFact();
+		verifyNFact(testNVal);
+		verify(view).setRFactorial(MyConstants.NOT_APPLICABLE);
+		verify(view).setPermutation(MyConstants.NOT_APPLICABLE);
+		verify(view).setCombination(MyConstants.NOT_APPLICABLE);
+		verify(view).setIndistinct(MyConstants.NOT_APPLICABLE);
 	}
 
 	@Test
-	public void whenCalculateButtonIsPressedWithAtLeastRVal_ThenViewIsShownWithRFactorial() {
+	public void whenOnlyRValueIsShownValid_ThenRelatedValuesAreDisplayed() {
 		createPresenter();
-		when(view.hasRVal()).thenReturn(true);
+		HashMap<Enum<?>, Integer> map = new HashMap<Enum<?>, Integer>();
+		int testRVal = 5;
+		map.put(PCModel.Keys.R_VALUE, testRVal);
 
-		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
+		verify(model).addListener(dataListener.capture(), eq(PCModel.Types.ONLY_VALID_R));
 
-		listener.getValue().fire();
+		dataListener.getValue().fire(map);
 
-		verify(view, times(2)).displayDefaultValues();
-		verifyRFact();
+		verifyRFact(testRVal);
+		verify(view).setNFactorial(MyConstants.NOT_APPLICABLE);
+		verify(view).setPermutation(MyConstants.NOT_APPLICABLE);
+		verify(view).setCombination(MyConstants.NOT_APPLICABLE);
+		verify(view).setIndistinct(MyConstants.NOT_APPLICABLE);
 	}
 
 	@Test
-	public void whenCalculateButtonIsPressedWithNAndRVal_ThenCorrectValuesAreShown() {
+	public void whenRAndNValueAreShownValid_ThenRelatedValuesAreDisplayed() {
 		createPresenter();
-		when(view.hasNVal()).thenReturn(true);
-		when(view.hasRVal()).thenReturn(true);
+		HashMap<Enum<?>, Integer> map = new HashMap<Enum<?>, Integer>();
+		int testNVal = 6;
+		int testRVal = 5;
+		map.put(PCModel.Keys.N_VALUE, testNVal);
+		map.put(PCModel.Keys.R_VALUE, testRVal);
 
-		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
+		verify(model).addListener(dataListener.capture(), eq(PCModel.Types.VALID_N_AND_R));
 
-		listener.getValue().fire();
+		dataListener.getValue().fire(map);
 
-		verify(view, times(2)).displayDefaultValues();
-		verifyNFact();
-		verifyRFact();
-		verifyPermutationAndCombination();
+		verifyNFact(testNVal);
+		verifyRFact(testRVal);
+		verifyPermutation(testNVal, testRVal);
+		verifyCombination(testNVal, testRVal);
+		verify(view).setIndistinct(MyConstants.NOT_APPLICABLE);
 	}
 
 	@Test
-	public void whenCalculateButtonIsPressedWithNValAndNVals_ThenCorrectValuesAreShown() {
+	public void whenNAndNValuesAreValid_ThenRelatedValuesAreDisplayed() {
 		createPresenter();
-		when(view.hasNVal()).thenReturn(true);
-		when(view.hasNVals()).thenReturn(true);
+		HashMap<Enum<?>, Object> map = new HashMap<Enum<?>, Object>();
+		ArrayList<Integer> testNVals = new ArrayList<Integer>();
+		int testNVal = 6;
+		testNVals.add(2);
+		testNVals.add(3);
 
-		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
+		map.put(PCModel.Keys.N_VALUE, testNVal);
+		map.put(PCModel.Keys.N_VALUES, testNVals);
 
-		listener.getValue().fire();
+		verify(model).addListener(dataListener.capture(), eq(PCModel.Types.VALID_N_AND_NS));
 
-		verify(view, times(2)).displayDefaultValues();
-		verifyNFact();
-		verifyIndisctinctPermutation();
+		dataListener.getValue().fire(map);
+
+		verifyNFact(testNVal);
+		verifyIndistinct(testNVals, testNVal);
+		verify(view).setRFactorial(MyConstants.NOT_APPLICABLE);
+		verify(view).setPermutation(MyConstants.NOT_APPLICABLE);
+		verify(view).setCombination(MyConstants.NOT_APPLICABLE);
 	}
 
 	@Test
-	public void whenCalculateButtonIsPressedWithAllVals_ThenAllValsAreDisplayed() {
+	public void whenAllValuesArePresent_ThenRelatedValuesAreShown() {
 		createPresenter();
-		when(view.hasNVal()).thenReturn(true);
-		when(view.hasRVal()).thenReturn(true);
-		when(view.hasNVals()).thenReturn(true);
+		HashMap<Enum<?>, Object> map = new HashMap<Enum<?>, Object>();
+		ArrayList<Integer> testNVals = new ArrayList<Integer>();
+		int testNVal = 6;
+		int testRVal = 5;
+		testNVals.add(7);
+		testNVals.add(8);
+		map.put(PCModel.Keys.N_VALUE, testNVal);
+		map.put(PCModel.Keys.R_VALUE, testRVal);
+		map.put(PCModel.Keys.N_VALUES, testNVals);
 
-		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
+		verify(model).addListener(dataListener.capture(), eq(PCModel.Types.ALL_VALUES_VALID));
 
-		listener.getValue().fire();
+		dataListener.getValue().fire(map);
 
-		verify(view, times(2)).displayDefaultValues();
-		verifyNFact();
-		verifyRFact();
-		verifyPermutationAndCombination();
-		verifyIndisctinctPermutation();
+		verifyNFact(testNVal);
+		verifyRFact(testRVal);
+		verifyPermutation(testNVal, testRVal);
+		verifyCombination(testNVal, testRVal);
+		verifyIndistinct(testNVals, testNVal);
 	}
 
-	private void verifyIndisctinctPermutation() {
-		verify(model).calculateIndistinctPerm(view.getNVal(), view.getNVals());
-		verify(view).displayIndistinct(model.calculateIndistinctPerm(any(Integer.class), any(String.class)));
+	private void verifyNFact(int testNVal) {
+		verify(model).calculateFact(testNVal);
+		verify(view).setNFactorial(model.calculateFact(testNVal).toString());
 	}
 
-	private void verifyPermutationAndCombination() {
-		verify(model).calculatePermutation(view.getNVal(), view.getRVal());
-		verify(view).displayPermutation(model.calculatePermutation(any(Integer.class), any(Integer.class)));
-		verify(model).calculateCombination(view.getNVal(), view.getRVal());
-		verify(view).displayCombination(model.calculateCombination(any(Integer.class), any(Integer.class)));
+	private void verifyRFact(int testRVal) {
+		verify(model).calculateFact(testRVal);
+		verify(view).setRFactorial(model.calculateFact(testRVal).toString());
 	}
 
-	private void verifyNFact() {
-		verify(model).calculateFact(view.getNVal());
-		verify(view).displayNFactorial(model.calculateFact(any(Integer.class)));
+	private void verifyCombination(int testNVal, int testRVal) {
+		verify(model).calculateCombination(testNVal, testRVal);
+		verify(view).setCombination(model.calculateCombination(testNVal, testRVal).toString());
 	}
 
-	private void verifyRFact() {
-		verify(model).calculateFact(view.getRVal());
-		verify(view).displayRFactorial(model.calculateFact(any(Integer.class)));
+	private void verifyPermutation(int testNVal, int testRVal) {
+		verify(model).calculatePermutation(testNVal, testRVal);
+		verify(view).setPermutation(model.calculatePermutation(testNVal, testRVal).toString());
+	}
+
+	private void verifyIndistinct(ArrayList<Integer> testNVals, int testNVal) {
+		verify(model).calculateIndistinct(testNVal, testNVals);
+		verify(view).setIndistinct(model.calculateIndistinct(testNVal, testNVals).toString());
 	}
 }
