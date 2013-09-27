@@ -159,8 +159,10 @@ public class PCModelTest {
 		addAllListeners();
 
 		model.validateInput(testN, "", testNs);
+		model.validateInput(testN, "", "3,,,,,,2,");
 
-		verify(listenerNAndNs).fire(mapNAndNs);
+		verify(listenerNAndNs, times(2)).fire(mapNAndNs);
+
 		verify(listenerN, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 		verify(listenerR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 		verify(listenerNAndR, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));

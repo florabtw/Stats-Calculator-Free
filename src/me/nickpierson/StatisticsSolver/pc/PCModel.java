@@ -33,9 +33,7 @@ public class PCModel extends DataActionHandler {
 			returnValues.put(Keys.R_VALUE, r);
 
 			if (isValidList(nVals, n)) {
-				ArrayList<Integer> nList = new ArrayList<Integer>();
-				nList = convertList(nVals);
-				returnValues.put(Keys.N_VALUES, nList);
+				addNList(nVals, returnValues);
 				dataEvent(Types.ALL_VALUES_VALID, returnValues);
 			} else {
 				dataEvent(Types.VALID_N_AND_R, returnValues);
@@ -69,6 +67,10 @@ public class PCModel extends DataActionHandler {
 
 		String[] nVals = string.split(",");
 		for (String val : nVals) {
+			if (val.length() == 0) {
+				continue;
+			}
+
 			result.add(convert(val));
 		}
 
@@ -80,11 +82,19 @@ public class PCModel extends DataActionHandler {
 	}
 
 	private boolean isValidList(String list, int n) {
+		if (list.length() == 0) {
+			return false;
+		}
+
 		String[] nVals = list.split(",");
 		int sum = 0;
 
 		for (String val : nVals) {
-			if (!isValid(val)) {
+			if (val.length() == 0) {
+				continue;
+			}
+
+			if (!isValidListItem(val)) {
 				return false;
 			}
 			sum += convert(val);
@@ -95,6 +105,10 @@ public class PCModel extends DataActionHandler {
 		}
 
 		return true;
+	}
+
+	private boolean isValidListItem(String string) {
+		return !isTooBig(string);
 	}
 
 	private boolean isValid(String string) {
