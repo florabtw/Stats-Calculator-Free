@@ -3,7 +3,7 @@ package me.nickpierson.StatisticsSolver.utils;
 import android.view.KeyEvent;
 
 public class MyConstants {
-	
+
 	public static final String SIZE = "Size";
 	public static final String SUM = "Sum";
 	public static final String MEAN = "Mean";
@@ -20,6 +20,11 @@ public class MyConstants {
 	public static final String PROB_DISTS = "Probability Distributions";
 
 	public static final String[] descriptions = { BASIC, PERM_COMB, PROB_DISTS };
+
+	public static final String NOT_APPLICABLE = "n/a";
+
+	public static final String MESSAGE_INPUT_OVER_MAX = "Input over 1000 is not allowed.";
+	public static final int PC_MAX_INPUT = 1000;
 
 	public static int getKeyEvent(char c) {
 		switch (c) {

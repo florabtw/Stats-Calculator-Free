@@ -37,5 +37,4 @@ public class BasicAdapter extends ArrayAdapter<LinkedHashMap.Entry<String, Doubl
 
 		return item;
 	}
-
 }

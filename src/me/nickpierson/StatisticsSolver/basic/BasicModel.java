@@ -11,7 +11,6 @@ import me.nickpierson.StatisticsSolver.utils.MyConstants;
 
 public class BasicModel {
 
-	private int previousErrorIndex;
 	private LinkedHashMap<String, Double> result;
 
 	public BasicModel() {
@@ -31,6 +30,23 @@ public class BasicModel {
 		result.put(MyConstants.POP_DEV, 0.0);
 		result.put(MyConstants.SAMPLE_DEV, 0.0);
 	}
+
+	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
+		result.put(MyConstants.SIZE, (double) numberList.size());
+		result.put(MyConstants.SUM, calculateSum(numberList));
+		result.put(MyConstants.MEAN, result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
+		result.put(MyConstants.MEDIAN, calculateMedian(numberList, result.get(MyConstants.SIZE)));
+		result.put(MyConstants.MODE, calculateMode(numberList));
+		result.put(MyConstants.RANGE, calculateRange(numberList));
+		result.put(MyConstants.POP_VAR, calculatePopVariance(numberList, result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
+		result.put(MyConstants.SAMPLE_VAR, calculateSampleVariance(numberList, result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
+		result.put(MyConstants.POP_DEV, Math.sqrt(result.get(MyConstants.POP_VAR)));
+		result.put(MyConstants.SAMPLE_DEV, Math.sqrt(result.get(MyConstants.SAMPLE_VAR)));
+
+		return result;
+	}
+
+	private int previousErrorIndex;
 
 	public ArrayList<Double> convertInput(String input) {
 		ArrayList<Double> result = new ArrayList<Double>();
@@ -100,19 +116,8 @@ public class BasicModel {
 		return Integer.valueOf(value.substring(value.indexOf('x') + 1, value.length()));
 	}
 
-	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
-		result.put(MyConstants.SIZE, (double) numberList.size());
-		result.put(MyConstants.SUM, calculateSum(numberList));
-		result.put(MyConstants.MEAN, result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
-		result.put(MyConstants.MEDIAN, calculateMedian(numberList, result.get(MyConstants.SIZE)));
-		result.put(MyConstants.MODE, calculateMode(numberList));
-		result.put(MyConstants.RANGE, calculateRange(numberList));
-		result.put(MyConstants.POP_VAR, calculatePopVariance(numberList, result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
-		result.put(MyConstants.SAMPLE_VAR, calculateSampleVariance(numberList, result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
-		result.put(MyConstants.POP_DEV, Math.sqrt(result.get(MyConstants.POP_VAR)));
-		result.put(MyConstants.SAMPLE_DEV, Math.sqrt(result.get(MyConstants.SAMPLE_VAR)));
-
-		return result;
+	public int getPreviousErrorIndex() {
+		return previousErrorIndex;
 	}
 
 	private double calculateSum(List<Double> numberList) {
@@ -197,10 +202,6 @@ public class BasicModel {
 
 	public LinkedHashMap<String, Double> getResultMap() {
 		return result;
-	}
-
-	public int getPreviousErrorIndex() {
-		return previousErrorIndex;
 	}
 
 }

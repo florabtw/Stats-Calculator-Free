@@ -30,4 +30,11 @@ public class HomeAdapter extends ArrayAdapter<String> {
 
 		return item;
 	}
+
+	@Override
+	public void addAll(String... strings) {
+		for (String string : strings) {
+			add(string);
+		}
+	}
 }

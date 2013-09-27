@@ -1,6 +1,7 @@
 package me.nickpierson.StatisticsSolver.basic;
 
 import java.util.LinkedHashMap;
+import java.util.Map.Entry;
 
 import me.nickpierson.StatisticsSolver.R;
 import me.nickpierson.StatisticsSolver.utils.MyConstants;
@@ -72,13 +73,12 @@ public class BasicView extends ActionHandler {
 		});
 	}
 
-	/*
-	 * TODO: Figure out why Lint must be suppressed This should work due to the
-	 * if...
+	/* TODO: Figure out why this is necessary. I just ran this on API 8
+	 * phone and it worked just fine.
 	 */
 	@SuppressLint("NewApi")
 	private void disableSoftInputFromAppearing() {
-		if (Build.VERSION.SDK_INT >= 11) {
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
 			etInput.setRawInputType(InputType.TYPE_CLASS_TEXT);
 			etInput.setTextIsSelectable(true);
 		} else {
@@ -89,7 +89,9 @@ public class BasicView extends ActionHandler {
 
 	public void showResults(LinkedHashMap<String, Double> result) {
 		resultsAdapter.clear();
-		resultsAdapter.addAll(result.entrySet());
+		for(Entry<String, Double> entry : result.entrySet()){
+			resultsAdapter.add(entry);
+		}
 
 		flContent.removeAllViews();
 		flContent.addView(lvResults);

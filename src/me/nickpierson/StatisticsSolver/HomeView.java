@@ -25,7 +25,7 @@ public class HomeView extends DataActionHandler {
 		this.activity = activity;
 
 		lvHome = (ListView) LayoutInflater.from(activity).inflate(R.layout.home, null);
-		adapter = new HomeAdapter(activity, R.layout.calculator_list_item);
+		adapter = new HomeAdapter(activity, R.layout.home_list_item);
 		lvHome.setAdapter(adapter);
 		adapter.addAll(MyConstants.descriptions);
 	}

@@ -3,6 +3,7 @@ package me.nickpierson.StatisticsSolver;
 import java.util.HashMap;
 
 import me.nickpierson.StatisticsSolver.basic.BasicActivity;
+import me.nickpierson.StatisticsSolver.pc.PCActivity;
 import me.nickpierson.StatisticsSolver.utils.MyConstants;
 import android.content.Intent;
 
@@ -23,8 +24,10 @@ public class HomePresenter {
 	public static void openCorrespondingCalculator(HomeActivity activity, HomeView view, String description) {
 		Intent intent;
 
-		if(description.equals(MyConstants.BASIC)){
+		if (description.equals(MyConstants.BASIC)) {
 			intent = new Intent(activity, BasicActivity.class);
+		} else if (description.equals(MyConstants.PERM_COMB)) {
+			intent = new Intent(activity, PCActivity.class);
 		} else {
 			view.showToast(activity.getString(R.string.buttonError));
 			return;
