@@ -3,6 +3,7 @@ package me.nickpierson.StatisticsSolver.pc;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import android.util.SparseArray;
@@ -22,7 +23,82 @@ public class PCModel extends DataActionHandler {
 	SparseArray<BigInteger> factCache = new SparseArray<BigInteger>();
 
 	public void validateInput(String nVal, String rVal, String nVals) {
+		HashMap<Enum<?>, Object> returnValues = new HashMap<Enum<?>, Object>();
 
+		if (isValid(nVal) && isValid(rVal)) {
+			int n = convert(nVal);
+			int r = convert(rVal);
+
+			returnValues.put(Keys.N_VALUE, n);
+			returnValues.put(Keys.R_VALUE, r);
+
+			if (isValidList(nVals, n)) {
+				ArrayList<Integer> nList = new ArrayList<Integer>();
+				nList = convertList(nVals);
+				returnValues.put(Keys.N_VALUES, nList);
+				dataEvent(Types.ALL_VALUES_VALID, returnValues);
+			} else {
+				dataEvent(Types.VALID_N_AND_R, returnValues);
+			}
+		} else if (isValid(nVal)) {
+			int n = convert(nVal);
+
+			returnValues.put(Keys.N_VALUE, n);
+
+			if (isValidList(nVals, n)) {
+				addNList(nVals, returnValues);
+				dataEvent(Types.VALID_N_AND_NS, returnValues);
+			} else {
+				dataEvent(Types.ONLY_VALID_N, returnValues);
+			}
+		} else if (isValid(rVal)) {
+			int r = convert(rVal);
+			returnValues.put(Keys.R_VALUE, r);
+			dataEvent(Types.ONLY_VALID_R, returnValues);
+		}
+	}
+
+	private void addNList(String nVals, HashMap<Enum<?>, Object> returnValues) {
+		ArrayList<Integer> nList = new ArrayList<Integer>();
+		nList = convertList(nVals);
+		returnValues.put(Keys.N_VALUES, nList);
+	}
+
+	private ArrayList<Integer> convertList(String string) {
+		ArrayList<Integer> result = new ArrayList<Integer>();
+
+		String[] nVals = string.split(",");
+		for (String val : nVals) {
+			result.add(convert(val));
+		}
+
+		return result;
+	}
+
+	private int convert(String nVal) {
+		return Integer.valueOf(nVal);
+	}
+
+	private boolean isValidList(String list, int n) {
+		String[] nVals = list.split(",");
+		int sum = 0;
+
+		for (String val : nVals) {
+			if (!isValid(val)) {
+				return false;
+			}
+			sum += convert(val);
+		}
+
+		if (sum > n) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean isValid(String string) {
+		return string.length() != 0 && !willOverflow(string);
 	}
 
 	public BigInteger calculateFact(int num) {
@@ -88,13 +164,11 @@ public class PCModel extends DataActionHandler {
 		}
 	}
 
-	public boolean willOverflow(String input) {
-		double dblVal = Double.valueOf(input);
-		int intVal = Integer.valueOf(input);
-
-		if (dblVal != intVal) {
+	private boolean willOverflow(String input) {
+		try{
+			Integer.parseInt(input);
 			return false;
-		} else {
+		} catch(NumberFormatException e){
 			return true;
 		}
 	}

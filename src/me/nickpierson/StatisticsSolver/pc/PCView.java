@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.thecellutioncenter.mvplib.ActionHandler;
@@ -17,7 +17,7 @@ public class PCView extends ActionHandler {
 		CALCULATE_PRESSED;
 	}
 
-	LinearLayout view;
+	private ScrollView view;
 	private EditText etNVal;
 	private EditText etRVal;
 	private EditText etNVals;
@@ -29,7 +29,7 @@ public class PCView extends ActionHandler {
 	private Button btnCalculate;
 
 	public PCView(PCActivity pcActivity) {
-		view = (LinearLayout) LayoutInflater.from(pcActivity).inflate(R.layout.perm_comb, null);
+		view = (ScrollView) LayoutInflater.from(pcActivity).inflate(R.layout.perm_comb, null);
 		tvNFact = (TextView) view.findViewById(R.id.pc_tvNFact);
 		tvRFact = (TextView) view.findViewById(R.id.pc_tvRFact);
 		tvNPermR = (TextView) view.findViewById(R.id.pc_tvNPermR);
