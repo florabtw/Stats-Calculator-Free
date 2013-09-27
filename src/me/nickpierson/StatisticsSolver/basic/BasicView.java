@@ -73,8 +73,9 @@ public class BasicView extends ActionHandler {
 		});
 	}
 
-	/* TODO: Figure out why this is necessary. I just ran this on API 8
-	 * phone and it worked just fine.
+	/*
+	 * TODO: Figure out why this is necessary. I just ran this on API 8 phone
+	 * and it worked just fine.
 	 */
 	@SuppressLint("NewApi")
 	private void disableSoftInputFromAppearing() {
@@ -89,7 +90,7 @@ public class BasicView extends ActionHandler {
 
 	public void showResults(LinkedHashMap<String, Double> result) {
 		resultsAdapter.clear();
-		for(Entry<String, Double> entry : result.entrySet()){
+		for (Entry<String, Double> entry : result.entrySet()) {
 			resultsAdapter.add(entry);
 		}
 
@@ -104,6 +105,14 @@ public class BasicView extends ActionHandler {
 
 	public void showToast(String message) {
 		Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+	}
+
+	public void showNumberErrorToast(int errorItem) {
+		Toast.makeText(activity, String.format(MyConstants.DESCRIPTIVE_NUMBER_ERROR, errorItem), Toast.LENGTH_SHORT).show();
+	}
+	
+	public void showFrequencyErrorToast(int errorItem) {
+		Toast.makeText(activity, String.format(MyConstants.DESCRIPTIVE_FREQ_ERROR, errorItem), Toast.LENGTH_SHORT).show();
 	}
 
 	public void keypadPress(Button button) {

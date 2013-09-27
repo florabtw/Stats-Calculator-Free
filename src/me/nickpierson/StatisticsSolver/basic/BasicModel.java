@@ -9,26 +9,41 @@ import java.util.Map;
 
 import me.nickpierson.StatisticsSolver.utils.MyConstants;
 
-public class BasicModel {
+import com.thecellutioncenter.mvplib.DataActionHandler;
+
+public class BasicModel extends DataActionHandler {
+
+	public enum Types {
+		VALID_INPUT, INVALID_NUMBER, INVALID_FREQUENCY;
+	}
+
+	public enum Keys {
+		RESULTS, INVALID_ITEM;
+	}
 
 	private LinkedHashMap<String, Double> result;
 
 	public BasicModel() {
-		/*
-		 * Initialize results hash map that will be used throughout this
-		 * activity This sets the initial order and values.
-		 */
 		result = new LinkedHashMap<String, Double>();
-		result.put(MyConstants.SIZE, 0.0);
-		result.put(MyConstants.SUM, 0.0);
-		result.put(MyConstants.MEAN, 0.0);
-		result.put(MyConstants.MEDIAN, 0.0);
-		result.put(MyConstants.MODE, null);
-		result.put(MyConstants.RANGE, 0.0);
-		result.put(MyConstants.POP_VAR, 0.0);
-		result.put(MyConstants.SAMPLE_VAR, 0.0);
-		result.put(MyConstants.POP_DEV, 0.0);
-		result.put(MyConstants.SAMPLE_DEV, 0.0);
+	}
+
+	public LinkedHashMap<String, Double> getEmptyResults() {
+		LinkedHashMap<String, Double> emptyMap = new LinkedHashMap<String, Double>();
+		emptyMap.put(MyConstants.SIZE, 0.0);
+		emptyMap.put(MyConstants.SUM, 0.0);
+		emptyMap.put(MyConstants.MEAN, 0.0);
+		emptyMap.put(MyConstants.MEDIAN, 0.0);
+		emptyMap.put(MyConstants.MODE, null);
+		emptyMap.put(MyConstants.RANGE, 0.0);
+		emptyMap.put(MyConstants.POP_VAR, 0.0);
+		emptyMap.put(MyConstants.SAMPLE_VAR, 0.0);
+		emptyMap.put(MyConstants.POP_DEV, 0.0);
+		emptyMap.put(MyConstants.SAMPLE_DEV, 0.0);
+		return emptyMap;
+	}
+
+	public void validateInput(String input) {
+
 	}
 
 	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
@@ -203,5 +218,4 @@ public class BasicModel {
 	public LinkedHashMap<String, Double> getResultMap() {
 		return result;
 	}
-
 }

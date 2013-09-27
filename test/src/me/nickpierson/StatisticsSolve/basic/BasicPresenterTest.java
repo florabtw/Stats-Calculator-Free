@@ -1,14 +1,12 @@
 package me.nickpierson.StatisticsSolve.basic;
 
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import me.nickpierson.StatisticsSolver.basic.BasicModel;
@@ -23,6 +21,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import com.thecellutioncenter.mvplib.ActionListener;
+import com.thecellutioncenter.mvplib.DataActionListener;
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
@@ -33,6 +32,7 @@ public class BasicPresenterTest {
 
 	ArgumentCaptor<ActionListener> listener;
 	private LinkedHashMap<String, Double> myMap;
+	private ArgumentCaptor<DataActionListener> dataListener;
 
 	@Before
 	public void setup() {
@@ -41,6 +41,9 @@ public class BasicPresenterTest {
 
 		myMap = new LinkedHashMap<String, Double>();
 		listener = ArgumentCaptor.forClass(ActionListener.class);
+		dataListener = ArgumentCaptor.forClass(DataActionListener.class);
+
+		when(model.getEmptyResults()).thenReturn(new LinkedHashMap<String, Double>());
 	}
 
 	public void createPresenter() {
@@ -51,8 +54,9 @@ public class BasicPresenterTest {
 	public void viewIsInitializedByPresenter() {
 		createPresenter();
 		when(model.getResultMap()).thenReturn(myMap);
-		
-		verify(view).showResults(model.getResultMap());
+
+		verify(model).getEmptyResults();
+		verify(view).showResults(model.getEmptyResults());
 	}
 
 	@Test
@@ -67,51 +71,58 @@ public class BasicPresenterTest {
 	}
 
 	@Test
-	public void whenDoneIsClicked_ThenInputIsConverted() {
+	public void whenDoneIsClicked_ThenInputIsValidated() {
+		when(view.getInput()).thenReturn("15,32x4,17.9");
 		createPresenter();
 
 		verify(view).addListener(listener.capture(), eq(BasicView.Types.DONE_CLICKED));
 
 		listener.getValue().fire();
 
-		verify(model).convertInput(view.getInput());
+		verify(model).validateInput(view.getInput());
 	}
 
 	@Test
-	public void whenDoneIsClicked_ThenResultsAreCalculated() {
+	public void whenValidInput_ThenInputIsShown() {
+		LinkedHashMap<String, Double> testResults = new LinkedHashMap<String, Double>();
+		HashMap<Enum<?>, HashMap<String, Double>> testMap = new HashMap<Enum<?>, HashMap<String, Double>>();
+		testMap.put(BasicModel.Keys.RESULTS, testResults);
 		createPresenter();
 
-		verify(view).addListener(listener.capture(), eq(BasicView.Types.DONE_CLICKED));
+		verify(model).addListener(dataListener.capture(), eq(BasicModel.Types.VALID_INPUT));
 
-		listener.getValue().fire();
+		dataListener.getValue().fire(testMap);
 
-		verify(model).calculateResults(anyListOf(Double.class));
+		verify(view, times(2)).showResults(testResults);
 	}
 
 	@Test
-	public void whenDoneIsClicked_ThenResultsAreDisplayed() {
+	public void whenInvalidNumber_ThenEmptyResultsAreShownAndToastIsDisplayed() {
+		HashMap<Enum<?>, Integer> testMap = new HashMap<Enum<?>, Integer>();
+		testMap.put(BasicModel.Keys.INVALID_ITEM, 5);
 		createPresenter();
-		ArrayList<Double> validList = new ArrayList<Double>();
-		validList.add(5.6);
-		when(model.convertInput(any(String.class))).thenReturn(validList);
 
-		verify(view).addListener(listener.capture(), eq(BasicView.Types.DONE_CLICKED));
+		verify(model).addListener(dataListener.capture(), eq(BasicModel.Types.INVALID_NUMBER));
 
-		listener.getValue().fire();
+		dataListener.getValue().fire(testMap);
 
-		verify(view, times(2)).showResults(model.calculateResults(validList));
+		verify(model, times(2)).getEmptyResults();
+		verify(view, times(2)).showResults(model.getEmptyResults());
+		verify(view).showNumberErrorToast(5);
 	}
 
 	@Test
-	public void whenDoneIsClickedWithBadInput_ThenToastIsShown() {
+	public void whenInvalidFrequency_ThenEmptyResultsAreShownAndToastIsDisplayed() {
+		HashMap<Enum<?>, Integer> testMap = new HashMap<Enum<?>, Integer>();
+		testMap.put(BasicModel.Keys.INVALID_ITEM, 7);
 		createPresenter();
-		when(model.convertInput(any(String.class))).thenReturn(null);
 
-		verify(view).addListener(listener.capture(), eq(BasicView.Types.DONE_CLICKED));
+		verify(model).addListener(dataListener.capture(), eq(BasicModel.Types.INVALID_FREQUENCY));
 
-		listener.getValue().fire();
+		dataListener.getValue().fire(testMap);
 
-		verify(view).showToast(any(String.class));
+		verify(model, times(2)).getEmptyResults();
+		verify(view, times(2)).showResults(model.getEmptyResults());
+		verify(view).showFrequencyErrorToast(7);
 	}
-
 }

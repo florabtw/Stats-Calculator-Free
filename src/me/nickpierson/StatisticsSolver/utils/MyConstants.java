@@ -25,6 +25,8 @@ public class MyConstants {
 
 	public static final String MESSAGE_INPUT_OVER_MAX = "Input over 1000 is not allowed.";
 	public static final int PC_MAX_INPUT = 1000;
+	public static final String DESCRIPTIVE_NUMBER_ERROR = "Invalid number at item #%s";
+	public static final String DESCRIPTIVE_FREQ_ERROR = "Invalid frequency at item #%s";
 
 	public static int getKeyEvent(char c) {
 		switch (c) {

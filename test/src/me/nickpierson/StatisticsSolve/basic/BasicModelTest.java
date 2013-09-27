@@ -26,19 +26,19 @@ public class BasicModelTest {
 		model = new BasicModel();
 	}
 
-	@Test
-	public void whenModelIsCreated_ResultsAreInitializedToZero() {
-		assertEquals(model.getResultMap().get(MyConstants.SIZE), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.SUM), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.MEAN), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.MEDIAN), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.MODE), null);
-		assertEquals(model.getResultMap().get(MyConstants.RANGE), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.POP_VAR), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.SAMPLE_VAR), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.POP_DEV), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.SAMPLE_DEV), 0.0, DELTA);
-	}
+//	@Test
+//	public void whenModelIsCreated_ResultsAreInitializedToZero() {
+//		assertEquals(model.getResultMap().get(MyConstants.SIZE), 0.0, DELTA);
+//		assertEquals(model.getResultMap().get(MyConstants.SUM), 0.0, DELTA);
+//		assertEquals(model.getResultMap().get(MyConstants.MEAN), 0.0, DELTA);
+//		assertEquals(model.getResultMap().get(MyConstants.MEDIAN), 0.0, DELTA);
+//		assertEquals(model.getResultMap().get(MyConstants.MODE), null);
+//		assertEquals(model.getResultMap().get(MyConstants.RANGE), 0.0, DELTA);
+//		assertEquals(model.getResultMap().get(MyConstants.POP_VAR), 0.0, DELTA);
+//		assertEquals(model.getResultMap().get(MyConstants.SAMPLE_VAR), 0.0, DELTA);
+//		assertEquals(model.getResultMap().get(MyConstants.POP_DEV), 0.0, DELTA);
+//		assertEquals(model.getResultMap().get(MyConstants.SAMPLE_DEV), 0.0, DELTA);
+//	}
 
 	@Test
 	public void convertInputReturnsCorrectListOfIntegers_WithCorrectInput() {
