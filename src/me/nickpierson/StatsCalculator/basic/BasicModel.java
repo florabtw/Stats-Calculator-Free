@@ -14,7 +14,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class BasicModel extends DataActionHandler {
 
 	public enum Types {
-		VALID_INPUT, INVALID_NUMBER;
+		VALID_INPUT, INVALID_NUMBER, SAVE_SUCCESSFUL, SAVE_FAILED;
 	}
 
 	public enum Keys {
@@ -226,5 +226,9 @@ public class BasicModel extends DataActionHandler {
 			sum += Math.pow(num - average, 2);
 		}
 		return sum;
+	}
+
+	public void saveList(String input) {
+
 	}
 }

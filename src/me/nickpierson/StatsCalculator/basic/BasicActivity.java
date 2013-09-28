@@ -4,6 +4,7 @@ import me.nickpierson.StatsCalculator.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -27,6 +28,16 @@ public class BasicActivity extends Activity {
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.basic, menu);
 		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+		case R.id.settings_save_list:
+			view.saveList();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	/* Keypad input character */

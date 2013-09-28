@@ -3,6 +3,8 @@ package me.nickpierson.StatsCalculator.basic;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import me.nickpierson.StatsCalculator.utils.MyConstants;
+
 import com.thecellutioncenter.mvplib.ActionListener;
 import com.thecellutioncenter.mvplib.DataActionListener;
 
@@ -47,6 +49,38 @@ public class BasicPresenter {
 				view.showErrorToast((Integer) data.get(BasicModel.Keys.INVALID_ITEM));
 			}
 		}, BasicModel.Types.INVALID_NUMBER);
+
+		view.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				view.showSaveListPopup();
+			}
+		}, BasicView.Types.SAVE_LIST);
+
+		view.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				model.saveList(view.getInput());
+			}
+		}, BasicView.Types.SAVE_CLICKED);
+
+		model.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				view.showToast(MyConstants.SAVE_SUCCESSFUL);
+			}
+		}, BasicModel.Types.SAVE_SUCCESSFUL);
+
+		model.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				view.showToast(MyConstants.SAVE_FAILED);
+			}
+		}, BasicModel.Types.SAVE_FAILED);
 	}
 
 	private static void showEmptyResults(final BasicModel model, final BasicView view) {

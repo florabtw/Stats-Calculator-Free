@@ -10,9 +10,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import me.nickpierson.StatsCalculator.basic.BasicModel;
-import me.nickpierson.StatsCalculator.basic.BasicPresenter;
-import me.nickpierson.StatsCalculator.basic.BasicView;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -108,5 +106,49 @@ public class BasicPresenterTest {
 		verify(model, times(2)).getEmptyResults();
 		verify(view, times(2)).showResults(model.getEmptyResults());
 		verify(view).showErrorToast(5);
+	}
+
+	@Test
+	public void whenSaveListMenuIsClicked_ThenPopupIsDisplayed() {
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(BasicView.Types.SAVE_LIST));
+
+		listener.getValue().fire();
+
+		verify(view).showSaveListPopup();
+	}
+
+	@Test
+	public void whenSaveButtonIsClicked_ThenListIsSaved() {
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(BasicView.Types.SAVE_CLICKED));
+
+		listener.getValue().fire();
+
+		verify(model).saveList(view.getInput());
+	}
+
+	@Test
+	public void whenSaveIsSuccessful_ThenToastIsDisplayed() {
+		createPresenter();
+		
+		verify(model).addListener(listener.capture(), eq(BasicModel.Types.SAVE_SUCCESSFUL));
+		
+		listener.getValue().fire();
+		
+		verify(view).showToast(MyConstants.SAVE_SUCCESSFUL);
+	}
+	
+	@Test
+	public void whenSaveIsNotSuccessful_ThenToastIsDisplayed() {
+		createPresenter();
+		
+		verify(model).addListener(listener.capture(), eq(BasicModel.Types.SAVE_FAILED));
+		
+		listener.getValue().fire();
+		
+		verify(view).showToast(MyConstants.SAVE_FAILED);
 	}
 }

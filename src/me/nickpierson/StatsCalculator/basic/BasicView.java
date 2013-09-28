@@ -6,6 +6,9 @@ import java.util.Map.Entry;
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Build;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -27,7 +30,7 @@ import com.thecellutioncenter.mvplib.ActionHandler;
 public class BasicView extends ActionHandler {
 
 	public enum Types {
-		DONE_CLICKED, EDITTEXT_CLICKED;
+		DONE_CLICKED, EDITTEXT_CLICKED, SAVE_LIST, SAVE_CLICKED;
 	}
 
 	private RelativeLayout view;
@@ -111,6 +114,30 @@ public class BasicView extends ActionHandler {
 		Toast.makeText(activity, String.format(MyConstants.DESCRIPTIVE_NUMBER_ERROR, errorItem), Toast.LENGTH_SHORT).show();
 	}
 
+	public void showSaveListPopup() {
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+		View alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog, null);
+		alertBuilder.setView(alertView);
+		alertBuilder.setPositiveButton("Save", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				event(Types.SAVE_CLICKED);
+			}
+		});
+		alertBuilder.setNegativeButton("Cancel", new OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+			}
+		});
+
+		alertBuilder.show();
+	}
+
+	public void saveList() {
+		event(Types.SAVE_LIST);
+	}
+
 	public void keypadPress(Button button) {
 		/* Skips MVP */
 		etInput.dispatchKeyEvent(new KeyEvent(KeyEvent.ACTION_DOWN, MyConstants.getKeyEvent(button.getText().charAt(0))));
@@ -136,4 +163,5 @@ public class BasicView extends ActionHandler {
 	public String getInput() {
 		return etInput.getText().toString();
 	}
+
 }
