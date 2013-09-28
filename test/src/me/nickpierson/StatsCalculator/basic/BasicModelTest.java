@@ -6,12 +6,16 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import me.nickpierson.StatsCalculator.basic.BasicModel;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
@@ -20,6 +24,9 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.app.Activity;
+
+import com.thecellutioncenter.mvplib.ActionListener;
 import com.thecellutioncenter.mvplib.DataActionListener;
 
 @Config(manifest = Config.NONE)
@@ -29,15 +36,21 @@ public class BasicModelTest {
 	public BasicModel model;
 	private double DELTA = .000001;
 
-	private DataActionListener validListener;
-	private DataActionListener invalidListener;
+	private DataActionListener validDataListener;
+	private DataActionListener invalidDataListener;
+	private ActionListener validListener;
+	private ActionListener invalidListener;
+	private Activity activity;
 
 	@Before
 	public void setup() {
-		model = new BasicModel();
+		activity = mock(Activity.class);
+		model = new BasicModel(activity);
 
-		validListener = mock(DataActionListener.class);
-		invalidListener = mock(DataActionListener.class);
+		validDataListener = mock(DataActionListener.class);
+		invalidDataListener = mock(DataActionListener.class);
+		validListener = mock(ActionListener.class);
+		invalidListener = mock(ActionListener.class);
 	}
 
 	@Test
@@ -73,10 +86,10 @@ public class BasicModelTest {
 		model.validateInput(validInput2);
 		model.validateInput(validInput3);
 
-		verify(validListener).fire(validMap1);
-		verify(validListener).fire(validMap2);
-		verify(validListener, times(3)).fire((HashMap<Enum<?>, ?>) any(Object.class));
-		verify(invalidListener, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(validDataListener).fire(validMap1);
+		verify(validDataListener).fire(validMap2);
+		verify(validDataListener, times(3)).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(invalidDataListener, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
 	@SuppressWarnings("unchecked")
@@ -107,14 +120,14 @@ public class BasicModelTest {
 		model.validateInput(invalidInputThirdPos3);
 		model.validateInput(invalidInputThirdPos4);
 
-		verify(invalidListener, times(5)).fire(invalidMapFirstPos);
-		verify(invalidListener, times(4)).fire(invalidMapThirdPos);
-		verify(validListener, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(invalidDataListener, times(5)).fire(invalidMapFirstPos);
+		verify(invalidDataListener, times(4)).fire(invalidMapThirdPos);
+		verify(validDataListener, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
 	public void addAllListeners() {
-		model.addListener(validListener, BasicModel.Types.VALID_INPUT);
-		model.addListener(invalidListener, BasicModel.Types.INVALID_NUMBER);
+		model.addListener(validDataListener, BasicModel.Types.VALID_INPUT);
+		model.addListener(invalidDataListener, BasicModel.Types.INVALID_NUMBER);
 	}
 
 	@Test
@@ -153,4 +166,44 @@ public class BasicModelTest {
 		return validList;
 	}
 
+	@Test
+	public void saveListNotifiesCorrectly_GivenValidInput() throws FileNotFoundException {
+		addAllListListeners();
+		String testName = "testName.txt";
+		String input = "34x3,72.1,1337.H4CK3R";
+		File testFile = new File(testName);
+
+		model.saveList(testName, input);
+
+		verify(validListener).fire();
+		verify(invalidListener, never()).fire();
+
+		testFile.delete();
+	}
+
+	@Test
+	public void saveListNotifiesCorrectly_GivenInvalidInput() throws IOException {
+		addAllListListeners();
+		String testName = "someName.txt";
+		String input = "OLLEH";
+		File alreadyExists = new File(testName);
+		alreadyExists.createNewFile();
+
+		File testFile = new File(testName);
+		FileOutputStream fakeStream = new FileOutputStream(testFile);
+		when(activity.openFileOutput(testName, 0)).thenReturn(fakeStream);
+
+		model.saveList(testName, input);
+
+		verify(invalidListener).fire();
+		verify(validListener, never()).fire();
+
+		testFile.delete();
+		alreadyExists.delete();
+	}
+
+	private void addAllListListeners() {
+		model.addListener(validListener, BasicModel.Types.SAVE_SUCCESSFUL);
+		model.addListener(invalidListener, BasicModel.Types.SAVE_FAILED);
+	}
 }

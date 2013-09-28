@@ -121,34 +121,37 @@ public class BasicPresenterTest {
 
 	@Test
 	public void whenSaveButtonIsClicked_ThenListIsSaved() {
+		String name = "test name";
+		HashMap<Enum<?>, String> testMap = new HashMap<Enum<?>, String>();
+		testMap.put(BasicView.Keys.LIST_NAME, name);
 		createPresenter();
 
-		verify(view).addListener(listener.capture(), eq(BasicView.Types.SAVE_CLICKED));
+		verify(view).addListener(dataListener.capture(), eq(BasicView.Types.SAVE_CLICKED));
 
-		listener.getValue().fire();
+		dataListener.getValue().fire(testMap);
 
-		verify(model).saveList(view.getInput());
+		verify(model).saveList(name, view.getInput());
 	}
 
 	@Test
 	public void whenSaveIsSuccessful_ThenToastIsDisplayed() {
 		createPresenter();
-		
+
 		verify(model).addListener(listener.capture(), eq(BasicModel.Types.SAVE_SUCCESSFUL));
-		
+
 		listener.getValue().fire();
-		
+
 		verify(view).showToast(MyConstants.SAVE_SUCCESSFUL);
 	}
-	
+
 	@Test
 	public void whenSaveIsNotSuccessful_ThenToastIsDisplayed() {
 		createPresenter();
-		
+
 		verify(model).addListener(listener.capture(), eq(BasicModel.Types.SAVE_FAILED));
-		
+
 		listener.getValue().fire();
-		
+
 		verify(view).showToast(MyConstants.SAVE_FAILED);
 	}
 }

@@ -1,5 +1,6 @@
 package me.nickpierson.StatsCalculator.basic;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
@@ -25,12 +26,16 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
-import com.thecellutioncenter.mvplib.ActionHandler;
+import com.thecellutioncenter.mvplib.DataActionHandler;
 
-public class BasicView extends ActionHandler {
+public class BasicView extends DataActionHandler {
 
 	public enum Types {
 		DONE_CLICKED, EDITTEXT_CLICKED, SAVE_LIST, SAVE_CLICKED;
+	}
+
+	public enum Keys {
+		LIST_NAME;
 	}
 
 	private RelativeLayout view;
@@ -107,7 +112,7 @@ public class BasicView extends ActionHandler {
 	}
 
 	public void showToast(String message) {
-		Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+		Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
 	}
 
 	public void showErrorToast(int errorItem) {
@@ -116,13 +121,18 @@ public class BasicView extends ActionHandler {
 
 	public void showSaveListPopup() {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+		
 		View alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog, null);
+		final EditText etName = (EditText) alertView.findViewById(R.id.save_list_etListName);
+
 		alertBuilder.setView(alertView);
 		alertBuilder.setPositiveButton("Save", new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				event(Types.SAVE_CLICKED);
+				HashMap<Enum<?>, String> map = new HashMap<Enum<?>, String>();
+				map.put(Keys.LIST_NAME, etName.getText().toString());
+				dataEvent(Types.SAVE_CLICKED, map);
 			}
 		});
 		alertBuilder.setNegativeButton("Cancel", new OnClickListener() {

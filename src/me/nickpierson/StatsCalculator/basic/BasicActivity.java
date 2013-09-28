@@ -18,7 +18,7 @@ public class BasicActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		view = new BasicView(this);
-		model = new BasicModel();
+		model = new BasicModel(this);
 		BasicPresenter.create(model, view);
 
 		setContentView(view.getView());

@@ -58,11 +58,11 @@ public class BasicPresenter {
 			}
 		}, BasicView.Types.SAVE_LIST);
 
-		view.addListener(new ActionListener() {
+		view.addListener(new DataActionListener() {
 
 			@Override
-			public void fire() {
-				model.saveList(view.getInput());
+			public void fire(HashMap<Enum<?>, ?> data) {
+				model.saveList((String) data.get(BasicView.Keys.LIST_NAME), view.getInput());
 			}
 		}, BasicView.Types.SAVE_CLICKED);
 
