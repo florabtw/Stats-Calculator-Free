@@ -86,7 +86,10 @@ public class BasicPresenter {
 
 			@Override
 			public void fire() {
-				view.showLoadListPopup(model.getSavedLists());
+				String[] lists = model.getSavedLists();
+				if (lists != null) {
+					view.showLoadListPopup(model.getSavedLists());
+				}
 			}
 		}, BasicView.Types.MENU_LOAD_OR_DELETE);
 

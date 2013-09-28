@@ -2,6 +2,7 @@ package me.nickpierson.StatsCalculator.basic;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -165,6 +166,19 @@ public class BasicPresenterTest {
 		listener.getValue().fire();
 
 		verify(view).showLoadListPopup(model.getSavedLists());
+	}
+
+	@Test
+	public void whenLoadOrDeleteListMenuClickedAndNoListsAvailable_ThenNothingHappens() {
+		when(model.getSavedLists()).thenReturn(null);
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(BasicView.Types.MENU_LOAD_OR_DELETE));
+
+		listener.getValue().fire();
+
+		verify(model).getSavedLists();
+		verify(view, never()).showLoadListPopup(model.getSavedLists());
 	}
 
 	@Test
