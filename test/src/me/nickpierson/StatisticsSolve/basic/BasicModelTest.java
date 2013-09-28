@@ -1,8 +1,14 @@
 package me.nickpierson.StatisticsSolve.basic;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 
 import me.nickpierson.StatisticsSolver.basic.BasicModel;
@@ -14,6 +20,8 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import com.thecellutioncenter.mvplib.DataActionListener;
+
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class BasicModelTest {
@@ -21,69 +29,92 @@ public class BasicModelTest {
 	public BasicModel model;
 	private double DELTA = .000001;
 
+	private DataActionListener validListener;
+	private DataActionListener invalidListener;
+
 	@Before
 	public void setup() {
 		model = new BasicModel();
+
+		validListener = mock(DataActionListener.class);
+		invalidListener = mock(DataActionListener.class);
 	}
 
 	@Test
-	public void whenModelIsCreated_ResultsAreInitializedToZero() {
-		assertEquals(model.getResultMap().get(MyConstants.SIZE), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.SUM), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.MEAN), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.MEDIAN), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.MODE), null);
-		assertEquals(model.getResultMap().get(MyConstants.RANGE), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.POP_VAR), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.SAMPLE_VAR), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.POP_DEV), 0.0, DELTA);
-		assertEquals(model.getResultMap().get(MyConstants.SAMPLE_DEV), 0.0, DELTA);
+	public void modelReturnsEmptyHashMapOnRequest() {
+		LinkedHashMap<String, Double> emptyMap = model.getEmptyResults();
+		assertEquals(emptyMap.get(MyConstants.SIZE), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.SUM), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.MEAN), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.MEDIAN), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.MODE), null);
+		assertEquals(emptyMap.get(MyConstants.RANGE), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.POP_VAR), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.SAMPLE_VAR), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.POP_DEV), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.SAMPLE_DEV), 0.0, DELTA);
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
-	public void convertInputReturnsCorrectListOfIntegers_WithCorrectInput() {
-		String input1 = "45,89,.334,99.999999,0,-.12,45.00001";
-		String input2 = ".39x2,-3x6,-.2x3,1,-112.333x2";
-		ArrayList<Double> expectedReturn1 = makeValidList(45, 89, .334, 99.999999, 0, -.12, 45.00001);
-		ArrayList<Double> expectedReturn2 = makeValidList(.39, .39, -3, -3, -3, -3, -3, -3, -.2, -.2, -.2, 1, -112.333, -112.333);
+	public void validateInputNotifiesCorrectly_GivenValidInput() {
+		HashMap<Enum<?>, ArrayList<Double>> validMap1 = new HashMap<Enum<?>, ArrayList<Double>>();
+		HashMap<Enum<?>, ArrayList<Double>> validMap2 = new HashMap<Enum<?>, ArrayList<Double>>();
+		String validInput1 = "500,30x3,59.0233";
+		String validInput2 = "55.5,,31.3x2,-3,.2,-.23";
+		String validInput3 = "60.1123x100000";
+		ArrayList<Double> validList1 = makeValidList(500, 30, 30, 30, 59.0233);
+		ArrayList<Double> validList2 = makeValidList(55.5, 31.3, 31.3, -3, .2, -.23);
+		validMap1.put(BasicModel.Keys.VALIDATED_LIST, validList1);
+		validMap2.put(BasicModel.Keys.VALIDATED_LIST, validList2);
+		addAllListeners();
 
-		assertEquals(expectedReturn1, model.convertInput(input1));
-		assertEquals(expectedReturn2, model.convertInput(input2));
+		model.validateInput(validInput1);
+		model.validateInput(validInput2);
+		model.validateInput(validInput3);
+
+		verify(validListener).fire(validMap1);
+		verify(validListener).fire(validMap2);
+		verify(validListener, times(3)).fire((HashMap<Enum<?>, ?>) any(Object.class));
+		verify(invalidListener, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test
-	public void convertInputReturnsNull_WhenMoreThanOnePeriodIsInOneNumber() {
-		String input = "35.8,34.5.6,71";
-		String input1 = "37.89,34..8,2";
-		String input2 = "90.1,23,...9";
+	public void validateInputNotifiesCorrectly_GivenInvalidInput() {
+		HashMap<Enum<?>, Integer> invalidMapFirstPos = new HashMap<Enum<?>, Integer>();
+		HashMap<Enum<?>, Integer> invalidMapThirdPos = new HashMap<Enum<?>, Integer>();
+		String invalidInputFirstPos1 = "";
+		String invalidInputFirstPos2 = "23x1.5";
+		String invalidInputFirstPos3 = "23x100001";
+		String invalidInputFirstPos4 = "x5,27";
+		String invalidInputFirstPos5 = "5x,27";
+		String invalidInputThirdPos1 = "23,52x2,56..8,9";
+		String invalidInputThirdPos2 = "23,25.6,23..5x2,7";
+		String invalidInputThirdPos3 = "23,25.6,25-5,7";
+		String invalidInputThirdPos4 = "23,25.6,25xx5,7";
+		invalidMapFirstPos.put(BasicModel.Keys.INVALID_ITEM, 1);
+		invalidMapThirdPos.put(BasicModel.Keys.INVALID_ITEM, 3);
+		addAllListeners();
 
-		assertEquals(null, model.convertInput(input));
-		assertEquals(null, model.convertInput(input1));
-		assertEquals(null, model.convertInput(input2));
+		model.validateInput(invalidInputFirstPos1);
+		model.validateInput(invalidInputFirstPos2);
+		model.validateInput(invalidInputFirstPos3);
+		model.validateInput(invalidInputFirstPos4);
+		model.validateInput(invalidInputFirstPos5);
+		model.validateInput(invalidInputThirdPos1);
+		model.validateInput(invalidInputThirdPos2);
+		model.validateInput(invalidInputThirdPos3);
+		model.validateInput(invalidInputThirdPos4);
+
+		verify(invalidListener, times(5)).fire(invalidMapFirstPos);
+		verify(invalidListener, times(4)).fire(invalidMapThirdPos);
+		verify(validListener, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
 	}
 
-	@Test
-	public void convertInputReturnsNull_WhenNegativeSignIsMisplaced() {
-		String input = "-45.6,98.1,9-1";
-		String input1 = "-32.1,11,.-1";
-		String input2 = "34,82,95-";
-
-		assertEquals(null, model.convertInput(input));
-		assertEquals(null, model.convertInput(input1));
-		assertEquals(null, model.convertInput(input2));
-	}
-	
-	@Test
-	public void convertInputReturnsNull_WhenTimesSignIsInputIncorrectly() {
-		String input1 = "23x2,45,2x2.0,3";
-		String input2 = "4x7,3xx8,7,7,";
-		String input3 = "4,6x,3,9";
-		String input4 = "99,x7,12.3";
-		
-		assertEquals(null, model.convertInput(input1));
-		assertEquals(null, model.convertInput(input2));
-		assertEquals(null, model.convertInput(input3));
-		assertEquals(null, model.convertInput(input4));
+	public void addAllListeners() {
+		model.addListener(validListener, BasicModel.Types.VALID_INPUT);
+		model.addListener(invalidListener, BasicModel.Types.INVALID_NUMBER);
 	}
 
 	@Test

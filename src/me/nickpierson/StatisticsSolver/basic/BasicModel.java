@@ -9,29 +9,131 @@ import java.util.Map;
 
 import me.nickpierson.StatisticsSolver.utils.MyConstants;
 
-public class BasicModel {
+import com.thecellutioncenter.mvplib.DataActionHandler;
 
-	private LinkedHashMap<String, Double> result;
+public class BasicModel extends DataActionHandler {
 
-	public BasicModel() {
-		/*
-		 * Initialize results hash map that will be used throughout this
-		 * activity This sets the initial order and values.
-		 */
-		result = new LinkedHashMap<String, Double>();
-		result.put(MyConstants.SIZE, 0.0);
-		result.put(MyConstants.SUM, 0.0);
-		result.put(MyConstants.MEAN, 0.0);
-		result.put(MyConstants.MEDIAN, 0.0);
-		result.put(MyConstants.MODE, null);
-		result.put(MyConstants.RANGE, 0.0);
-		result.put(MyConstants.POP_VAR, 0.0);
-		result.put(MyConstants.SAMPLE_VAR, 0.0);
-		result.put(MyConstants.POP_DEV, 0.0);
-		result.put(MyConstants.SAMPLE_DEV, 0.0);
+	public enum Types {
+		VALID_INPUT, INVALID_NUMBER;
+	}
+
+	public enum Keys {
+		INVALID_ITEM, VALIDATED_LIST;
+	}
+
+	public LinkedHashMap<String, Double> getEmptyResults() {
+		LinkedHashMap<String, Double> emptyMap = new LinkedHashMap<String, Double>();
+		emptyMap.put(MyConstants.SIZE, 0.0);
+		emptyMap.put(MyConstants.SUM, 0.0);
+		emptyMap.put(MyConstants.MEAN, 0.0);
+		emptyMap.put(MyConstants.MEDIAN, 0.0);
+		emptyMap.put(MyConstants.MODE, null);
+		emptyMap.put(MyConstants.RANGE, 0.0);
+		emptyMap.put(MyConstants.POP_VAR, 0.0);
+		emptyMap.put(MyConstants.SAMPLE_VAR, 0.0);
+		emptyMap.put(MyConstants.POP_DEV, 0.0);
+		emptyMap.put(MyConstants.SAMPLE_DEV, 0.0);
+		return emptyMap;
+	}
+
+	public void validateInput(String input) {
+		HashMap<Enum<?>, Object> results = new HashMap<Enum<?>, Object>();
+
+		if (input.length() == 0) {
+			eventInvalid(results, 1);
+			return;
+		}
+
+		String[] values = input.split(",");
+		for (int i = 0; i < values.length; i++) {
+			String currVal = values[i];
+
+			if (currVal.length() == 0) {
+				continue;
+			} else if (currVal.contains("x")) {
+				if (!isValidFreqItem(currVal)) {
+					eventInvalid(results, i + 1);
+					return;
+				}
+			} else if (!isValidDouble(currVal)) {
+				eventInvalid(results, i + 1);
+				return;
+			}
+		}
+
+		results.put(Keys.VALIDATED_LIST, convertList(input));
+		dataEvent(Types.VALID_INPUT, results);
+	}
+
+	private void eventInvalid(HashMap<Enum<?>, Object> results, int i) {
+		results.put(Keys.INVALID_ITEM, i);
+		dataEvent(Types.INVALID_NUMBER, results);
+	}
+
+	private boolean isValidFreqItem(String val) {
+		String[] values = val.split("x");
+		if (values.length != 2) {
+			return false;
+		}
+
+		if (!isValidDouble(values[0]) || !isValidFrequency(values[1])) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean isValidFrequency(String string) {
+		if (!isValidInteger(string)) {
+			return false;
+		}
+
+		int value = Integer.valueOf(string);
+		if (value > MyConstants.MAX_FREQUENCY) {
+			return false;
+		}
+
+		return true;
+	}
+
+	private boolean isValidInteger(String string) {
+		try {
+			Integer.parseInt(string);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private boolean isValidDouble(String string) {
+		try {
+			Double.valueOf(string);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
+
+	private ArrayList<Double> convertList(String input) {
+		ArrayList<Double> convertedList = new ArrayList<Double>();
+		for (String value : input.split(",")) {
+			if (value.length() == 0) {
+				continue;
+			} else if (value.contains("x")) {
+				String[] freqItem = value.split("x");
+				for (int i = 0; i < Integer.valueOf(freqItem[1]); i++) {
+					convertedList.add(Double.valueOf(freqItem[0]));
+				}
+			} else {
+				convertedList.add(Double.valueOf(value));
+			}
+		}
+
+		return convertedList;
 	}
 
 	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
+		LinkedHashMap<String, Double> result = new LinkedHashMap<String, Double>();
 		result.put(MyConstants.SIZE, (double) numberList.size());
 		result.put(MyConstants.SUM, calculateSum(numberList));
 		result.put(MyConstants.MEAN, result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
@@ -44,80 +146,6 @@ public class BasicModel {
 		result.put(MyConstants.SAMPLE_DEV, Math.sqrt(result.get(MyConstants.SAMPLE_VAR)));
 
 		return result;
-	}
-
-	private int previousErrorIndex;
-
-	public ArrayList<Double> convertInput(String input) {
-		ArrayList<Double> result = new ArrayList<Double>();
-		String[] numbers = input.split(",");
-		for (int i = 0; i < numbers.length; i++) {
-			if (numbers[i].length() == 0) {
-				continue;
-			}
-
-			if (hasMultiplier(numbers[i]) && isWellFormed(numbers[i])) {
-				double num = getNumber(numbers[i]);
-				int multiplier = getMultiplier(numbers[i]);
-
-				for (int j = 0; j < multiplier; j++) {
-					result.add(num);
-				}
-			} else if (isWellFormed(numbers[i])) {
-				result.add(Double.valueOf(numbers[i]));
-			} else {
-				previousErrorIndex = i;
-				return null;
-			}
-		}
-
-		if (result.size() == 0) {
-			previousErrorIndex = 0;
-			return null;
-		} else {
-			return result;
-		}
-	}
-
-	private boolean isWellFormed(String string) {
-		if (hasMultiplier(string)) {
-			String[] values = string.split("x");
-
-			if (values.length != 2 || values[0].length() < 1 || values[1].length() < 1) {
-				return false;
-			}
-
-			try {
-				Double.valueOf(values[0]);
-				Integer.valueOf(values[1]);
-			} catch (NumberFormatException e) {
-				return false;
-			}
-		} else {
-			try {
-				Double.valueOf(string);
-			} catch (NumberFormatException e) {
-				return false;
-			}
-		}
-
-		return true;
-	}
-
-	private boolean hasMultiplier(String string) {
-		return string.contains("x");
-	}
-
-	private double getNumber(String value) {
-		return Double.valueOf(value.substring(0, value.indexOf('x')));
-	}
-
-	private int getMultiplier(String value) {
-		return Integer.valueOf(value.substring(value.indexOf('x') + 1, value.length()));
-	}
-
-	public int getPreviousErrorIndex() {
-		return previousErrorIndex;
 	}
 
 	private double calculateSum(List<Double> numberList) {
@@ -199,9 +227,4 @@ public class BasicModel {
 		}
 		return sum;
 	}
-
-	public LinkedHashMap<String, Double> getResultMap() {
-		return result;
-	}
-
 }
