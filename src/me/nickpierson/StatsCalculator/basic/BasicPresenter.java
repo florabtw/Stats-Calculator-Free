@@ -86,10 +86,7 @@ public class BasicPresenter {
 
 			@Override
 			public void fire() {
-				String[] lists = model.getSavedLists();
-				if (lists != null) {
-					view.showLoadListPopup(model.getSavedLists());
-				}
+				showSavedLists(model, view);
 			}
 		}, BasicView.Types.MENU_LOAD_OR_DELETE);
 
@@ -119,6 +116,7 @@ public class BasicPresenter {
 			public void fire(HashMap<Enum<?>, ?> data) {
 				String listName = (String) data.get(BasicView.Keys.LIST_NAME);
 				model.deleteList(listName);
+				showSavedLists(model, view);
 			}
 		}, BasicView.Types.DELETE_LIST);
 
@@ -133,6 +131,13 @@ public class BasicPresenter {
 
 	private static void showEmptyResults(final BasicModel model, final BasicView view) {
 		view.showResults(model.getEmptyResults());
+	}
+
+	private static void showSavedLists(final BasicModel model, final BasicView view) {
+		String[] lists = model.getSavedLists();
+		if (lists != null && lists.length != 0) {
+			view.showLoadListPopup(lists);
+		}
 	}
 
 }

@@ -13,6 +13,7 @@ import java.util.Map;
 
 import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.app.Activity;
+import android.util.Log;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;
 

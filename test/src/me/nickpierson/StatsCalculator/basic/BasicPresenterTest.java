@@ -199,7 +199,8 @@ public class BasicPresenterTest {
 	}
 
 	@Test
-	public void whenDeleteListIsClicked_ThenListIsDeleted() {
+	public void whenDeleteListIsClicked_ThenListIsDeletedAndPopupIsShownAgain() {
+		when(model.getSavedLists()).thenReturn(new String[] { "another", "list" });
 		String listName = "CatDog";
 		HashMap<Enum<?>, String> testMap = new HashMap<Enum<?>, String>();
 		testMap.put(BasicView.Keys.LIST_NAME, listName);
@@ -210,6 +211,7 @@ public class BasicPresenterTest {
 		dataListener.getValue().fire(testMap);
 
 		verify(model).deleteList(listName);
+		verify(view).showLoadListPopup(model.getSavedLists());
 	}
 
 	@Test
