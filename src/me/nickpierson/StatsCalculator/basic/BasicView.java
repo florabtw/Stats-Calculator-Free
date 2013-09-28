@@ -1,10 +1,10 @@
-package me.nickpierson.StatisticsSolver.basic;
+package me.nickpierson.StatsCalculator.basic;
 
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
-import me.nickpierson.StatisticsSolver.R;
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.R;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.annotation.SuppressLint;
 import android.os.Build;
 import android.text.InputType;

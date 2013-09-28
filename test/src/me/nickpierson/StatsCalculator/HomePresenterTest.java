@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolver;
+package me.nickpierson.StatsCalculator;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
@@ -8,7 +8,11 @@ import static org.mockito.Mockito.verify;
 
 import java.util.HashMap;
 
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.HomeActivity;
+import me.nickpierson.StatsCalculator.HomeModel;
+import me.nickpierson.StatsCalculator.HomePresenter;
+import me.nickpierson.StatsCalculator.HomeView;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;

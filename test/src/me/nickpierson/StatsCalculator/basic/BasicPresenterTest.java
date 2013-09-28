@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolve.basic;
+package me.nickpierson.StatsCalculator.basic;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
@@ -10,9 +10,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import me.nickpierson.StatisticsSolver.basic.BasicModel;
-import me.nickpierson.StatisticsSolver.basic.BasicPresenter;
-import me.nickpierson.StatisticsSolver.basic.BasicView;
+import me.nickpierson.StatsCalculator.basic.BasicModel;
+import me.nickpierson.StatsCalculator.basic.BasicPresenter;
+import me.nickpierson.StatsCalculator.basic.BasicView;
 
 import org.junit.Before;
 import org.junit.Test;

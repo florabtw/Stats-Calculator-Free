@@ -1,11 +1,11 @@
-package me.nickpierson.StatisticsSolver.pc;
+package me.nickpierson.StatsCalculator.pc;
 
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.util.SparseArray;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;

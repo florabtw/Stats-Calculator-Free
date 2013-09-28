@@ -1,10 +1,11 @@
-package me.nickpierson.StatisticsSolver;
+package me.nickpierson.StatsCalculator;
 
 import java.util.HashMap;
 
-import me.nickpierson.StatisticsSolver.basic.BasicActivity;
-import me.nickpierson.StatisticsSolver.pc.PCActivity;
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.R;
+import me.nickpierson.StatsCalculator.basic.BasicActivity;
+import me.nickpierson.StatsCalculator.pc.PCActivity;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.content.Intent;
 
 import com.thecellutioncenter.mvplib.DataActionListener;

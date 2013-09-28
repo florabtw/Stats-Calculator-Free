@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolver;
+package me.nickpierson.StatsCalculator;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.TextView;
+import me.nickpierson.StatsCalculator.R;
 
 public class HomeAdapter extends ArrayAdapter<String> {
 

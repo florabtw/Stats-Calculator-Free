@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolver.basic;
+package me.nickpierson.StatsCalculator.basic;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -7,7 +7,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;
 

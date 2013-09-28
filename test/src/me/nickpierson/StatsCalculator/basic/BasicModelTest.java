@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolve.basic;
+package me.nickpierson.StatsCalculator.basic;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import me.nickpierson.StatisticsSolver.basic.BasicModel;
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.basic.BasicModel;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;

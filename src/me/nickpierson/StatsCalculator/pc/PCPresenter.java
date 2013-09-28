@@ -1,9 +1,9 @@
-package me.nickpierson.StatisticsSolver.pc;
+package me.nickpierson.StatsCalculator.pc;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import com.thecellutioncenter.mvplib.ActionListener;
 import com.thecellutioncenter.mvplib.DataActionListener;

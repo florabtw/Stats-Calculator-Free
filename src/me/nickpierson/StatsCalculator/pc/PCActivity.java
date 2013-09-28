@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolver.pc;
+package me.nickpierson.StatsCalculator.pc;
 
 import android.app.Activity;
 import android.os.Bundle;

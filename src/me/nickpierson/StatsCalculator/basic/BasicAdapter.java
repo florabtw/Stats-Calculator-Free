@@ -1,8 +1,8 @@
-package me.nickpierson.StatisticsSolver.basic;
+package me.nickpierson.StatsCalculator.basic;
 
 import java.util.LinkedHashMap;
 
-import me.nickpierson.StatisticsSolver.R;
+import me.nickpierson.StatsCalculator.R;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
