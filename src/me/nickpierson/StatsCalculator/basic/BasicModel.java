@@ -1,5 +1,9 @@
 package me.nickpierson.StatsCalculator.basic;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -8,17 +12,25 @@ import java.util.List;
 import java.util.Map;
 
 import me.nickpierson.StatsCalculator.utils.MyConstants;
+import android.app.Activity;
+import android.util.Log;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;
 
 public class BasicModel extends DataActionHandler {
 
+	private Activity activity;
+
 	public enum Types {
-		VALID_INPUT, INVALID_NUMBER;
+		VALID_INPUT, INVALID_NUMBER, SAVE_SUCCESSFUL, SAVE_FAILED, LOAD_ERROR, DELETE_ERROR;
 	}
 
 	public enum Keys {
 		INVALID_ITEM, VALIDATED_LIST;
+	}
+
+	public BasicModel(Activity activity) {
+		this.activity = activity;
 	}
 
 	public LinkedHashMap<String, Double> getEmptyResults() {
@@ -226,5 +238,60 @@ public class BasicModel extends DataActionHandler {
 			sum += Math.pow(num - average, 2);
 		}
 		return sum;
+	}
+
+	public void saveList(String name, String input) {
+		File outputFile = new File(activity.getFilesDir(), name);
+		if (outputFile.exists()) {
+			event(Types.SAVE_FAILED);
+			return;
+		}
+
+		try {
+			FileOutputStream output = new FileOutputStream(outputFile);
+			output.write(input.getBytes());
+			output.close();
+		} catch (Exception e) {
+			event(Types.SAVE_FAILED);
+			return;
+		}
+
+		event(Types.SAVE_SUCCESSFUL);
+	}
+
+	public String[] getSavedLists() {
+		File internalDir = activity.getFilesDir();
+		return internalDir.list();
+	}
+
+	public String loadList(String listName) {
+		File listFile = new File(activity.getFilesDir(), listName);
+
+		StringBuilder list = new StringBuilder();
+		try {
+			FileInputStream input = new FileInputStream(listFile);
+			byte[] bytes = new byte[input.available()];
+
+			input.read(bytes);
+
+			for (byte b : bytes) {
+				list.append((char) b);
+			}
+
+			input.close();
+		} catch (IOException e) {
+			event(Types.LOAD_ERROR);
+			e.printStackTrace();
+		}
+
+		return list.toString();
+	}
+
+	public void deleteList(String listName) {
+		File file = new File(activity.getFilesDir(), listName);
+		boolean isDeleted = file.delete();
+		if (!isDeleted) {
+			event(Types.DELETE_ERROR);
+		}
 	}
 }

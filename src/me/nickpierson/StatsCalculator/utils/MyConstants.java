@@ -27,6 +27,10 @@ public class MyConstants {
 	public static final int PC_MAX_INPUT = 1000;
 	public static final int MAX_FREQUENCY = 100000;
 	public static final String DESCRIPTIVE_NUMBER_ERROR = "Invalid input at item #%s";
+	public static final String SAVE_SUCCESSFUL = "List was saved successfully";
+	public static final String SAVE_FAILED = "List was NOT able to be saved!";
+	public static final String LIST_LOAD_ERROR = "Error while loading list. Please try again later.";
+	public static final String LIST_DELETE_ERROR = "Error while deleting list. Please try again later.";
 
 	public static int getKeyEvent(char c) {
 		switch (c) {

@@ -1,11 +1,15 @@
 package me.nickpierson.StatsCalculator.basic;
 
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map.Entry;
 
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.os.Build;
 import android.text.InputType;
 import android.view.KeyEvent;
@@ -22,12 +26,16 @@ import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
-import com.thecellutioncenter.mvplib.ActionHandler;
+import com.thecellutioncenter.mvplib.DataActionHandler;
 
-public class BasicView extends ActionHandler {
+public class BasicView extends DataActionHandler {
 
 	public enum Types {
-		DONE_CLICKED, EDITTEXT_CLICKED;
+		DONE_CLICKED, EDITTEXT_CLICKED, MENU_SAVE, SAVE_LIST, LOAD_LIST, MENU_LOAD_OR_DELETE, DELETE_LIST;
+	}
+
+	public enum Keys {
+		LIST_NAME;
 	}
 
 	private RelativeLayout view;
@@ -104,11 +112,70 @@ public class BasicView extends ActionHandler {
 	}
 
 	public void showToast(String message) {
-		Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
+		Toast.makeText(activity, message, Toast.LENGTH_LONG).show();
 	}
 
 	public void showErrorToast(int errorItem) {
 		Toast.makeText(activity, String.format(MyConstants.DESCRIPTIVE_NUMBER_ERROR, errorItem), Toast.LENGTH_SHORT).show();
+	}
+
+	public void showSaveListPopup() {
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+
+		View alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog, null);
+		final EditText etName = (EditText) alertView.findViewById(R.id.save_list_etListName);
+
+		alertBuilder.setView(alertView);
+		alertBuilder.setPositiveButton(R.string.save, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				eventWithName(Types.SAVE_LIST, etName.getText().toString());
+			}
+		});
+		alertBuilder.setNegativeButton(R.string.cancel, null);
+
+		alertBuilder.show();
+	}
+
+	public void showLoadListPopup(final String[] savedLists) {
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+		alertBuilder.setSingleChoiceItems(savedLists, 0, null);
+		alertBuilder.setPositiveButton(R.string.load, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ListView lv = ((AlertDialog) dialog).getListView();
+				String name = (String) lv.getAdapter().getItem(lv.getCheckedItemPosition());
+				eventWithName(Types.LOAD_LIST, name);
+			}
+		});
+		alertBuilder.setNegativeButton(R.string.delete, new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				ListView lv = ((AlertDialog) dialog).getListView();
+				String name = (String) lv.getAdapter().getItem(lv.getCheckedItemPosition());
+				eventWithName(Types.DELETE_LIST, name);
+			}
+		});
+		alertBuilder.setNeutralButton(R.string.cancel, null);
+
+		alertBuilder.show();
+	}
+
+	private void eventWithName(Types type, String name) {
+		HashMap<Enum<?>, String> result = new HashMap<Enum<?>, String>();
+		result.put(Keys.LIST_NAME, name);
+		dataEvent(type, result);
+	}
+
+	public void saveList() {
+		event(Types.MENU_SAVE);
+	}
+
+	public void loadList() {
+		event(Types.MENU_LOAD_OR_DELETE);
 	}
 
 	public void keypadPress(Button button) {
@@ -135,5 +202,9 @@ public class BasicView extends ActionHandler {
 
 	public String getInput() {
 		return etInput.getText().toString();
+	}
+
+	public void setInputText(String list) {
+		etInput.setText(list);
 	}
 }

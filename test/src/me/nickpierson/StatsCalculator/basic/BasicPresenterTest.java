@@ -2,6 +2,7 @@ package me.nickpierson.StatsCalculator.basic;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
@@ -10,9 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-import me.nickpierson.StatsCalculator.basic.BasicModel;
-import me.nickpierson.StatsCalculator.basic.BasicPresenter;
-import me.nickpierson.StatsCalculator.basic.BasicView;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -108,5 +107,132 @@ public class BasicPresenterTest {
 		verify(model, times(2)).getEmptyResults();
 		verify(view, times(2)).showResults(model.getEmptyResults());
 		verify(view).showErrorToast(5);
+	}
+
+	@Test
+	public void whenSaveListMenuIsClicked_ThenPopupIsDisplayed() {
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(BasicView.Types.MENU_SAVE));
+
+		listener.getValue().fire();
+
+		verify(view).showSaveListPopup();
+	}
+
+	@Test
+	public void whenSaveButtonIsClicked_ThenListIsSaved() {
+		String name = "test name";
+		HashMap<Enum<?>, String> testMap = new HashMap<Enum<?>, String>();
+		testMap.put(BasicView.Keys.LIST_NAME, name);
+		createPresenter();
+
+		verify(view).addListener(dataListener.capture(), eq(BasicView.Types.SAVE_LIST));
+
+		dataListener.getValue().fire(testMap);
+
+		verify(model).saveList(name, view.getInput());
+	}
+
+	@Test
+	public void whenSaveIsSuccessful_ThenToastIsDisplayed() {
+		createPresenter();
+
+		verify(model).addListener(listener.capture(), eq(BasicModel.Types.SAVE_SUCCESSFUL));
+
+		listener.getValue().fire();
+
+		verify(view).showToast(MyConstants.SAVE_SUCCESSFUL);
+	}
+
+	@Test
+	public void whenSaveIsNotSuccessful_ThenToastIsDisplayed() {
+		createPresenter();
+
+		verify(model).addListener(listener.capture(), eq(BasicModel.Types.SAVE_FAILED));
+
+		listener.getValue().fire();
+
+		verify(view).showToast(MyConstants.SAVE_FAILED);
+	}
+
+	@Test
+	public void whenLoadOrDeleteListMenuClicked_ThenPopupIsDisplayed() {
+		when(model.getSavedLists()).thenReturn(new String[] { "what's up?", "not much" });
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(BasicView.Types.MENU_LOAD_OR_DELETE));
+
+		listener.getValue().fire();
+
+		verify(view).showLoadListPopup(model.getSavedLists());
+	}
+
+	@Test
+	public void whenLoadOrDeleteListMenuClickedAndNoListsAvailable_ThenNothingHappens() {
+		when(model.getSavedLists()).thenReturn(null);
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(BasicView.Types.MENU_LOAD_OR_DELETE));
+
+		listener.getValue().fire();
+
+		verify(model).getSavedLists();
+		verify(view, never()).showLoadListPopup(model.getSavedLists());
+	}
+
+	@Test
+	public void whenLoadListIsClicked_ThenListIsLoadedAndKeypadShown() {
+		when(view.isKeyPadVisible()).thenReturn(false);
+		String listName = "BobTheBuilder";
+		when(model.loadList(listName)).thenReturn("1,2,3,4,5");
+		HashMap<Enum<?>, String> testMap = new HashMap<Enum<?>, String>();
+		testMap.put(BasicView.Keys.LIST_NAME, listName);
+		createPresenter();
+
+		verify(view).addListener(dataListener.capture(), eq(BasicView.Types.LOAD_LIST));
+
+		dataListener.getValue().fire(testMap);
+
+		verify(view).setInputText(model.loadList(listName));
+		verify(view).showKeypad();
+	}
+
+	@Test
+	public void whenDeleteListIsClicked_ThenListIsDeletedAndPopupIsShownAgain() {
+		when(model.getSavedLists()).thenReturn(new String[] { "another", "list" });
+		String listName = "CatDog";
+		HashMap<Enum<?>, String> testMap = new HashMap<Enum<?>, String>();
+		testMap.put(BasicView.Keys.LIST_NAME, listName);
+		createPresenter();
+
+		verify(view).addListener(dataListener.capture(), eq(BasicView.Types.DELETE_LIST));
+
+		dataListener.getValue().fire(testMap);
+
+		verify(model).deleteList(listName);
+		verify(view).showLoadListPopup(model.getSavedLists());
+	}
+
+	@Test
+	public void whenErrorLoadingList_ThenToastIsDisplayed() {
+		createPresenter();
+
+		verify(model).addListener(listener.capture(), eq(BasicModel.Types.LOAD_ERROR));
+
+		listener.getValue().fire();
+
+		verify(view).showToast(MyConstants.LIST_LOAD_ERROR);
+	}
+
+	@Test
+	public void whenErrorDeletingList_ThenToastIsDisplayed() {
+		createPresenter();
+
+		verify(model).addListener(listener.capture(), eq(BasicModel.Types.DELETE_ERROR));
+
+		listener.getValue().fire();
+
+		verify(view).showToast(MyConstants.LIST_DELETE_ERROR);
 	}
 }

@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/settings_save_list"
+        android:showAsAction="never"
+        android:title="@string/save_list"/>
+    <item
+        android:id="@+id/settings_load_list"
+        android:showAsAction="never"
+        android:title="@string/load_or_delete_list"/>
+
+</menu>
