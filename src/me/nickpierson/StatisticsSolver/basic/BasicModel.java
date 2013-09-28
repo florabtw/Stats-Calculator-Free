@@ -21,12 +21,6 @@ public class BasicModel extends DataActionHandler {
 		INVALID_ITEM, VALIDATED_LIST;
 	}
 
-	private LinkedHashMap<String, Double> result;
-
-	public BasicModel() {
-		result = new LinkedHashMap<String, Double>();
-	}
-
 	public LinkedHashMap<String, Double> getEmptyResults() {
 		LinkedHashMap<String, Double> emptyMap = new LinkedHashMap<String, Double>();
 		emptyMap.put(MyConstants.SIZE, 0.0);
@@ -44,6 +38,7 @@ public class BasicModel extends DataActionHandler {
 
 	public void validateInput(String input) {
 		HashMap<Enum<?>, Object> results = new HashMap<Enum<?>, Object>();
+
 		if (input.length() == 0) {
 			eventInvalid(results, 1);
 			return;
@@ -52,10 +47,10 @@ public class BasicModel extends DataActionHandler {
 		String[] values = input.split(",");
 		for (int i = 0; i < values.length; i++) {
 			String currVal = values[i];
+
 			if (currVal.length() == 0) {
 				continue;
-			}
-			if (currVal.contains("x")) {
+			} else if (currVal.contains("x")) {
 				if (!isValidFreqItem(currVal)) {
 					eventInvalid(results, i + 1);
 					return;
@@ -124,8 +119,7 @@ public class BasicModel extends DataActionHandler {
 		for (String value : input.split(",")) {
 			if (value.length() == 0) {
 				continue;
-			}
-			if (value.contains("x")) {
+			} else if (value.contains("x")) {
 				String[] freqItem = value.split("x");
 				for (int i = 0; i < Integer.valueOf(freqItem[1]); i++) {
 					convertedList.add(Double.valueOf(freqItem[0]));
@@ -139,6 +133,7 @@ public class BasicModel extends DataActionHandler {
 	}
 
 	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
+		LinkedHashMap<String, Double> result = new LinkedHashMap<String, Double>();
 		result.put(MyConstants.SIZE, (double) numberList.size());
 		result.put(MyConstants.SUM, calculateSum(numberList));
 		result.put(MyConstants.MEAN, result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
