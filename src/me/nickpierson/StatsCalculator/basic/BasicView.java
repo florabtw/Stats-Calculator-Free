@@ -31,7 +31,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class BasicView extends DataActionHandler {
 
 	public enum Types {
-		DONE_CLICKED, EDITTEXT_CLICKED, SAVE_LIST, SAVE_CLICKED;
+		DONE_CLICKED, EDITTEXT_CLICKED, SAVE_LIST, SAVE_CLICKED, LOAD_LIST;
 	}
 
 	public enum Keys {
@@ -121,7 +121,7 @@ public class BasicView extends DataActionHandler {
 
 	public void showSaveListPopup() {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
-		
+
 		View alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog, null);
 		final EditText etName = (EditText) alertView.findViewById(R.id.save_list_etListName);
 
@@ -146,6 +146,10 @@ public class BasicView extends DataActionHandler {
 
 	public void saveList() {
 		event(Types.SAVE_LIST);
+	}
+
+	public void loadList() {
+		event(Types.LOAD_LIST);
 	}
 
 	public void keypadPress(Button button) {

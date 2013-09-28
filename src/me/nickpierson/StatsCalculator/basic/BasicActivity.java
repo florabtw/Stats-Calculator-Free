@@ -29,12 +29,15 @@ public class BasicActivity extends Activity {
 		getMenuInflater().inflate(R.menu.basic, menu);
 		return true;
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		switch(item.getItemId()){
+		switch (item.getItemId()) {
 		case R.id.settings_save_list:
 			view.saveList();
+			return true;
+		case R.id.settings_load_list:
+			view.loadList();
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
