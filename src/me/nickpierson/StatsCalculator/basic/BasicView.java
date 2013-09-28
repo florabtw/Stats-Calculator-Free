@@ -126,17 +126,14 @@ public class BasicView extends DataActionHandler {
 		final EditText etName = (EditText) alertView.findViewById(R.id.save_list_etListName);
 
 		alertBuilder.setView(alertView);
-		alertBuilder.setPositiveButton("Save", new OnClickListener() {
+		alertBuilder.setPositiveButton(R.string.save, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				HashMap<Enum<?>, String> map = new HashMap<Enum<?>, String>();
-				map.put(Keys.LIST_NAME, etName.getText().toString());
-				dataEvent(Types.SAVE_LIST, map);
 				eventWithName(Types.SAVE_LIST, etName.getText().toString());
 			}
 		});
-		alertBuilder.setNegativeButton("Cancel", null);
+		alertBuilder.setNegativeButton(R.string.cancel, null);
 
 		alertBuilder.show();
 	}
@@ -144,22 +141,26 @@ public class BasicView extends DataActionHandler {
 	public void showLoadListPopup(final String[] savedLists) {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 		alertBuilder.setSingleChoiceItems(savedLists, 0, null);
-		alertBuilder.setPositiveButton("Load", new OnClickListener() {
+		alertBuilder.setPositiveButton(R.string.load, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				eventWithName(Types.LOAD_LIST, savedLists[which]);
+				ListView lv = ((AlertDialog) dialog).getListView();
+				String name = (String) lv.getAdapter().getItem(lv.getCheckedItemPosition());
+				eventWithName(Types.LOAD_LIST, name);
 			}
 		});
-		alertBuilder.setNegativeButton("Delete", new OnClickListener() {
+		alertBuilder.setNegativeButton(R.string.delete, new OnClickListener() {
 
 			@Override
 			public void onClick(DialogInterface dialog, int which) {
-				eventWithName(Types.DELETE_LIST, savedLists[which]);
+				ListView lv = ((AlertDialog) dialog).getListView();
+				String name = (String) lv.getAdapter().getItem(lv.getCheckedItemPosition());
+				eventWithName(Types.DELETE_LIST, name);
 			}
 		});
-		alertBuilder.setNeutralButton("Cancel", null);
-		
+		alertBuilder.setNeutralButton(R.string.cancel, null);
+
 		alertBuilder.show();
 	}
 

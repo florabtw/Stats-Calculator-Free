@@ -1,6 +1,8 @@
 package me.nickpierson.StatsCalculator.basic;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -205,5 +207,74 @@ public class BasicModelTest {
 	private void addAllListListeners() {
 		model.addListener(validListener, BasicModel.Types.SAVE_SUCCESSFUL);
 		model.addListener(invalidListener, BasicModel.Types.SAVE_FAILED);
+	}
+
+	@Test
+	public void whenGetSavedLists_ThenSavedListsAreReturned() throws IOException {
+		when(activity.getFilesDir()).thenReturn(new File("./testDir"));
+		String listOne = "first";
+		String listTwo = "second";
+		File file1 = new File("testDir/" + listOne);
+		File file2 = new File("testDir/" + listTwo);
+		file1.createNewFile();
+		file2.createNewFile();
+
+		String[] lists = model.getSavedLists();
+
+		assertTrue(lists.length == 2);
+
+		/* file.list() lists in reverse order */
+		assertEquals(lists[1], listOne);
+		assertEquals(lists[0], listTwo);
+
+		file1.delete();
+		file2.delete();
+	}
+
+	@Test
+	public void loadList_ReturnsCorrectListInput() {
+		when(activity.getFilesDir()).thenReturn(new File("./testDir"));
+		String listName = "someList";
+		String expectedInput = "6,7,8,9";
+		File listFile = new File("testDir/" + listName);
+		makeList(listFile, expectedInput);
+		model.addListener(invalidListener, BasicModel.Types.LOAD_ERROR);
+
+		String realInput = model.loadList("someList");
+
+		assertEquals(expectedInput, realInput);
+		verify(invalidListener, never()).fire();
+
+		listFile.delete();
+	}
+
+	@Test
+	public void deleteList_DeletesListFromMemory() throws IOException {
+		when(activity.getFilesDir()).thenReturn(new File("./testDir"));
+		String listName = "someOtherList";
+		File listFile = new File("testDir/" + listName);
+		makeList(listFile, "any random input");
+		model.addListener(invalidListener, BasicModel.Types.DELETE_ERROR);
+
+		listFile.createNewFile();
+		assertTrue(listFile.exists());
+
+		model.deleteList(listName);
+
+		verify(invalidListener, never()).fire();
+		assertFalse(listFile.exists());
+	}
+
+	public void makeList(File file, String input) {
+		FileOutputStream output;
+		try {
+			output = new FileOutputStream(file);
+			output.write(input.getBytes());
+			output.close();
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 }

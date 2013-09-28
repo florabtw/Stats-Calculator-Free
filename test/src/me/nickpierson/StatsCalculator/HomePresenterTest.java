@@ -19,11 +19,13 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.ArgumentCaptor;
 import org.robolectric.RobolectricTestRunner;
+import org.robolectric.annotation.Config;
 
 import android.content.Intent;
 
 import com.thecellutioncenter.mvplib.DataActionListener;
 
+@Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
 public class HomePresenterTest {
 

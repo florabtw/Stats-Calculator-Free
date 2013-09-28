@@ -1,7 +1,9 @@
 package me.nickpierson.StatsCalculator.basic;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -257,15 +259,38 @@ public class BasicModel extends DataActionHandler {
 	}
 
 	public String[] getSavedLists() {
-		return null;
+		File internalDir = activity.getFilesDir();
+		return internalDir.list();
 	}
 
 	public String loadList(String listName) {
-		return null;
+		File listFile = new File(activity.getFilesDir(), listName);
+
+		StringBuilder list = new StringBuilder();
+		try {
+			FileInputStream input = new FileInputStream(listFile);
+			byte[] bytes = new byte[input.available()];
+
+			input.read(bytes);
+
+			for (byte b : bytes) {
+				list.append((char) b);
+			}
+
+			input.close();
+		} catch (IOException e) {
+			event(Types.LOAD_ERROR);
+			e.printStackTrace();
+		}
+
+		return list.toString();
 	}
 
 	public void deleteList(String listName) {
-		// TODO Auto-generated method stub
-		
+		File file = new File(activity.getFilesDir(), listName);
+		boolean isDeleted = file.delete();
+		if (!isDeleted) {
+			event(Types.DELETE_ERROR);
+		}
 	}
 }

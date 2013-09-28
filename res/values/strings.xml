@@ -42,5 +42,9 @@
     <string name="n_comb_r">nCr</string>
     <string name="indistinct_perm">Indistinguishable Permutations</string>
     <string name="request_list_name">What would you like to name the list?</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="load">Load</string>
+    <string name="delete">Delete</string>
 
 </resources>
