@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolver.basic;
+package me.nickpierson.StatsCalculator.basic;
 
 import java.util.ArrayList;
 import java.util.HashMap;

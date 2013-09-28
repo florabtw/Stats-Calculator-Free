@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="me.nickpierson.StatisticsSolver"
+    package="me.nickpierson.StatsCalculator"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -14,7 +14,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="me.nickpierson.StatisticsSolver.HomeActivity"
+            android:name="me.nickpierson.StatsCalculator.HomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -23,12 +23,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="me.nickpierson.StatisticsSolver.basic.BasicActivity"
+            android:name="me.nickpierson.StatsCalculator.basic.BasicActivity"
             android:label="@string/app_name"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name="me.nickpierson.StatisticsSolver.pc.PCActivity"
+            android:name="me.nickpierson.StatsCalculator.pc.PCActivity"
             android:label="@string/app_name" >
         </activity>
     </application>

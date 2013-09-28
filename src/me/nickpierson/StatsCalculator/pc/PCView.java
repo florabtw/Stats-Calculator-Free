@@ -1,7 +1,7 @@
-package me.nickpierson.StatisticsSolver.pc;
+package me.nickpierson.StatsCalculator.pc;
 
-import me.nickpierson.StatisticsSolver.R;
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.R;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;

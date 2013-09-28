@@ -1,9 +1,10 @@
-package me.nickpierson.StatisticsSolver;
+package me.nickpierson.StatsCalculator;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import me.nickpierson.StatsCalculator.R;
 
 public class HomeActivity extends Activity {
 

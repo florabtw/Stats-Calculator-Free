@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolver.pc;
+package me.nickpierson.StatsCalculator.pc;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -10,6 +10,8 @@ import static org.mockito.Mockito.verify;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
+
+import me.nickpierson.StatsCalculator.pc.PCModel;
 
 import org.junit.Before;
 import org.junit.Test;

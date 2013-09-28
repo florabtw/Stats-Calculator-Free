@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolver.pc;
+package me.nickpierson.StatsCalculator.pc;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyListOf;
@@ -11,7 +11,10 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.nickpierson.StatisticsSolver.utils.MyConstants;
+import me.nickpierson.StatsCalculator.pc.PCModel;
+import me.nickpierson.StatsCalculator.pc.PCPresenter;
+import me.nickpierson.StatsCalculator.pc.PCView;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;

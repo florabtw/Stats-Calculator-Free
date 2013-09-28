@@ -1,4 +1,4 @@
-package me.nickpierson.StatisticsSolver.utils;
+package me.nickpierson.StatsCalculator.utils;
 
 import android.view.KeyEvent;
 

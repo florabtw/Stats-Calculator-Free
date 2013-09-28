@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">Statistics Solver</string>
+    <string name="app_name">Stats Calculator</string>
     <string name="action_settings">Settings</string>
     <string name="buttonError">Could not determine button. Please restart the app. If problem persists, please contact developer.</string>
     <string name="basicInputHint">Comma separated values</string>
