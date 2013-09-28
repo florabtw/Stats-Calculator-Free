@@ -8,7 +8,8 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:hint="@string/basicInputHint"
-        android:inputType="text" />
+        android:inputType="number"
+        android:digits="1234567890,.-x" />
 
     <FrameLayout
         android:id="@+id/basic_flContent"

@@ -107,12 +107,8 @@ public class BasicView extends ActionHandler {
 		Toast.makeText(activity, message, Toast.LENGTH_SHORT).show();
 	}
 
-	public void showNumberErrorToast(int errorItem) {
+	public void showErrorToast(int errorItem) {
 		Toast.makeText(activity, String.format(MyConstants.DESCRIPTIVE_NUMBER_ERROR, errorItem), Toast.LENGTH_SHORT).show();
-	}
-	
-	public void showFrequencyErrorToast(int errorItem) {
-		Toast.makeText(activity, String.format(MyConstants.DESCRIPTIVE_FREQ_ERROR, errorItem), Toast.LENGTH_SHORT).show();
 	}
 
 	public void keypadPress(Button button) {

@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
@@ -31,7 +32,6 @@ public class BasicPresenterTest {
 	BasicModel model;
 
 	ArgumentCaptor<ActionListener> listener;
-	private LinkedHashMap<String, Double> myMap;
 	private ArgumentCaptor<DataActionListener> dataListener;
 
 	@Before
@@ -39,7 +39,6 @@ public class BasicPresenterTest {
 		view = mock(BasicView.class);
 		model = mock(BasicModel.class);
 
-		myMap = new LinkedHashMap<String, Double>();
 		listener = ArgumentCaptor.forClass(ActionListener.class);
 		dataListener = ArgumentCaptor.forClass(DataActionListener.class);
 
@@ -53,7 +52,6 @@ public class BasicPresenterTest {
 	@Test
 	public void viewIsInitializedByPresenter() {
 		createPresenter();
-		when(model.getResultMap()).thenReturn(myMap);
 
 		verify(model).getEmptyResults();
 		verify(view).showResults(model.getEmptyResults());
@@ -84,16 +82,17 @@ public class BasicPresenterTest {
 
 	@Test
 	public void whenValidInput_ThenInputIsShown() {
-		LinkedHashMap<String, Double> testResults = new LinkedHashMap<String, Double>();
-		HashMap<Enum<?>, HashMap<String, Double>> testMap = new HashMap<Enum<?>, HashMap<String, Double>>();
-		testMap.put(BasicModel.Keys.RESULTS, testResults);
+		ArrayList<Double> testResults = new ArrayList<Double>();
+		HashMap<Enum<?>, ArrayList<Double>> testMap = new HashMap<Enum<?>, ArrayList<Double>>();
+		testMap.put(BasicModel.Keys.VALIDATED_LIST, testResults);
 		createPresenter();
 
 		verify(model).addListener(dataListener.capture(), eq(BasicModel.Types.VALID_INPUT));
 
 		dataListener.getValue().fire(testMap);
 
-		verify(view, times(2)).showResults(testResults);
+		verify(model).calculateResults(testResults);
+		verify(view, times(2)).showResults(model.calculateResults(testResults));
 	}
 
 	@Test
@@ -108,21 +107,6 @@ public class BasicPresenterTest {
 
 		verify(model, times(2)).getEmptyResults();
 		verify(view, times(2)).showResults(model.getEmptyResults());
-		verify(view).showNumberErrorToast(5);
-	}
-
-	@Test
-	public void whenInvalidFrequency_ThenEmptyResultsAreShownAndToastIsDisplayed() {
-		HashMap<Enum<?>, Integer> testMap = new HashMap<Enum<?>, Integer>();
-		testMap.put(BasicModel.Keys.INVALID_ITEM, 7);
-		createPresenter();
-
-		verify(model).addListener(dataListener.capture(), eq(BasicModel.Types.INVALID_FREQUENCY));
-
-		dataListener.getValue().fire(testMap);
-
-		verify(model, times(2)).getEmptyResults();
-		verify(view, times(2)).showResults(model.getEmptyResults());
-		verify(view).showFrequencyErrorToast(7);
+		verify(view).showErrorToast(5);
 	}
 }
