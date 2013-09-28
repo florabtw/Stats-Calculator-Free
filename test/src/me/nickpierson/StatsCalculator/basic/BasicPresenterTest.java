@@ -182,7 +182,8 @@ public class BasicPresenterTest {
 	}
 
 	@Test
-	public void whenLoadListIsClicked_ThenListIsLoaded() {
+	public void whenLoadListIsClicked_ThenListIsLoadedAndKeypadShown() {
+		when(view.isKeyPadVisible()).thenReturn(false);
 		String listName = "BobTheBuilder";
 		when(model.loadList(listName)).thenReturn("1,2,3,4,5");
 		HashMap<Enum<?>, String> testMap = new HashMap<Enum<?>, String>();
@@ -194,6 +195,7 @@ public class BasicPresenterTest {
 		dataListener.getValue().fire(testMap);
 
 		verify(view).setInputText(model.loadList(listName));
+		verify(view).showKeypad();
 	}
 
 	@Test

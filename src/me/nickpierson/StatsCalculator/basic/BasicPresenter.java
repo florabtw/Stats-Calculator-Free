@@ -99,6 +99,9 @@ public class BasicPresenter {
 			public void fire(HashMap<Enum<?>, ?> data) {
 				String listName = (String) data.get(BasicView.Keys.LIST_NAME);
 				view.setInputText(model.loadList(listName));
+				if (!view.isKeyPadVisible()) {
+					view.showKeypad();
+				}
 			}
 		}, BasicView.Types.LOAD_LIST);
 
