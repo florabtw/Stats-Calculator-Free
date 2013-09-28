@@ -3,7 +3,7 @@
 
     <string name="app_name">Stats Calculator</string>
     <string name="save_list">Save List</string>
-    <string name="load_list">Load List</string>
+    <string name="load_or_delete_list">Load/Delete List</string>
     <string name="buttonError">Could not determine button. Please restart the app. If problem persists, please contact developer.</string>
     <string name="basicInputHint">Comma separated values</string>
     <string name="sizeHeader">Size:</string>

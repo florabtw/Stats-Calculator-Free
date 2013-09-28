@@ -56,7 +56,7 @@ public class BasicPresenter {
 			public void fire() {
 				view.showSaveListPopup();
 			}
-		}, BasicView.Types.SAVE_LIST);
+		}, BasicView.Types.MENU_SAVE);
 
 		view.addListener(new DataActionListener() {
 
@@ -64,7 +64,7 @@ public class BasicPresenter {
 			public void fire(HashMap<Enum<?>, ?> data) {
 				model.saveList((String) data.get(BasicView.Keys.LIST_NAME), view.getInput());
 			}
-		}, BasicView.Types.SAVE_CLICKED);
+		}, BasicView.Types.SAVE_LIST);
 
 		model.addListener(new ActionListener() {
 
@@ -81,6 +81,48 @@ public class BasicPresenter {
 				view.showToast(MyConstants.SAVE_FAILED);
 			}
 		}, BasicModel.Types.SAVE_FAILED);
+
+		view.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				view.showLoadListPopup(model.getSavedLists());
+			}
+		}, BasicView.Types.MENU_LOAD_OR_DELETE);
+
+		view.addListener(new DataActionListener() {
+
+			@Override
+			public void fire(HashMap<Enum<?>, ?> data) {
+				String listName = (String) data.get(BasicView.Keys.LIST_NAME);
+				view.setInputText(model.loadList(listName));
+			}
+		}, BasicView.Types.LOAD_LIST);
+
+		model.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				view.showToast(MyConstants.LIST_LOAD_ERROR);
+			}
+		}, BasicModel.Types.LOAD_ERROR);
+
+		view.addListener(new DataActionListener() {
+
+			@Override
+			public void fire(HashMap<Enum<?>, ?> data) {
+				String listName = (String) data.get(BasicView.Keys.LIST_NAME);
+				model.deleteList(listName);
+			}
+		}, BasicView.Types.DELETE_LIST);
+
+		model.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				view.showToast(MyConstants.LIST_DELETE_ERROR);
+			}
+		}, BasicModel.Types.DELETE_ERROR);
 	}
 
 	private static void showEmptyResults(final BasicModel model, final BasicView view) {

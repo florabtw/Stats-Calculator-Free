@@ -19,7 +19,7 @@ public class BasicModel extends DataActionHandler {
 	private Activity activity;
 
 	public enum Types {
-		VALID_INPUT, INVALID_NUMBER, SAVE_SUCCESSFUL, SAVE_FAILED;
+		VALID_INPUT, INVALID_NUMBER, SAVE_SUCCESSFUL, SAVE_FAILED, LOAD_ERROR, DELETE_ERROR;
 	}
 
 	public enum Keys {
@@ -254,5 +254,18 @@ public class BasicModel extends DataActionHandler {
 		}
 
 		event(Types.SAVE_SUCCESSFUL);
+	}
+
+	public String[] getSavedLists() {
+		return null;
+	}
+
+	public String loadList(String listName) {
+		return null;
+	}
+
+	public void deleteList(String listName) {
+		// TODO Auto-generated method stub
+		
 	}
 }

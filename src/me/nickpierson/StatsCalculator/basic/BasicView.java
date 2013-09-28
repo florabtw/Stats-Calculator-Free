@@ -31,7 +31,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class BasicView extends DataActionHandler {
 
 	public enum Types {
-		DONE_CLICKED, EDITTEXT_CLICKED, SAVE_LIST, SAVE_CLICKED, LOAD_LIST;
+		DONE_CLICKED, EDITTEXT_CLICKED, MENU_SAVE, SAVE_LIST, LOAD_LIST, MENU_LOAD_OR_DELETE, DELETE_LIST;
 	}
 
 	public enum Keys {
@@ -132,24 +132,49 @@ public class BasicView extends DataActionHandler {
 			public void onClick(DialogInterface dialog, int which) {
 				HashMap<Enum<?>, String> map = new HashMap<Enum<?>, String>();
 				map.put(Keys.LIST_NAME, etName.getText().toString());
-				dataEvent(Types.SAVE_CLICKED, map);
+				dataEvent(Types.SAVE_LIST, map);
+				eventWithName(Types.SAVE_LIST, etName.getText().toString());
 			}
 		});
-		alertBuilder.setNegativeButton("Cancel", new OnClickListener() {
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-			}
-		});
+		alertBuilder.setNegativeButton("Cancel", null);
 
 		alertBuilder.show();
 	}
 
+	public void showLoadListPopup(final String[] savedLists) {
+		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
+		alertBuilder.setSingleChoiceItems(savedLists, 0, null);
+		alertBuilder.setPositiveButton("Load", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				eventWithName(Types.LOAD_LIST, savedLists[which]);
+			}
+		});
+		alertBuilder.setNegativeButton("Delete", new OnClickListener() {
+
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				eventWithName(Types.DELETE_LIST, savedLists[which]);
+			}
+		});
+		alertBuilder.setNeutralButton("Cancel", null);
+		
+		alertBuilder.show();
+	}
+
+	private void eventWithName(Types type, String name) {
+		HashMap<Enum<?>, String> result = new HashMap<Enum<?>, String>();
+		result.put(Keys.LIST_NAME, name);
+		dataEvent(type, result);
+	}
+
 	public void saveList() {
-		event(Types.SAVE_LIST);
+		event(Types.MENU_SAVE);
 	}
 
 	public void loadList() {
-		event(Types.LOAD_LIST);
+		event(Types.MENU_LOAD_OR_DELETE);
 	}
 
 	public void keypadPress(Button button) {
@@ -178,4 +203,7 @@ public class BasicView extends DataActionHandler {
 		return etInput.getText().toString();
 	}
 
+	public void setInputText(String list) {
+		etInput.setText(list);
+	}
 }
