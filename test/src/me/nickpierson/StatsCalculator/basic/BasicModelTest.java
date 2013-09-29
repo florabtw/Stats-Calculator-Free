@@ -60,7 +60,7 @@ public class BasicModelTest {
 		LinkedHashMap<String, Double> emptyMap = model.getEmptyResults();
 		assertEquals(emptyMap.get(MyConstants.SIZE), 0.0, DELTA);
 		assertEquals(emptyMap.get(MyConstants.SUM), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.MEAN), 0.0, DELTA);
+		assertEquals(emptyMap.get(MyConstants.ARITH_MEAN), 0.0, DELTA);
 		assertEquals(emptyMap.get(MyConstants.MEDIAN), 0.0, DELTA);
 		assertEquals(emptyMap.get(MyConstants.MODE), null);
 		assertEquals(emptyMap.get(MyConstants.RANGE), 0.0, DELTA);
@@ -135,29 +135,28 @@ public class BasicModelTest {
 	@Test
 	public void calculateResults_CalculatesCorrectResult() {
 		ArrayList<Double> sampleInput = makeValidList(45, 68.1, 29.4, -54, -.19, 3.0001);
-		LinkedHashMap<String, Double> expectedResult = new LinkedHashMap<String, Double>();
-		expectedResult.put(MyConstants.SUM, 91.3101);
-		expectedResult.put(MyConstants.SIZE, 6.0);
-		expectedResult.put(MyConstants.MEAN, 15.21835);
-		expectedResult.put(MyConstants.MEDIAN, 16.20005);
-		expectedResult.put(MyConstants.MODE, null);
-		expectedResult.put(MyConstants.RANGE, 122.1);
-		expectedResult.put(MyConstants.POP_VAR, 1510.402939);
-		expectedResult.put(MyConstants.SAMPLE_VAR, 1812.483527);
-		expectedResult.put(MyConstants.POP_DEV, 38.863902);
-		expectedResult.put(MyConstants.SAMPLE_DEV, 42.573272);
 
 		LinkedHashMap<String, Double> actualResult = model.calculateResults(sampleInput);
-		assertEquals(expectedResult.get(MyConstants.SUM), actualResult.get(MyConstants.SUM));
-		assertEquals(expectedResult.get(MyConstants.SIZE), actualResult.get(MyConstants.SIZE));
-		assertEquals(expectedResult.get(MyConstants.MEAN), actualResult.get(MyConstants.MEAN), DELTA);
-		assertEquals(expectedResult.get(MyConstants.MEDIAN), actualResult.get(MyConstants.MEDIAN), DELTA);
-		assertEquals(expectedResult.get(MyConstants.MODE), actualResult.get(MyConstants.MODE));
-		assertEquals(expectedResult.get(MyConstants.RANGE), actualResult.get(MyConstants.RANGE), DELTA);
-		assertEquals(expectedResult.get(MyConstants.POP_VAR), actualResult.get(MyConstants.POP_VAR), DELTA);
-		assertEquals(expectedResult.get(MyConstants.SAMPLE_VAR), actualResult.get(MyConstants.SAMPLE_VAR), DELTA);
-		assertEquals(expectedResult.get(MyConstants.POP_DEV), actualResult.get(MyConstants.POP_DEV), DELTA);
-		assertEquals(expectedResult.get(MyConstants.SAMPLE_DEV), actualResult.get(MyConstants.SAMPLE_DEV), DELTA);
+
+		assertEquals(91.3101, actualResult.get(MyConstants.SUM), DELTA);
+		assertEquals(6.0, actualResult.get(MyConstants.SIZE), DELTA);
+		assertEquals(15.21835, actualResult.get(MyConstants.ARITH_MEAN), DELTA);
+		assertEquals(Double.NaN, actualResult.get(MyConstants.GEO_MEAN), DELTA);
+		assertEquals(16.20005, actualResult.get(MyConstants.MEDIAN), DELTA);
+		assertEquals(null, actualResult.get(MyConstants.MODE));
+		assertEquals(122.1, actualResult.get(MyConstants.RANGE), DELTA);
+		assertEquals(1510.402939, actualResult.get(MyConstants.POP_VAR), DELTA);
+		assertEquals(1812.483527, actualResult.get(MyConstants.SAMPLE_VAR), DELTA);
+		assertEquals(38.863902, actualResult.get(MyConstants.POP_DEV), DELTA);
+		assertEquals(42.573272, actualResult.get(MyConstants.SAMPLE_DEV), DELTA);
+		assertEquals(2.797495, actualResult.get(MyConstants.COEFF_VAR), DELTA);
+		assertEquals(-.4542037, actualResult.get(MyConstants.SKEWNESS), DELTA);
+		assertEquals(2.314556, actualResult.get(MyConstants.KURTOSIS), DELTA);
+
+		ArrayList<Double> sampleInput1 = makeValidList(45, 68.1, 29.4, 54, 5.3, 5.3);
+		LinkedHashMap<String, Double> actualResult1 = model.calculateResults(sampleInput1);
+		assertEquals(5.3, actualResult1.get(MyConstants.MODE), DELTA);
+		assertEquals(22.695621, actualResult1.get(MyConstants.GEO_MEAN), DELTA);
 	}
 
 	private ArrayList<Double> makeValidList(double... args) {
