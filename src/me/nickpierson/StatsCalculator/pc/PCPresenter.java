@@ -17,10 +17,18 @@ public class PCPresenter {
 
 			@Override
 			public void fire() {
-				view.showDefaultValues();
-				model.validateInput(view.getNVal(), view.getRVal(), view.getNVals());
+				calculateResults(model, view);
 			}
 		}, PCView.Types.CALCULATE_PRESSED);
+
+		view.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				view.dismissNValsKeyboard();
+				calculateResults(model, view);
+			}
+		}, PCView.Types.KEYBOARD_GO);
 
 		model.addListener(new DataActionListener() {
 
@@ -103,6 +111,11 @@ public class PCPresenter {
 				view.showToast(MyConstants.MESSAGE_INPUT_OVER_MAX);
 			}
 		}, PCModel.Types.INPUT_OVER_MAX_VALUE);
+	}
+
+	private static void calculateResults(final PCModel model, final PCView view) {
+		view.showDefaultValues();
+		model.validateInput(view.getNVal(), view.getRVal(), view.getNVals());
 	}
 
 	private static void setNFactorial(final PCModel model, final PCView view, int n) {

@@ -76,6 +76,19 @@ public class PCPresenterTest {
 	}
 
 	@Test
+	public void whenGoButtonOnKeyboardIsPressed_ThenModelValidatesInputAndKeyboardIsDismissed() {
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(PCView.Types.KEYBOARD_GO));
+
+		listener.getValue().fire();
+
+		verify(view).showDefaultValues();
+		verify(model).validateInput(view.getNVal(), view.getRVal(), view.getNVals());
+		verify(view).dismissNValsKeyboard();
+	}
+
+	@Test
 	public void whenOnlyNValueIsShownValid_ThenRelatedValuesAreDisplayed() {
 		createPresenter();
 		HashMap<Enum<?>, Integer> map = new HashMap<Enum<?>, Integer>();
