@@ -11,9 +11,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.nickpierson.StatsCalculator.pc.PCModel;
-import me.nickpierson.StatsCalculator.pc.PCPresenter;
-import me.nickpierson.StatsCalculator.pc.PCView;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
@@ -181,6 +178,34 @@ public class PCPresenterTest {
 		verifyIndistinct(testNVals, testNVal);
 	}
 
+	@Test
+	public void numbersOverOneBillionAreFormatted() {
+		when(model.calculateFact(any(Integer.class))).thenReturn(BigInteger.valueOf(1000000001));
+		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(1000000001));
+		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(1000000001));
+		when(model.calculateIndistinct(any(Integer.class), anyListOf(Integer.class))).thenReturn(BigInteger.valueOf(1000000001));
+		createPresenter();
+		HashMap<Enum<?>, Object> map = new HashMap<Enum<?>, Object>();
+		ArrayList<Integer> testNVals = new ArrayList<Integer>();
+		int testNVal = 6;
+		int testRVal = 5;
+		testNVals.add(7);
+		testNVals.add(8);
+		map.put(PCModel.Keys.N_VALUE, testNVal);
+		map.put(PCModel.Keys.R_VALUE, testRVal);
+		map.put(PCModel.Keys.N_VALUES, testNVals);
+
+		verify(model).addListener(dataListener.capture(), eq(PCModel.Types.ALL_VALUES_VALID));
+
+		dataListener.getValue().fire(map);
+
+		verify(view).setNFactorial("1E9");
+		verify(view).setRFactorial("1E9");
+		verify(view).setPermutation("1E9");
+		verify(view).setCombination("1E9");
+		verify(view).setIndistinct("1E9");
+	}
+
 	private void verifyNFact(int testNVal) {
 		verify(model).calculateFact(testNVal);
 		verify(view).setNFactorial(model.calculateFact(testNVal).toString());
@@ -211,9 +236,9 @@ public class PCPresenterTest {
 		createPresenter();
 
 		verify(model).addListener(listener.capture(), eq(PCModel.Types.INPUT_OVER_MAX_VALUE));
-		
+
 		listener.getValue().fire();
-		
+
 		verify(view).showToast(MyConstants.MESSAGE_INPUT_OVER_MAX);
 	}
 }
