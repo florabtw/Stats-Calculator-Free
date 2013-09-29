@@ -21,7 +21,7 @@ public class MyConstants {
 
 	public static final String REF_COEFF_VAR = COEFF_VAR + " (sample)";
 	public static final String REF_SKEWNESS = SKEWNESS + " (population)";
-	public static final String REF_KURTOSIS = SKEWNESS + " (population)";
+	public static final String REF_KURTOSIS = KURTOSIS + " (population)";
 
 	public static final String BASIC = "Descriptive Stats";
 	public static final String PERM_COMB = "Permutations & Combinations";
