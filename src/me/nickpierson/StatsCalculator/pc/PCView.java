@@ -2,13 +2,16 @@ package me.nickpierson.StatsCalculator.pc;
 
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.thecellutioncenter.mvplib.ActionHandler;
@@ -16,7 +19,7 @@ import com.thecellutioncenter.mvplib.ActionHandler;
 public class PCView extends ActionHandler {
 
 	public enum Types {
-		CALCULATE_PRESSED;
+		CALCULATE_PRESSED, KEYBOARD_GO;
 	}
 
 	private ScrollView view;
@@ -52,6 +55,18 @@ public class PCView extends ActionHandler {
 		etNVal = (EditText) view.findViewById(R.id.pc_etNVal);
 		etRVal = (EditText) view.findViewById(R.id.pc_etRVal);
 		etNVals = (EditText) view.findViewById(R.id.pc_etNVals);
+
+		etNVals.setOnEditorActionListener(new OnEditorActionListener() {
+
+			@Override
+			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+				if (actionId == EditorInfo.IME_ACTION_GO) {
+					event(Types.KEYBOARD_GO);
+					return true;
+				}
+				return false;
+			}
+		});
 	}
 
 	public void showDefaultValues() {
@@ -106,5 +121,9 @@ public class PCView extends ActionHandler {
 			toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT);
 		}
 		toast.show();
+	}
+
+	public void dismissNValsKeyboard() {
+		etNVals.onEditorAction(EditorInfo.IME_ACTION_DONE);
 	}
 }

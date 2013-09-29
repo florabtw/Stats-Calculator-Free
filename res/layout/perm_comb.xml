@@ -25,6 +25,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:imeOptions="actionNext"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -45,6 +46,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
+                android:imeOptions="actionNext"
                 android:inputType="number" />
         </LinearLayout>
 
@@ -66,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:digits="0123456789,"
+                android:imeOptions="actionGo"
                 android:inputType="number" />
         </LinearLayout>
 
