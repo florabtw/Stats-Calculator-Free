@@ -46,5 +46,7 @@
     <string name="cancel">Cancel</string>
     <string name="load">Load</string>
     <string name="delete">Delete</string>
+    <string name="formula">formula</string>
+    <string name="reference_guide">Reference Guide</string>
 
 </resources>
