@@ -1,5 +1,7 @@
 package me.nickpierson.StatsCalculator.pc;
 
+import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -104,19 +106,29 @@ public class PCPresenter {
 	}
 
 	private static void setNFactorial(final PCModel model, final PCView view, int n) {
-		view.setNFactorial(model.calculateFact(n).toString());
+		view.setNFactorial(getFormattedNumber(model.calculateFact(n)));
 	}
 
 	private static void setRFactorial(final PCModel model, final PCView view, int r) {
-		view.setRFactorial(model.calculateFact(r).toString());
+		view.setRFactorial(getFormattedNumber(model.calculateFact(r)));
 	}
 
 	private static void setPermAndComb(final PCModel model, final PCView view, int n, int r) {
-		view.setPermutation(model.calculatePermutation(n, r).toString());
-		view.setCombination(model.calculateCombination(n, r).toString());
+		view.setPermutation(getFormattedNumber(model.calculatePermutation(n, r)));
+		view.setCombination(getFormattedNumber(model.calculateCombination(n, r)));
 	}
 
 	private static void setIndistinct(final PCModel model, final PCView view, int n, ArrayList<Integer> nVals) {
-		view.setIndistinct(model.calculateIndistinct(n, nVals).toString());
+		view.setIndistinct(getFormattedNumber(model.calculateIndistinct(n, nVals)));
+	}
+
+	private static String getFormattedNumber(BigInteger number) {
+		String stringValue;
+		if (number.compareTo(BigInteger.valueOf(MyConstants.MAX_PLAIN_FORMAT)) == 1) {
+			stringValue = new DecimalFormat(MyConstants.DECIMAL_FORMAT).format(number);
+		} else {
+			stringValue = number.toString();
+		}
+		return stringValue;
 	}
 }

@@ -30,10 +30,12 @@ public class MyConstants {
 	public static final String[] descriptions = { BASIC, PERM_COMB, PROB_DISTS };
 
 	public static final String NOT_APPLICABLE = "n/a";
+	public static final String DECIMAL_FORMAT = "0.#######E0";
 
-	public static final String MESSAGE_INPUT_OVER_MAX = "Input over 1000 is not allowed.";
 	public static final int PC_MAX_INPUT = 1000;
 	public static final int MAX_FREQUENCY = 100000;
+	public static final int MAX_PLAIN_FORMAT = 1000000000;
+	public static final String MESSAGE_INPUT_OVER_MAX = "Input over 1000 is not allowed.";
 	public static final String DESCRIPTIVE_NUMBER_ERROR = "Invalid input at item #%s";
 	public static final String SAVE_SUCCESSFUL = "List was saved successfully";
 	public static final String SAVE_FAILED = "List was NOT able to be saved!";
