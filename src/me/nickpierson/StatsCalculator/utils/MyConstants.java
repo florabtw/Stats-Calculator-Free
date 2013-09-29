@@ -6,7 +6,8 @@ public class MyConstants {
 
 	public static final String SIZE = "Size";
 	public static final String SUM = "Sum";
-	public static final String MEAN = "Mean";
+	public static final String ARITH_MEAN = "Mean";
+	public static final String GEO_MEAN = "Geometric Mean";
 	public static final String MEDIAN = "Median";
 	public static final String MODE = "Mode";
 	public static final String RANGE = "Range";
@@ -14,6 +15,9 @@ public class MyConstants {
 	public static final String SAMPLE_VAR = "Sample Variance";
 	public static final String POP_DEV = "Population Std. Deviation";
 	public static final String SAMPLE_DEV = "Sample Std. Deviation";
+	public static final String COEFF_VAR = "Coefficient of Variation";
+	public static final String SKEWNESS = "Skewness";
+	public static final String KURTOSIS = "Kurtosis";
 
 	public static final String BASIC = "Descriptive Stats";
 	public static final String PERM_COMB = "Permutations & Combinations";

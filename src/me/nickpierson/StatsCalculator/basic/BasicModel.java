@@ -13,7 +13,6 @@ import java.util.Map;
 
 import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.app.Activity;
-import android.util.Log;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;
 
@@ -37,7 +36,8 @@ public class BasicModel extends DataActionHandler {
 		LinkedHashMap<String, Double> emptyMap = new LinkedHashMap<String, Double>();
 		emptyMap.put(MyConstants.SIZE, 0.0);
 		emptyMap.put(MyConstants.SUM, 0.0);
-		emptyMap.put(MyConstants.MEAN, 0.0);
+		emptyMap.put(MyConstants.ARITH_MEAN, 0.0);
+		emptyMap.put(MyConstants.GEO_MEAN, 0.0);
 		emptyMap.put(MyConstants.MEDIAN, 0.0);
 		emptyMap.put(MyConstants.MODE, null);
 		emptyMap.put(MyConstants.RANGE, 0.0);
@@ -45,6 +45,9 @@ public class BasicModel extends DataActionHandler {
 		emptyMap.put(MyConstants.SAMPLE_VAR, 0.0);
 		emptyMap.put(MyConstants.POP_DEV, 0.0);
 		emptyMap.put(MyConstants.SAMPLE_DEV, 0.0);
+		emptyMap.put(MyConstants.COEFF_VAR, 0.0);
+		emptyMap.put(MyConstants.SKEWNESS, 0.0);
+		emptyMap.put(MyConstants.KURTOSIS, 0.0);
 		return emptyMap;
 	}
 
@@ -145,19 +148,57 @@ public class BasicModel extends DataActionHandler {
 	}
 
 	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
+		Collections.sort(numberList);
+
 		LinkedHashMap<String, Double> result = new LinkedHashMap<String, Double>();
 		result.put(MyConstants.SIZE, (double) numberList.size());
 		result.put(MyConstants.SUM, calculateSum(numberList));
-		result.put(MyConstants.MEAN, result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
+		result.put(MyConstants.ARITH_MEAN, result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
+		result.put(MyConstants.GEO_MEAN, calculateGeoMean(numberList));
 		result.put(MyConstants.MEDIAN, calculateMedian(numberList, result.get(MyConstants.SIZE)));
 		result.put(MyConstants.MODE, calculateMode(numberList));
 		result.put(MyConstants.RANGE, calculateRange(numberList));
-		result.put(MyConstants.POP_VAR, calculatePopVariance(numberList, result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
-		result.put(MyConstants.SAMPLE_VAR, calculateSampleVariance(numberList, result.get(MyConstants.MEAN), result.get(MyConstants.SIZE)));
+		result.put(MyConstants.POP_VAR, calculatePopVariance(numberList, result.get(MyConstants.ARITH_MEAN), result.get(MyConstants.SIZE)));
+		result.put(MyConstants.SAMPLE_VAR, calculateSampleVariance(numberList, result.get(MyConstants.ARITH_MEAN), result.get(MyConstants.SIZE)));
 		result.put(MyConstants.POP_DEV, Math.sqrt(result.get(MyConstants.POP_VAR)));
 		result.put(MyConstants.SAMPLE_DEV, Math.sqrt(result.get(MyConstants.SAMPLE_VAR)));
+		result.put(MyConstants.COEFF_VAR, result.get(MyConstants.SAMPLE_DEV) / result.get(MyConstants.ARITH_MEAN));
+		result.put(MyConstants.SKEWNESS, calculateSkewness(numberList, result.get(MyConstants.ARITH_MEAN), result.get(MyConstants.POP_DEV)));
+		result.put(MyConstants.KURTOSIS, calculateKurtosis(numberList, result.get(MyConstants.ARITH_MEAN), result.get(MyConstants.POP_DEV)));
 
 		return result;
+	}
+
+	private Double calculateKurtosis(List<Double> numberList, double mean, double stdDev) {
+		return calculateKurtOrSkew(4, numberList, mean, stdDev);
+	}
+
+	private Double calculateSkewness(List<Double> numberList, double mean, double stdDev) {
+		return calculateKurtOrSkew(3, numberList, mean, stdDev);
+	}
+
+	private Double calculateKurtOrSkew(int power, List<Double> numberList, double mean, double stdDev) {
+		double sum = 0;
+		for (double number : numberList) {
+			sum += Math.pow(number - mean, power);
+		}
+
+		double denom = Math.pow(stdDev, power) * (numberList.size());
+
+		return sum / denom;
+	}
+
+	private Double calculateGeoMean(List<Double> numberList) {
+		double value = 1;
+		for (double number : numberList) {
+			if (number < 0) {
+				return Double.NaN;
+			}
+
+			value *= number;
+		}
+
+		return Math.pow(value, 1.0 / numberList.size());
 	}
 
 	private double calculateSum(List<Double> numberList) {
@@ -170,7 +211,7 @@ public class BasicModel extends DataActionHandler {
 
 	private double calculateMedian(List<Double> numberList, double length) {
 		int size = (int) length;
-		Collections.sort(numberList);
+
 		if (size % 2 == 1) {
 			int index = (int) Math.floor(size / 2.0);
 			return numberList.get(index);
