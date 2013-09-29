@@ -19,6 +19,10 @@ public class MyConstants {
 	public static final String SKEWNESS = "Skewness";
 	public static final String KURTOSIS = "Kurtosis";
 
+	public static final String REF_COEFF_VAR = COEFF_VAR + " (sample)";
+	public static final String REF_SKEWNESS = SKEWNESS + " (population)";
+	public static final String REF_KURTOSIS = SKEWNESS + " (population)";
+
 	public static final String BASIC = "Descriptive Stats";
 	public static final String PERM_COMB = "Permutations & Combinations";
 	public static final String PROB_DISTS = "Probability Distributions";

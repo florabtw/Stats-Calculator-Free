@@ -10,10 +10,10 @@ public class BasicReferenceView {
 
 	ListView view;
 
-	int[] images = { R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher, R.drawable.ic_launcher,
-			R.drawable.ic_launcher, R.drawable.ic_launcher };
-	String[] titles = { MyConstants.ARITH_MEAN, MyConstants.GEO_MEAN, MyConstants.SAMPLE_VAR, MyConstants.SAMPLE_DEV, MyConstants.COEFF_VAR,
-			MyConstants.SKEWNESS, MyConstants.KURTOSIS };
+	int[] images = { R.drawable.arith_mean, R.drawable.geo_mean, R.drawable.sample_var, R.drawable.sample_dev, R.drawable.coeff_var, R.drawable.skewness,
+			R.drawable.kurtosis };
+	String[] titles = { MyConstants.ARITH_MEAN, MyConstants.GEO_MEAN, MyConstants.SAMPLE_VAR, MyConstants.SAMPLE_DEV, MyConstants.REF_COEFF_VAR,
+			MyConstants.REF_SKEWNESS, MyConstants.REF_KURTOSIS };
 
 	public BasicReferenceView(BasicReferenceActivity activity) {
 		view = (ListView) LayoutInflater.from(activity).inflate(R.layout.basic_reference, null);
