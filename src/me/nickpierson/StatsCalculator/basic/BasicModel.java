@@ -169,38 +169,6 @@ public class BasicModel extends DataActionHandler {
 		return result;
 	}
 
-	private Double calculateKurtosis(List<Double> numberList, double mean, double stdDev) {
-		return calculateKurtOrSkew(4, numberList, mean, stdDev);
-	}
-
-	private Double calculateSkewness(List<Double> numberList, double mean, double stdDev) {
-		return calculateKurtOrSkew(3, numberList, mean, stdDev);
-	}
-
-	private Double calculateKurtOrSkew(int power, List<Double> numberList, double mean, double stdDev) {
-		double sum = 0;
-		for (double number : numberList) {
-			sum += Math.pow(number - mean, power);
-		}
-
-		double denom = Math.pow(stdDev, power) * (numberList.size());
-
-		return sum / denom;
-	}
-
-	private Double calculateGeoMean(List<Double> numberList) {
-		double value = 1;
-		for (double number : numberList) {
-			if (number < 0) {
-				return Double.NaN;
-			}
-
-			value *= number;
-		}
-
-		return Math.pow(value, 1.0 / numberList.size());
-	}
-
 	private double calculateSum(List<Double> numberList) {
 		double sum = 0;
 		for (double num : numberList) {
@@ -279,6 +247,38 @@ public class BasicModel extends DataActionHandler {
 			sum += Math.pow(num - average, 2);
 		}
 		return sum;
+	}
+
+	private Double calculateGeoMean(List<Double> numberList) {
+		double value = 1;
+		for (double number : numberList) {
+			if (number < 0) {
+				return Double.NaN;
+			}
+
+			value *= number;
+		}
+
+		return Math.pow(value, 1.0 / numberList.size());
+	}
+
+	private Double calculateSkewness(List<Double> numberList, double mean, double stdDev) {
+		return calculateKurtOrSkew(3, numberList, mean, stdDev);
+	}
+
+	private Double calculateKurtosis(List<Double> numberList, double mean, double stdDev) {
+		return calculateKurtOrSkew(4, numberList, mean, stdDev);
+	}
+
+	private Double calculateKurtOrSkew(int power, List<Double> numberList, double mean, double stdDev) {
+		double sum = 0;
+		for (double number : numberList) {
+			sum += Math.pow(number - mean, power);
+		}
+
+		double denom = Math.pow(stdDev, power) * (numberList.size());
+
+		return sum / denom;
 	}
 
 	public void saveList(String name, String input) {
