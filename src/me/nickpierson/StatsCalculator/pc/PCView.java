@@ -62,7 +62,6 @@ public class PCView extends ActionHandler {
 			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
 				if (actionId == EditorInfo.IME_ACTION_GO) {
 					event(Types.KEYBOARD_GO);
-					/* TODO: Calculate results and dismiss keyboard */
 					return true;
 				}
 				return false;

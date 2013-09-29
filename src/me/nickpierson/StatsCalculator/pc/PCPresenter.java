@@ -17,7 +17,7 @@ public class PCPresenter {
 
 			@Override
 			public void fire() {
-				calculateResults(model, view);
+				validateInput(model, view);
 			}
 		}, PCView.Types.CALCULATE_PRESSED);
 
@@ -26,7 +26,7 @@ public class PCPresenter {
 			@Override
 			public void fire() {
 				view.dismissNValsKeyboard();
-				calculateResults(model, view);
+				validateInput(model, view);
 			}
 		}, PCView.Types.KEYBOARD_GO);
 
@@ -113,7 +113,7 @@ public class PCPresenter {
 		}, PCModel.Types.INPUT_OVER_MAX_VALUE);
 	}
 
-	private static void calculateResults(final PCModel model, final PCView view) {
+	private static void validateInput(final PCModel model, final PCView view) {
 		view.showDefaultValues();
 		model.validateInput(view.getNVal(), view.getRVal(), view.getNVals());
 	}
