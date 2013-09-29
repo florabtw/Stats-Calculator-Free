@@ -31,7 +31,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class BasicView extends DataActionHandler {
 
 	public enum Types {
-		DONE_CLICKED, EDITTEXT_CLICKED, MENU_SAVE, SAVE_LIST, LOAD_LIST, MENU_LOAD_OR_DELETE, DELETE_LIST;
+		DONE_CLICKED, EDITTEXT_CLICKED, MENU_SAVE, SAVE_LIST, LOAD_LIST, MENU_LOAD_OR_DELETE, DELETE_LIST, MENU_REFERENCE;
 	}
 
 	public enum Keys {
@@ -170,12 +170,16 @@ public class BasicView extends DataActionHandler {
 		dataEvent(type, result);
 	}
 
-	public void saveList() {
+	public void menuSaveList() {
 		event(Types.MENU_SAVE);
 	}
 
-	public void loadList() {
+	public void menuLoadList() {
 		event(Types.MENU_LOAD_OR_DELETE);
+	}
+
+	public void menuReference() {
+		event(Types.MENU_REFERENCE);
 	}
 
 	public void keypadPress(Button button) {

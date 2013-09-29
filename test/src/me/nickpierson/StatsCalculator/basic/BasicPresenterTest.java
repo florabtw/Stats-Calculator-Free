@@ -1,5 +1,6 @@
 package me.nickpierson.StatsCalculator.basic;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
@@ -20,6 +21,8 @@ import org.mockito.ArgumentCaptor;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.content.Intent;
+
 import com.thecellutioncenter.mvplib.ActionListener;
 import com.thecellutioncenter.mvplib.DataActionListener;
 
@@ -32,11 +35,13 @@ public class BasicPresenterTest {
 
 	ArgumentCaptor<ActionListener> listener;
 	private ArgumentCaptor<DataActionListener> dataListener;
+	private BasicActivity activity;
 
 	@Before
 	public void setup() {
 		view = mock(BasicView.class);
 		model = mock(BasicModel.class);
+		activity = mock(BasicActivity.class);
 
 		listener = ArgumentCaptor.forClass(ActionListener.class);
 		dataListener = ArgumentCaptor.forClass(DataActionListener.class);
@@ -45,7 +50,7 @@ public class BasicPresenterTest {
 	}
 
 	public void createPresenter() {
-		BasicPresenter.create(model, view);
+		BasicPresenter.create(activity, model, view);
 	}
 
 	@Test
@@ -234,5 +239,16 @@ public class BasicPresenterTest {
 		listener.getValue().fire();
 
 		verify(view).showToast(MyConstants.LIST_DELETE_ERROR);
+	}
+
+	@Test
+	public void whenMenuReferenceGuideIsClicked_ThenReferenceGuideIsShown() {
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(BasicView.Types.MENU_REFERENCE));
+
+		listener.getValue().fire();
+
+		verify(activity).startActivity(any(Intent.class));
 	}
 }

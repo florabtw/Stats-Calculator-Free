@@ -19,7 +19,7 @@ public class BasicActivity extends Activity {
 
 		view = new BasicView(this);
 		model = new BasicModel(this);
-		BasicPresenter.create(model, view);
+		BasicPresenter.create(this, model, view);
 
 		setContentView(view.getView());
 	}
@@ -34,11 +34,13 @@ public class BasicActivity extends Activity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case R.id.settings_save_list:
-			view.saveList();
+			view.menuSaveList();
 			return true;
 		case R.id.settings_load_list:
-			view.loadList();
+			view.menuLoadList();
 			return true;
+		case R.id.settings_reference:
+			view.menuReference();
 		}
 		return super.onOptionsItemSelected(item);
 	}
