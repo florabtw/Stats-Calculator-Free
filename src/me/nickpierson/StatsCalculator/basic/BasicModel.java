@@ -37,6 +37,7 @@ public class BasicModel extends DataActionHandler {
 		emptyMap.put(MyConstants.SIZE, 0.0);
 		emptyMap.put(MyConstants.SUM, 0.0);
 		emptyMap.put(MyConstants.ARITH_MEAN, 0.0);
+		emptyMap.put(MyConstants.GEO_MEAN, 0.0);
 		emptyMap.put(MyConstants.MEDIAN, 0.0);
 		emptyMap.put(MyConstants.MODE, null);
 		emptyMap.put(MyConstants.RANGE, 0.0);
@@ -44,6 +45,9 @@ public class BasicModel extends DataActionHandler {
 		emptyMap.put(MyConstants.SAMPLE_VAR, 0.0);
 		emptyMap.put(MyConstants.POP_DEV, 0.0);
 		emptyMap.put(MyConstants.SAMPLE_DEV, 0.0);
+		emptyMap.put(MyConstants.COEFF_VAR, 0.0);
+		emptyMap.put(MyConstants.SKEWNESS, 0.0);
+		emptyMap.put(MyConstants.KURTOSIS, 0.0);
 		return emptyMap;
 	}
 

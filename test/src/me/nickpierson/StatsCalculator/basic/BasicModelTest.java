@@ -58,16 +58,19 @@ public class BasicModelTest {
 	@Test
 	public void modelReturnsEmptyHashMapOnRequest() {
 		LinkedHashMap<String, Double> emptyMap = model.getEmptyResults();
-		assertEquals(emptyMap.get(MyConstants.SIZE), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.SUM), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.ARITH_MEAN), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.MEDIAN), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.MODE), null);
-		assertEquals(emptyMap.get(MyConstants.RANGE), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.POP_VAR), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.SAMPLE_VAR), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.POP_DEV), 0.0, DELTA);
-		assertEquals(emptyMap.get(MyConstants.SAMPLE_DEV), 0.0, DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.SIZE), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.SUM), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.ARITH_MEAN), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.MEDIAN), DELTA);
+		assertEquals(null, emptyMap.get(MyConstants.MODE));
+		assertEquals(0.0, emptyMap.get(MyConstants.RANGE), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.POP_VAR), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.SAMPLE_VAR), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.POP_DEV), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.SAMPLE_DEV), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.COEFF_VAR), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.SKEWNESS), DELTA);
+		assertEquals(0.0, emptyMap.get(MyConstants.KURTOSIS), DELTA);
 	}
 
 	@SuppressWarnings("unchecked")
