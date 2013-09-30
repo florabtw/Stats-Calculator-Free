@@ -101,8 +101,11 @@ public class BasicPresenterTest {
 
 	@Test
 	public void whenInvalidNumber_ThenEmptyResultsAreShownAndToastIsDisplayed() {
-		HashMap<Enum<?>, Integer> testMap = new HashMap<Enum<?>, Integer>();
-		testMap.put(BasicModel.Keys.INVALID_ITEM, 5);
+		HashMap<Enum<?>, Object> testMap = new HashMap<Enum<?>, Object>();
+		int errorPosition = 5;
+		String errorText = "errrrerr";
+		testMap.put(BasicModel.Keys.INVALID_POSITION, errorPosition);
+		testMap.put(BasicModel.Keys.INVALID_TEXT, errorText);
 		createPresenter();
 
 		verify(model).addListener(dataListener.capture(), eq(BasicModel.Types.INVALID_NUMBER));
@@ -111,7 +114,8 @@ public class BasicPresenterTest {
 
 		verify(model, times(2)).getEmptyResults();
 		verify(view, times(2)).showResults(model.getEmptyResults());
-		verify(view).showErrorToast(5);
+		verify(view).showErrorToast(errorPosition);
+		verify(view).selectInput(errorText);
 	}
 
 	@Test

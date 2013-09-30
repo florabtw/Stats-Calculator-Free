@@ -100,34 +100,37 @@ public class BasicModelTest {
 	@SuppressWarnings("unchecked")
 	@Test
 	public void validateInputNotifiesCorrectly_GivenInvalidInput() {
-		HashMap<Enum<?>, Integer> invalidMapFirstPos = new HashMap<Enum<?>, Integer>();
-		HashMap<Enum<?>, Integer> invalidMapThirdPos = new HashMap<Enum<?>, Integer>();
-		String invalidInputFirstPos1 = "";
-		String invalidInputFirstPos2 = "23x1.5";
-		String invalidInputFirstPos3 = "23x100001";
-		String invalidInputFirstPos4 = "x5,27";
-		String invalidInputFirstPos5 = "5x,27";
-		String invalidInputThirdPos1 = "23,52x2,56..8,9";
-		String invalidInputThirdPos2 = "23,25.6,23..5x2,7";
-		String invalidInputThirdPos3 = "23,25.6,25-5,7";
-		String invalidInputThirdPos4 = "23,25.6,25xx5,7";
-		invalidMapFirstPos.put(BasicModel.Keys.INVALID_ITEM, 1);
-		invalidMapThirdPos.put(BasicModel.Keys.INVALID_ITEM, 3);
+		HashMap<Enum<?>, Object> invalidMapFirstPos = new HashMap<Enum<?>, Object>();
+		HashMap<Enum<?>, Object> invalidMapThirdPos = new HashMap<Enum<?>, Object>();
+		invalidMapFirstPos.put(BasicModel.Keys.INVALID_POSITION, 1);
+		invalidMapThirdPos.put(BasicModel.Keys.INVALID_POSITION, 3);
 		addAllListeners();
 
-		model.validateInput(invalidInputFirstPos1);
-		model.validateInput(invalidInputFirstPos2);
-		model.validateInput(invalidInputFirstPos3);
-		model.validateInput(invalidInputFirstPos4);
-		model.validateInput(invalidInputFirstPos5);
-		model.validateInput(invalidInputThirdPos1);
-		model.validateInput(invalidInputThirdPos2);
-		model.validateInput(invalidInputThirdPos3);
-		model.validateInput(invalidInputThirdPos4);
+		verifyInvalidInput("", invalidMapFirstPos, "");
 
-		verify(invalidDataListener, times(5)).fire(invalidMapFirstPos);
-		verify(invalidDataListener, times(4)).fire(invalidMapThirdPos);
+		verifyInvalidInput("23x1.5", invalidMapFirstPos, "23x1.5");
+
+		verifyInvalidInput("23x100001", invalidMapFirstPos, "23x100001");
+
+		verifyInvalidInput("x5,27", invalidMapFirstPos, "x5");
+
+		verifyInvalidInput("5x,27", invalidMapFirstPos, "5x");
+
+		verifyInvalidInput("23,52x2,56..8,9", invalidMapThirdPos, "56..8");
+
+		verifyInvalidInput("23,25.6,23..5x2,7", invalidMapThirdPos, "23..5x2");
+
+		verifyInvalidInput("23,25.6,25-5,7", invalidMapThirdPos, "25-5");
+
+		verifyInvalidInput("23,25.6,25xx5,7", invalidMapThirdPos, "25xx5");
+
 		verify(validDataListener, never()).fire((HashMap<Enum<?>, ?>) any(Object.class));
+	}
+
+	public void verifyInvalidInput(String invalidInput, HashMap<Enum<?>, Object> invalidMap, String invalidText) {
+		model.validateInput(invalidInput);
+		invalidMap.put(BasicModel.Keys.INVALID_TEXT, invalidText);
+		verify(invalidDataListener).fire(invalidMap);
 	}
 
 	public void addAllListeners() {
