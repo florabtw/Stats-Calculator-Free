@@ -1,13 +1,10 @@
 package me.nickpierson.StatsCalculator;
 
-import java.util.HashMap;
-
-import me.nickpierson.StatsCalculator.R;
-import me.nickpierson.StatsCalculator.utils.MyConstants;
-
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ListView;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;
@@ -15,30 +12,40 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class HomeView extends DataActionHandler {
 
 	public enum Types {
-		BUTTON_CLICKED;
+		DESCRIPTIVE_BUTTON, PERM_COMB_BUTTON;
 	}
 
-	private ListView lvHome;
+	private RelativeLayout view;
 	private HomeActivity activity;
-	private HomeAdapter adapter;
+	private Button btnPermComb;
+	private Button btnDescriptive;
 
 	public HomeView(HomeActivity activity) {
 		this.activity = activity;
 
-		lvHome = (ListView) LayoutInflater.from(activity).inflate(R.layout.home, null);
-		adapter = new HomeAdapter(activity, R.layout.home_list_item);
-		lvHome.setAdapter(adapter);
-		adapter.addAll(MyConstants.descriptions);
-	}
-	
-	public void buttonClicked(View button) {
-		HashMap<Enum<?>, String> map = new HashMap<Enum<?>, String>();
-		map.put(Types.BUTTON_CLICKED, (String) button.getTag());
-		dataEvent(Types.BUTTON_CLICKED, map);
+		view = (RelativeLayout) LayoutInflater.from(activity).inflate(R.layout.home, null);
+		btnDescriptive = (Button) view.findViewById(R.id.home_btnDescriptive);
+		btnPermComb = (Button) view.findViewById(R.id.home_btnPermComb);
+
+		btnDescriptive.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				event(Types.DESCRIPTIVE_BUTTON);
+			}
+		});
+
+		btnPermComb.setOnClickListener(new OnClickListener() {
+
+			@Override
+			public void onClick(View v) {
+				event(Types.PERM_COMB_BUTTON);
+			}
+		});
 	}
 
-	public ListView getView() {
-		return lvHome;
+	public RelativeLayout getView() {
+		return view;
 	}
 
 	public void showToast(String message) {

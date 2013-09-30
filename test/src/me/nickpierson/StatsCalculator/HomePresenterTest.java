@@ -1,18 +1,11 @@
 package me.nickpierson.StatsCalculator;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
-import java.util.HashMap;
-
-import me.nickpierson.StatsCalculator.HomeActivity;
-import me.nickpierson.StatsCalculator.HomeModel;
-import me.nickpierson.StatsCalculator.HomePresenter;
-import me.nickpierson.StatsCalculator.HomeView;
-import me.nickpierson.StatsCalculator.utils.MyConstants;
+import me.nickpierson.StatsCalculator.basic.BasicActivity;
+import me.nickpierson.StatsCalculator.pc.PCActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -23,7 +16,7 @@ import org.robolectric.annotation.Config;
 
 import android.content.Intent;
 
-import com.thecellutioncenter.mvplib.DataActionListener;
+import com.thecellutioncenter.mvplib.ActionListener;
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
@@ -32,12 +25,15 @@ public class HomePresenterTest {
 	private HomeModel model;
 	private HomeView view;
 	private HomeActivity activity;
+	private ArgumentCaptor<ActionListener> listener;
 
 	@Before
 	public void setup() {
 		model = mock(HomeModel.class);
 		view = mock(HomeView.class);
 		activity = mock(HomeActivity.class);
+
+		listener = ArgumentCaptor.forClass(ActionListener.class);
 	}
 
 	public void createPresenter() {
@@ -45,38 +41,24 @@ public class HomePresenterTest {
 	}
 
 	@Test
-	public void ifAnErrorOccursOnButtonPress_ThenToastIsShown() {
-		buttonSetup("Not a real description");
-
-		/* Doesn't actually test that the correct string is retrieved.
-		 * The any() is for clarity since no matter what integer is put there,
-		 * it would pass the test.
-		 */
-		verify(view).showToast(activity.getString(any(Integer.class)));
-	}
-	
-	@Test
-	public void ifAnErrorOccursOnButtonPress_ThenNoActivityIsOpened() {
-		buttonSetup("Not a real description");
-		
-		verify(activity, never()).startActivity(any(Intent.class));
-	}
-
-	@Test
 	public void whenBasicButtonIsClicked_ThenBasicCalculatorIsOpened() {
-		buttonSetup(MyConstants.BASIC);
+		createPresenter();
 
-		verify(activity).startActivity(any(Intent.class));
+		verify(view).addListener(listener.capture(), eq(HomeView.Types.DESCRIPTIVE_BUTTON));
+
+		listener.getValue().fire();
+
+		verify(activity, times(2)).startActivity(new Intent(activity, BasicActivity.class));
 	}
 
-	private void buttonSetup(String description) {
+	@Test
+	public void whenPermCombButtonIsClicked_ThenPermCombCalculatorIsOpened() {
 		createPresenter();
-		ArgumentCaptor<DataActionListener> listener = ArgumentCaptor.forClass(DataActionListener.class);
-		HashMap<Enum<?>, String> map = new HashMap<Enum<?>, String>();
-		map.put(HomeView.Types.BUTTON_CLICKED, description);
-		
-		verify(view).addListener(listener.capture(), eq(HomeView.Types.BUTTON_CLICKED));
-		
-		listener.getValue().fire(map);
+
+		verify(view).addListener(listener.capture(), eq(HomeView.Types.PERM_COMB_BUTTON));
+
+		listener.getValue().fire();
+
+		verify(activity, times(2)).startActivity(new Intent(activity, PCActivity.class));
 	}
 }
