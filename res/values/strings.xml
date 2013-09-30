@@ -48,7 +48,7 @@
     <string name="delete">Delete</string>
     <string name="formula">formula</string>
     <string name="reference_guide">Reference Guide</string>
-    <string name="descriptive_stats">Descriptive Stats</string>
-    <string name="permutations_combinations">Permutations &amp; Combinations</string>
+    <string name="descriptive_stats">Descriptive\nStats</string>
+    <string name="permutations_combinations">Permutations\n&amp;\nCombinations</string>
 
 </resources>

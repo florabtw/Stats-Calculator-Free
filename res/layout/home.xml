@@ -3,6 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#fff"
+    android:padding="15dp"
     tools:context=".HomeActivity" >
 
     <TextView
@@ -10,22 +12,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:text="@string/app_name" />
+        android:gravity="center"
+        android:text="@string/app_name"
+        android:textColor="#222"
+        android:textSize="55sp"
+        android:textStyle="italic"
+        android:typeface="serif" />
 
     <Button
         android:id="@+id/home_btnDescriptive"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="@string/descriptive_stats" />
+        android:layout_alignLeft="@+id/home_btnPermComb"
+        android:layout_alignRight="@+id/home_btnPermComb"
+        android:layout_centerVertical="true"
+        android:background="@drawable/button_next_background"
+        android:padding="8dp"
+        android:text="@string/descriptive_stats"
+        android:textColor="#ffffffff"
+        android:textSize="20sp" />
 
     <Button
         android:id="@+id/home_btnPermComb"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/home_btnDescriptive"
-        android:layout_alignRight="@+id/home_btnDescriptive"
         android:layout_below="@+id/home_btnDescriptive"
-        android:text="@string/permutations_combinations" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/button_next_background"
+        android:padding="8dp"
+        android:text="@string/permutations_combinations"
+        android:textColor="@android:color/white"
+        android:textSize="20sp" />
 
 </RelativeLayout>
