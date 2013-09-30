@@ -25,7 +25,7 @@ public class BasicModel extends DataActionHandler {
 	}
 
 	public enum Keys {
-		INVALID_ITEM, VALIDATED_LIST;
+		INVALID_POSITION, VALIDATED_LIST, INVALID_TEXT;
 	}
 
 	public BasicModel(Activity activity) {
@@ -55,7 +55,7 @@ public class BasicModel extends DataActionHandler {
 		HashMap<Enum<?>, Object> results = new HashMap<Enum<?>, Object>();
 
 		if (input.length() == 0) {
-			eventInvalid(results, 1);
+			eventInvalid(results, 1, "");
 			return;
 		}
 
@@ -67,11 +67,11 @@ public class BasicModel extends DataActionHandler {
 				continue;
 			} else if (currVal.contains("x")) {
 				if (!isValidFreqItem(currVal)) {
-					eventInvalid(results, i + 1);
+					eventInvalid(results, i + 1, currVal);
 					return;
 				}
 			} else if (!isValidDouble(currVal)) {
-				eventInvalid(results, i + 1);
+				eventInvalid(results, i + 1, currVal);
 				return;
 			}
 		}
@@ -80,8 +80,9 @@ public class BasicModel extends DataActionHandler {
 		dataEvent(Types.VALID_INPUT, results);
 	}
 
-	private void eventInvalid(HashMap<Enum<?>, Object> results, int i) {
-		results.put(Keys.INVALID_ITEM, i);
+	private void eventInvalid(HashMap<Enum<?>, Object> results, int position, String text) {
+		results.put(Keys.INVALID_POSITION, position);
+		results.put(Keys.INVALID_TEXT, text);
 		dataEvent(Types.INVALID_NUMBER, results);
 	}
 
