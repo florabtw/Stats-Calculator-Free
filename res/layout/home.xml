@@ -19,6 +19,12 @@
         android:textStyle="italic|bold"
         android:typeface="serif" />
 
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="3dp"
+        android:layout_below="@+id/home_tvTitle"
+        android:background="#FF7878" />
+
     <Button
         android:id="@+id/home_btnDescriptive"
         android:layout_width="0dp"
@@ -30,8 +36,8 @@
         android:padding="8dp"
         android:text="@string/descriptive_stats"
         android:textColor="#7EA7D8"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/home_btnPermComb"
@@ -44,7 +50,7 @@
         android:padding="8dp"
         android:text="@string/permutations_combinations"
         android:textColor="#82CA9D"
-        android:textStyle="bold"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>
