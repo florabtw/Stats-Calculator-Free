@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#fff"
-    android:padding="15dp"
+    android:background="#FEFEFA"
+    android:padding="10dp"
     tools:context=".HomeActivity" >
 
     <TextView
@@ -14,9 +14,9 @@
         android:layout_centerHorizontal="true"
         android:gravity="center"
         android:text="@string/app_name"
-        android:textColor="#222"
-        android:textSize="55sp"
-        android:textStyle="italic"
+        android:textColor="#FF7878"
+        android:textSize="50sp"
+        android:textStyle="italic|bold"
         android:typeface="serif" />
 
     <Button
@@ -26,10 +26,11 @@
         android:layout_alignLeft="@+id/home_btnPermComb"
         android:layout_alignRight="@+id/home_btnPermComb"
         android:layout_centerVertical="true"
-        android:background="@drawable/button_next_background"
+        android:background="@drawable/blue_next_background"
         android:padding="8dp"
         android:text="@string/descriptive_stats"
-        android:textColor="#ffffffff"
+        android:textColor="#7EA7D8"
+        android:textStyle="bold"
         android:textSize="20sp" />
 
     <Button
@@ -39,10 +40,11 @@
         android:layout_below="@+id/home_btnDescriptive"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dp"
-        android:background="@drawable/button_next_background"
+        android:background="@drawable/green_next_background"
         android:padding="8dp"
         android:text="@string/permutations_combinations"
-        android:textColor="@android:color/white"
+        android:textColor="#82CA9D"
+        android:textStyle="bold"
         android:textSize="20sp" />
 
 </RelativeLayout>
