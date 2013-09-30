@@ -23,12 +23,6 @@ public class MyConstants {
 	public static final String REF_SKEWNESS = SKEWNESS + " (population)";
 	public static final String REF_KURTOSIS = KURTOSIS + " (population)";
 
-	public static final String BASIC = "Descriptive Stats";
-	public static final String PERM_COMB = "Permutations & Combinations";
-	public static final String PROB_DISTS = "Probability Distributions";
-
-	public static final String[] descriptions = { BASIC, PERM_COMB, PROB_DISTS };
-
 	public static final String NOT_APPLICABLE = "n/a";
 	public static final String DECIMAL_FORMAT = "0.#######E0";
 
