@@ -214,7 +214,7 @@ public class BasicView extends DataActionHandler {
 
 	public void selectInput(String string) {
 		int startIndex = etInput.getText().toString().indexOf(string);
-		
+
 		/* Just in case */
 		if (startIndex > 0) {
 			etInput.setSelection(startIndex, startIndex + string.length());
