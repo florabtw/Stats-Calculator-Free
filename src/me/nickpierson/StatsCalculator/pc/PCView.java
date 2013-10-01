@@ -1,17 +1,20 @@
 package me.nickpierson.StatsCalculator.pc;
 
 import me.nickpierson.StatsCalculator.R;
+import me.nickpierson.StatsCalculator.utils.KeypadHelper;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.inputmethod.EditorInfo;
+import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
+import android.widget.TableLayout;
 import android.widget.TextView;
-import android.widget.TextView.OnEditorActionListener;
 import android.widget.Toast;
 
 import com.thecellutioncenter.mvplib.ActionHandler;
@@ -19,10 +22,10 @@ import com.thecellutioncenter.mvplib.ActionHandler;
 public class PCView extends ActionHandler {
 
 	public enum Types {
-		CALCULATE_PRESSED, KEYBOARD_GO;
+		DONE_PRESSED, EDITTEXT_CLICKED
 	}
 
-	private ScrollView view;
+	private LinearLayout view;
 	private EditText etNVal;
 	private EditText etRVal;
 	private EditText etNVals;
@@ -31,39 +34,61 @@ public class PCView extends ActionHandler {
 	private TextView tvNPermR;
 	private TextView tvNChooseR;
 	private TextView tvIndistinct;
-	private Button btnCalculate;
 	private PCActivity activity;
 	private Toast toast;
+	private KeypadHelper keypadHelper;
+	private ScrollView svResults;
+	private TableLayout tlKeypad;
+	private FrameLayout flFrame;
 
 	public PCView(PCActivity activity) {
 		this.activity = activity;
-		view = (ScrollView) LayoutInflater.from(activity).inflate(R.layout.perm_comb, null);
-		tvNFact = (TextView) view.findViewById(R.id.pc_tvNFact);
-		tvRFact = (TextView) view.findViewById(R.id.pc_tvRFact);
-		tvNPermR = (TextView) view.findViewById(R.id.pc_tvNPermR);
-		tvNChooseR = (TextView) view.findViewById(R.id.pc_tvNChooseR);
-		tvIndistinct = (TextView) view.findViewById(R.id.pc_tvIndistinct);
-		btnCalculate = (Button) view.findViewById(R.id.pc_btnCalculate);
-		btnCalculate.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				event(Types.CALCULATE_PRESSED);
-			}
-		});
+		view = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.perm_comb, null);
+		svResults = (ScrollView) LayoutInflater.from(activity).inflate(R.layout.perm_comb_results, null);
+		tlKeypad = (TableLayout) LayoutInflater.from(activity).inflate(R.layout.keypad, null);
+		flFrame = (FrameLayout) view.findViewById(R.id.pc_flFrame);
+		tvNFact = (TextView) svResults.findViewById(R.id.pc_tvNFact);
+		tvRFact = (TextView) svResults.findViewById(R.id.pc_tvRFact);
+		tvNPermR = (TextView) svResults.findViewById(R.id.pc_tvNPermR);
+		tvNChooseR = (TextView) svResults.findViewById(R.id.pc_tvNChooseR);
+		tvIndistinct = (TextView) svResults.findViewById(R.id.pc_tvIndistinct);
+		Button btnBackspace = (Button) tlKeypad.findViewById(R.id.keypad_backspace);
 
 		etNVal = (EditText) view.findViewById(R.id.pc_etNVal);
 		etRVal = (EditText) view.findViewById(R.id.pc_etRVal);
 		etNVals = (EditText) view.findViewById(R.id.pc_etNVals);
 
-		etNVals.setOnEditorActionListener(new OnEditorActionListener() {
+		setEditTextClickListener(etNVal);
+		setEditTextClickListener(etRVal);
+		setEditTextClickListener(etNVals);
+
+		keypadHelper = new KeypadHelper();
+
+		keypadHelper.disableSoftInputFromAppearing(etNVal);
+		keypadHelper.disableSoftInputFromAppearing(etRVal);
+		keypadHelper.disableSoftInputFromAppearing(etNVals);
+
+		flFrame.addView(svResults);
+
+		btnBackspace.setOnLongClickListener(new OnLongClickListener() {
 
 			@Override
-			public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-				if (actionId == EditorInfo.IME_ACTION_GO) {
-					event(Types.KEYBOARD_GO);
-					return true;
+			public boolean onLongClick(View v) {
+				EditText etSelected = getSelectedEditText();
+				if (etSelected != null) {
+					keypadHelper.longPressBackspace(etSelected);
 				}
+				return true;
+			}
+		});
+	}
+
+	private void setEditTextClickListener(EditText editText) {
+		editText.setOnTouchListener(new OnTouchListener() {
+
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				event(Types.EDITTEXT_CLICKED);
 				return false;
 			}
 		});
@@ -75,6 +100,16 @@ public class PCView extends ActionHandler {
 		setPermutation(MyConstants.NOT_APPLICABLE);
 		setCombination(MyConstants.NOT_APPLICABLE);
 		setIndistinct(MyConstants.NOT_APPLICABLE);
+	}
+
+	public void showKeypad() {
+		flFrame.removeAllViews();
+		flFrame.addView(tlKeypad);
+	}
+
+	public void showResults() {
+		flFrame.removeAllViews();
+		flFrame.addView(svResults);
 	}
 
 	public void setNFactorial(String text) {
@@ -97,6 +132,56 @@ public class PCView extends ActionHandler {
 		tvIndistinct.setText(text);
 	}
 
+	public void showToast(String message) {
+		try {
+			toast.getView().isShown();
+			toast.setText(message);
+		} catch (Exception e) {
+			toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT);
+		}
+		toast.show();
+	}
+
+	public void keypadPress(Button button) {
+		/* Skips MVP */
+		EditText etSelected = getSelectedEditText();
+
+		if (etSelected != null) {
+			keypadHelper.keypadPress(etSelected, button.getText().charAt(0));
+		}
+	}
+
+	public void backSpace() {
+		/* Skips MVP */
+		EditText etSelected = getSelectedEditText();
+
+		if (etSelected != null) {
+			keypadHelper.backspace(etSelected);
+		}
+	}
+
+	public void donePress() {
+		event(Types.DONE_PRESSED);
+	}
+
+	private EditText getSelectedEditText() {
+		EditText etSelected = null;
+
+		if (etNVal.isFocused()) {
+			etSelected = etNVal;
+		} else if (etRVal.isFocused()) {
+			etSelected = etRVal;
+		} else if (etNVals.isFocused()) {
+			etSelected = etNVals;
+		}
+
+		return etSelected;
+	}
+
+	public boolean isKeypadVisible() {
+		return tlKeypad.isShown();
+	}
+
 	public String getNVal() {
 		return etNVal.getText().toString();
 	}
@@ -111,19 +196,5 @@ public class PCView extends ActionHandler {
 
 	public View getView() {
 		return view;
-	}
-
-	public void showToast(String message) {
-		try {
-			toast.getView().isShown();
-			toast.setText(message);
-		} catch (Exception e) {
-			toast = Toast.makeText(activity, message, Toast.LENGTH_SHORT);
-		}
-		toast.show();
-	}
-
-	public void dismissNValsKeyboard() {
-		etNVals.onEditorAction(EditorInfo.IME_ACTION_DONE);
 	}
 }

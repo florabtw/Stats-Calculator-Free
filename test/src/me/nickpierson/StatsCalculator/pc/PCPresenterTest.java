@@ -4,6 +4,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -54,38 +55,43 @@ public class PCPresenterTest {
 	}
 
 	@Test
-	public void whenCalculateButtonIsPressed_ThenDisplayedValuesAreCleared() {
+	public void viewIsInitializedWithDefaultValues() {
 		createPresenter();
 
-		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
+		verify(view).showDefaultValues();
+	}
+
+	@Test
+	public void whenAnyEditTextIsClicked_ThenKeypadIsShown() {
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(PCView.Types.EDITTEXT_CLICKED));
 
 		listener.getValue().fire();
 
-		verify(view).showDefaultValues();
+		verify(view).showKeypad();
+	}
+
+	@Test
+	public void whenCalculateButtonIsPressed_ThenDisplayedValuesAreCleared() {
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(PCView.Types.DONE_PRESSED));
+
+		listener.getValue().fire();
+
+		verify(view, times(2)).showDefaultValues();
 	}
 
 	@Test
 	public void whenCalculateButtonIsPressed_ThenModelValidatesInput() {
 		createPresenter();
 
-		verify(view).addListener(listener.capture(), eq(PCView.Types.CALCULATE_PRESSED));
+		verify(view).addListener(listener.capture(), eq(PCView.Types.DONE_PRESSED));
 
 		listener.getValue().fire();
 
 		verify(model).validateInput(view.getNVal(), view.getRVal(), view.getNVals());
-	}
-
-	@Test
-	public void whenGoButtonOnKeyboardIsPressed_ThenModelValidatesInputAndKeyboardIsDismissed() {
-		createPresenter();
-
-		verify(view).addListener(listener.capture(), eq(PCView.Types.KEYBOARD_GO));
-
-		listener.getValue().fire();
-
-		verify(view).showDefaultValues();
-		verify(model).validateInput(view.getNVal(), view.getRVal(), view.getNVals());
-		verify(view).dismissNValsKeyboard();
 	}
 
 	@Test
@@ -99,6 +105,7 @@ public class PCPresenterTest {
 
 		dataListener.getValue().fire(map);
 
+		verifyResultsShown();
 		verifyNFact(testNVal);
 		verify(view).setRFactorial(MyConstants.NOT_APPLICABLE);
 		verify(view).setPermutation(MyConstants.NOT_APPLICABLE);
@@ -117,6 +124,7 @@ public class PCPresenterTest {
 
 		dataListener.getValue().fire(map);
 
+		verifyResultsShown();
 		verifyRFact(testRVal);
 		verify(view).setNFactorial(MyConstants.NOT_APPLICABLE);
 		verify(view).setPermutation(MyConstants.NOT_APPLICABLE);
@@ -137,6 +145,7 @@ public class PCPresenterTest {
 
 		dataListener.getValue().fire(map);
 
+		verifyResultsShown();
 		verifyNFact(testNVal);
 		verifyRFact(testRVal);
 		verifyPermutation(testNVal, testRVal);
@@ -160,6 +169,7 @@ public class PCPresenterTest {
 
 		dataListener.getValue().fire(map);
 
+		verifyResultsShown();
 		verifyNFact(testNVal);
 		verifyIndistinct(testNVals, testNVal);
 		verify(view).setRFactorial(MyConstants.NOT_APPLICABLE);
@@ -184,6 +194,7 @@ public class PCPresenterTest {
 
 		dataListener.getValue().fire(map);
 
+		verifyResultsShown();
 		verifyNFact(testNVal);
 		verifyRFact(testRVal);
 		verifyPermutation(testNVal, testRVal);
@@ -217,6 +228,10 @@ public class PCPresenterTest {
 		verify(view).setPermutation("1E9");
 		verify(view).setCombination("1E9");
 		verify(view).setIndistinct("1E9");
+	}
+
+	private void verifyResultsShown() {
+		verify(view).showResults();
 	}
 
 	private void verifyNFact(int testNVal) {

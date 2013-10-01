@@ -77,7 +77,7 @@ public class BasicPresenterTest {
 		when(view.getInput()).thenReturn("15,32x4,17.9");
 		createPresenter();
 
-		verify(view).addListener(listener.capture(), eq(BasicView.Types.DONE_CLICKED));
+		verify(view).addListener(listener.capture(), eq(BasicView.Types.DONE_PRESSED));
 
 		listener.getValue().fire();
 
