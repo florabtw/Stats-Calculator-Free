@@ -7,6 +7,7 @@
         android:id="@+id/basic_etInput"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="3dp"
         android:background="@drawable/input_background"
         android:digits="1234567890,.-x"
         android:hint="@string/basicInputHint"
@@ -18,8 +19,7 @@
         android:id="@+id/basic_flContent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/basic_etInput"
-        android:layout_marginTop="1dp" >
+        android:layout_below="@+id/basic_etInput" >
     </FrameLayout>
 
 </RelativeLayout>

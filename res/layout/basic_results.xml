@@ -2,12 +2,8 @@
 <ListView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#7EA7D8"
-    android:divider="#7EA7D8"
-    android:dividerHeight="2dp"
-    android:paddingBottom="3dp"
-    android:paddingLeft="3dp"
-    android:paddingRight="3dp"
-    android:paddingTop="3dp" >
+    android:dividerHeight="3dp"
+    android:divider="#0FFF"
+    android:padding="3dp" >
 
 </ListView>
