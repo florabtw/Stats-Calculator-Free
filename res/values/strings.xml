@@ -40,7 +40,7 @@
     <string name="r_fact">r!</string>
     <string name="n_perm_r">nPr</string>
     <string name="n_comb_r">nCr</string>
-    <string name="indistinct_perm">Indistinguishable Permutations</string>
+    <string name="indistinct_perm">Indistinguishable\nPermutations</string>
     <string name="request_list_name">What would you like to name the list?</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
@@ -50,5 +50,8 @@
     <string name="reference_guide">Reference Guide</string>
     <string name="descriptive_stats">Descriptive Stats</string>
     <string name="permutations_combinations">Permutations &amp; Combinations</string>
+    <string name="n_hint">Total size</string>
+    <string name="r_hint">Group size</string>
+    <string name="n_vals_hint">Duplicates (if any)</string>
 
 </resources>
