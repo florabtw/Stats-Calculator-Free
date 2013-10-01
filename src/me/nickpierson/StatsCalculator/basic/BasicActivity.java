@@ -1,6 +1,7 @@
 package me.nickpierson.StatsCalculator.basic;
 
 import me.nickpierson.StatsCalculator.R;
+import me.nickpierson.StatsCalculator.utils.KeypadActivity;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class BasicActivity extends Activity {
+public class BasicActivity extends Activity implements KeypadActivity {
 
 	private BasicView view;
 	private BasicModel model;
@@ -45,17 +46,17 @@ public class BasicActivity extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 
-	/* Keypad input character */
+	@Override
 	public void keypadPress(View button) {
 		view.keypadPress((Button) button);
 	}
 
-	/* Keypad backspace button */
+	@Override
 	public void backSpace(View button) {
-		view.backSpace();
+		view.backspace();
 	}
 
-	/* Keypad done button */
+	@Override
 	public void donePress(View button) {
 		view.donePress();
 	}

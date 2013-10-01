@@ -4,7 +4,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;
@@ -15,7 +15,7 @@ public class HomeView extends DataActionHandler {
 		DESCRIPTIVE_BUTTON, PERM_COMB_BUTTON;
 	}
 
-	private RelativeLayout view;
+	private LinearLayout view;
 	private HomeActivity activity;
 	private Button btnPermComb;
 	private Button btnDescriptive;
@@ -23,7 +23,7 @@ public class HomeView extends DataActionHandler {
 	public HomeView(HomeActivity activity) {
 		this.activity = activity;
 
-		view = (RelativeLayout) LayoutInflater.from(activity).inflate(R.layout.home, null);
+		view = (LinearLayout) LayoutInflater.from(activity).inflate(R.layout.home, null);
 		btnDescriptive = (Button) view.findViewById(R.id.home_btnDescriptive);
 		btnPermComb = (Button) view.findViewById(R.id.home_btnPermComb);
 
@@ -44,7 +44,7 @@ public class HomeView extends DataActionHandler {
 		});
 	}
 
-	public RelativeLayout getView() {
+	public LinearLayout getView() {
 		return view;
 	}
 

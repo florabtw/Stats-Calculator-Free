@@ -2,6 +2,7 @@ package me.nickpierson.StatsCalculator.basic.reference;
 
 import me.nickpierson.StatsCalculator.R;
 import android.content.Context;
+import android.graphics.Paint;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,6 +28,8 @@ public class BasicReferenceAdapter extends ArrayAdapter<ReferenceListItem> {
 
 		ReferenceListItem listItem = getItem(position);
 		title.setText(listItem.getTitle());
+		title.setPaintFlags(title.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+
 		ivFormula.setBackgroundResource(listItem.getImageId());
 
 		return listItemView;

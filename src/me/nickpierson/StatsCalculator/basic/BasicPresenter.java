@@ -31,7 +31,7 @@ public class BasicPresenter {
 			public void fire() {
 				model.validateInput(view.getInput());
 			}
-		}, BasicView.Types.DONE_CLICKED);
+		}, BasicView.Types.DONE_PRESSED);
 
 		model.addListener(new DataActionListener() {
 

@@ -13,22 +13,25 @@ import com.thecellutioncenter.mvplib.DataActionListener;
 public class PCPresenter {
 
 	public static void create(final PCModel model, final PCView view) {
+		view.showDefaultValues();
+
 		view.addListener(new ActionListener() {
 
 			@Override
 			public void fire() {
 				validateInput(model, view);
 			}
-		}, PCView.Types.CALCULATE_PRESSED);
+		}, PCView.Types.DONE_PRESSED);
 
 		view.addListener(new ActionListener() {
 
 			@Override
 			public void fire() {
-				view.dismissNValsKeyboard();
-				validateInput(model, view);
+				if (!view.isKeypadVisible()) {
+					view.showKeypad();
+				}
 			}
-		}, PCView.Types.KEYBOARD_GO);
+		}, PCView.Types.EDITTEXT_CLICKED);
 
 		model.addListener(new DataActionListener() {
 
@@ -36,6 +39,7 @@ public class PCPresenter {
 			public void fire(HashMap<Enum<?>, ?> data) {
 				int n = (Integer) data.get(PCModel.Keys.N_VALUE);
 
+				view.showResults();
 				setNFactorial(model, view, n);
 				view.setRFactorial(MyConstants.NOT_APPLICABLE);
 				view.setPermutation(MyConstants.NOT_APPLICABLE);
@@ -50,6 +54,7 @@ public class PCPresenter {
 			public void fire(HashMap<Enum<?>, ?> data) {
 				int r = (Integer) data.get(PCModel.Keys.R_VALUE);
 
+				view.showResults();
 				view.setNFactorial(MyConstants.NOT_APPLICABLE);
 				setRFactorial(model, view, r);
 				view.setPermutation(MyConstants.NOT_APPLICABLE);
@@ -65,6 +70,7 @@ public class PCPresenter {
 				int n = (Integer) data.get(PCModel.Keys.N_VALUE);
 				int r = (Integer) data.get(PCModel.Keys.R_VALUE);
 
+				view.showResults();
 				setNFactorial(model, view, n);
 				setRFactorial(model, view, r);
 				setPermAndComb(model, view, n, r);
@@ -80,6 +86,7 @@ public class PCPresenter {
 				int n = (Integer) data.get(PCModel.Keys.N_VALUE);
 				ArrayList<Integer> nVals = (ArrayList<Integer>) data.get(PCModel.Keys.N_VALUES);
 
+				view.showResults();
 				setNFactorial(model, view, n);
 				view.setRFactorial(MyConstants.NOT_APPLICABLE);
 				view.setPermutation(MyConstants.NOT_APPLICABLE);
@@ -97,6 +104,7 @@ public class PCPresenter {
 				int r = (Integer) data.get(PCModel.Keys.R_VALUE);
 				ArrayList<Integer> nVals = (ArrayList<Integer>) data.get(PCModel.Keys.N_VALUES);
 
+				view.showResults();
 				setNFactorial(model, view, n);
 				setRFactorial(model, view, r);
 				setPermAndComb(model, view, n, r);
