@@ -1,28 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:padding="3dp" >
 
     <EditText
         android:id="@+id/basic_etInput"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="6dp"
-        android:layout_marginRight="6dp"
-        android:layout_marginTop="6dp"
-        android:background="@drawable/black_border"
-        android:digits="1234567890,.-x"
-        android:hint="@string/basicInputHint"
-        android:inputType="number"
-        android:maxLines="4"
-        android:padding="10dp" />
+        style="@style/basic_edittext"
+        android:hint="@string/basicInputHint" />
 
     <FrameLayout
         android:id="@+id/basic_flContent"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/basic_etInput"
-        android:padding="6dp" >
+        android:padding="3dp" >
     </FrameLayout>
 
 </RelativeLayout>

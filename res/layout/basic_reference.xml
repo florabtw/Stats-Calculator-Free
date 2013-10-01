@@ -5,10 +5,8 @@
 
     <ListView
         android:id="@+id/basic_reference_lvList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_margin="6dp"
-        android:background="@drawable/black_border" >
+        style="@style/basic_listview"
+        android:layout_margin="6dp" >
     </ListView>
 
 </LinearLayout>

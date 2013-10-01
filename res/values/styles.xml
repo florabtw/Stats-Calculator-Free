@@ -31,24 +31,80 @@
     </style>
 
     <style name="keypad_button_backspace" parent="keypad_button">
-        <item name="android:background">@drawable/key_button_backspace</item>
+        <item name="android:background">@drawable/red_border</item>
         <item name="android:longClickable">true</item>
         <item name="android:onClick">backSpace</item>
     </style>
 
     <style name="keypad_button_multiplier" parent="keypad_button">
-        <item name="android:background">@drawable/key_button_multiplier</item>
+        <item name="android:background">@drawable/brown_border</item>
         <item name="android:onClick">keypadPress</item>
     </style>
 
     <style name="keypad_button_comma" parent="keypad_button">
-        <item name="android:background">@drawable/key_button_comma</item>
+        <item name="android:background">@drawable/blue_border</item>
         <item name="android:onClick">keypadPress</item>
     </style>
 
     <style name="keypad_button_done" parent="keypad_button">
-        <item name="android:background">@drawable/key_button_done</item>
+        <item name="android:background">@drawable/green_border</item>
         <item name="android:onClick">donePress</item>
+    </style>
+
+    <style name="list_item">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+    </style>
+
+    <style name="basic_centered">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+    </style>
+
+    <style name="basic_centered_textview" parent="basic_centered">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="basic_textview">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="default_style">
+        <item name="android:layout_margin">3dp</item>
+        <item name="android:background">@drawable/black_border</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="pc_style" parent="default_style">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="basic_edittext" parent="default_style">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:inputType">number</item>
+        <item name="android:digits">1234567890,.-x</item>
+        <item name="android:maxLines">4</item>
+    </style>
+
+    <style name="pc_edittext" parent="pc_style">
+        <item name="android:inputType">number</item>
+    </style>
+
+    <style name="basic_listview">
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:background">@drawable/black_border</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:scrollbarStyle">outsideInset</item>
     </style>
 
 </resources>
