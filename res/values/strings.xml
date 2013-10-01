@@ -53,5 +53,6 @@
     <string name="n_hint">Total size</string>
     <string name="r_hint">Group size</string>
     <string name="n_vals_hint">Duplicates (if any)</string>
+    <string name="save_list_hint">Make it memorable!</string>
 
 </resources>
