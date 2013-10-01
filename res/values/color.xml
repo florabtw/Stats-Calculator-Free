@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="bright_blue">#0079F9</color>
+
+    <color name="pastel_red">#FF7878</color>
+    <color name="fifa">#FEFEFA</color>
+    <color name="pastel_red">#FF7878</color>
+    <color name="pastel_blue">#7EA7D8</color>
+    <color name="pastel_green">#82CA9D</color>
+    <color name="pastel_brown">#836953</color>
+
 </resources>

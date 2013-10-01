@@ -26,8 +26,7 @@
         <Button
             android:id="@+id/keypad_backspace"
             style="@style/keypad_button_backspace"
-            android:text="@string/backspace"
-            android:textColor="#000" />
+            android:text="@string/backspace" />
     </TableRow>
 
     <TableRow
@@ -54,8 +53,7 @@
         <Button
             android:id="@+id/keypad_times"
             style="@style/keypad_button_multiplier"
-            android:text="@string/times"
-            android:textColor="#000" />
+            android:text="@string/times" />
     </TableRow>
 
     <TableRow
@@ -82,8 +80,7 @@
         <Button
             android:id="@+id/keypad_comma"
             style="@style/keypad_button_comma"
-            android:text="@string/comma"
-            android:textColor="#000" />
+            android:text="@string/comma" />
     </TableRow>
 
     <TableRow
@@ -109,8 +106,7 @@
         <Button
             android:id="@+id/keypad_done"
             style="@style/keypad_button_done"
-            android:text="@string/done"
-            android:textColor="#000" />
+            android:text="@string/done" />
     </TableRow>
 
 </TableLayout>

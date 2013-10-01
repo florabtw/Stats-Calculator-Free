@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#FEFEFA"
+    android:background="@color/fifa"
     android:orientation="vertical"
     android:padding="10dp"
     tools:context=".HomeActivity" >
@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/app_name"
-            android:textColor="#FF7878"
+            android:textColor="@color/pastel_red"
             android:textSize="50sp"
             android:textStyle="italic|bold"
             android:typeface="serif" />
@@ -27,7 +27,7 @@
         <View
             android:layout_width="fill_parent"
             android:layout_height="3dp"
-            android:background="#FF7878" />
+            android:background="@color/pastel_red" />
     </LinearLayout>
 
     <LinearLayout
@@ -43,7 +43,7 @@
             android:layout_width="fill_parent"
             android:background="@drawable/blue_border"
             android:text="@string/descriptive_stats"
-            android:textColor="#7EA7D8" />
+            android:textColor="@color/pastel_blue" />
 
         <Button
             android:id="@+id/home_btnPermComb"
@@ -51,7 +51,7 @@
             android:layout_width="wrap_content"
             android:background="@drawable/green_border"
             android:text="@string/permutations_combinations"
-            android:textColor="#82CA9D" />
+            android:textColor="@color/pastel_green" />
     </LinearLayout>
 
 </LinearLayout>
