@@ -37,4 +37,9 @@ public class BasicAdapter extends ArrayAdapter<LinkedHashMap.Entry<String, Doubl
 
 		return item;
 	}
+
+	@Override
+	public boolean isEnabled(int position) {
+		return false;
+	}
 }
