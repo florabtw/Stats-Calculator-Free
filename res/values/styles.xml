@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <!--
         Base application theme, dependent on API level. This theme is replaced
@@ -15,6 +15,40 @@
     <!-- Application theme. -->
     <style name="AppTheme" parent="AppBaseTheme">
         <!-- All customizations that are NOT specific to a particular API-level can go here. -->
+
+    </style>
+
+    <style name="keypad_button">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_margin">1dp</item>
+        <item name="android:layout_weight">1</item>
+    </style>
+
+    <style name="keypad_button_default" parent="keypad_button">
+        <item name="android:background">@drawable/key_button_background</item>
+        <item name="android:onClick">keypadPress</item>
+    </style>
+
+    <style name="keypad_button_backspace" parent="keypad_button">
+        <item name="android:background">@drawable/key_button_backspace</item>
+        <item name="android:longClickable">true</item>
+        <item name="android:onClick">backSpace</item>
+    </style>
+
+    <style name="keypad_button_multiplier" parent="keypad_button">
+        <item name="android:background">@drawable/key_button_multiplier</item>
+        <item name="android:onClick">keypadPress</item>
+    </style>
+
+    <style name="keypad_button_comma" parent="keypad_button">
+        <item name="android:background">@drawable/key_button_comma</item>
+        <item name="android:onClick">keypadPress</item>
+    </style>
+
+    <style name="keypad_button_done" parent="keypad_button">
+        <item name="android:background">@drawable/key_button_done</item>
+        <item name="android:onClick">donePress</item>
     </style>
 
 </resources>

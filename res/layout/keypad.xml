@@ -1,54 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="1dp" >
+    android:layout_height="match_parent" >
 
     <TableRow
         android:layout_width="fill_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
         android:layout_weight="3" >
 
         <Button
             android:id="@+id/keypad_one"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/one" />
 
         <Button
             android:id="@+id/keypad_two"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/two" />
 
         <Button
             android:id="@+id/keypad_three"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/three" />
 
         <Button
             android:id="@+id/keypad_backspace"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_backspace"
-            android:longClickable="true"
-            android:onClick="backSpace"
+            style="@style/keypad_button_backspace"
             android:text="@string/backspace"
             android:textColor="#000" />
     </TableRow>
@@ -61,42 +38,22 @@
 
         <Button
             android:id="@+id/keypad_four"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/four" />
 
         <Button
             android:id="@+id/keypad_five"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/five" />
 
         <Button
             android:id="@+id/keypad_six"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/six" />
 
         <Button
             android:id="@+id/keypad_times"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_multiplier"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_multiplier"
             android:text="@string/times"
             android:textColor="#000" />
     </TableRow>
@@ -109,42 +66,22 @@
 
         <Button
             android:id="@+id/keypad_seven"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/seven" />
 
         <Button
             android:id="@+id/keypad_eight"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/eight" />
 
         <Button
             android:id="@+id/keypad_nine"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/nine" />
 
         <Button
             android:id="@+id/keypad_comma"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_comma"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_comma"
             android:text="@string/comma"
             android:textColor="#000" />
     </TableRow>
@@ -156,42 +93,22 @@
 
         <Button
             android:id="@+id/keypad_decimal"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/period" />
 
         <Button
             android:id="@+id/keypad_zero"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/zero" />
 
         <Button
             android:id="@+id/keypad_negative"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_background"
-            android:onClick="keypadPress"
+            style="@style/keypad_button_default"
             android:text="@string/minus" />
 
         <Button
             android:id="@+id/keypad_done"
-            android:layout_width="0dp"
-            android:layout_height="fill_parent"
-            android:layout_marginRight="1dp"
-            android:layout_weight="1"
-            android:background="@drawable/key_button_done"
-            android:onClick="donePress"
+            style="@style/keypad_button_done"
             android:text="@string/done"
             android:textColor="#000" />
     </TableRow>
