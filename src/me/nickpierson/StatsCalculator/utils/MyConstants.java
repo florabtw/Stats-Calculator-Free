@@ -1,7 +1,5 @@
 package me.nickpierson.StatsCalculator.utils;
 
-import android.view.KeyEvent;
-
 public class MyConstants {
 
 	public static final String SIZE = "Size";
@@ -35,39 +33,4 @@ public class MyConstants {
 	public static final String SAVE_FAILED = "List was NOT able to be saved!";
 	public static final String LIST_LOAD_ERROR = "Error while loading list. Please try again later.";
 	public static final String LIST_DELETE_ERROR = "Error while deleting list. Please try again later.";
-
-	public static int getKeyEvent(char c) {
-		switch (c) {
-		case '0':
-			return KeyEvent.KEYCODE_0;
-		case '1':
-			return KeyEvent.KEYCODE_1;
-		case '2':
-			return KeyEvent.KEYCODE_2;
-		case '3':
-			return KeyEvent.KEYCODE_3;
-		case '4':
-			return KeyEvent.KEYCODE_4;
-		case '5':
-			return KeyEvent.KEYCODE_5;
-		case '6':
-			return KeyEvent.KEYCODE_6;
-		case '7':
-			return KeyEvent.KEYCODE_7;
-		case '8':
-			return KeyEvent.KEYCODE_8;
-		case '9':
-			return KeyEvent.KEYCODE_9;
-		case '-':
-			return KeyEvent.KEYCODE_MINUS;
-		case '.':
-			return KeyEvent.KEYCODE_PERIOD;
-		case ',':
-			return KeyEvent.KEYCODE_COMMA;
-		case 'x':
-			return KeyEvent.KEYCODE_X;
-		default:
-			return -1;
-		}
-	}
 }
