@@ -50,7 +50,7 @@
             android:longClickable="true"
             android:onClick="backSpace"
             android:text="@string/backspace"
-            android:textColor="#FF7878" />
+            android:textColor="#000" />
     </TableRow>
 
     <TableRow
@@ -98,7 +98,7 @@
             android:background="@drawable/key_button_multiplier"
             android:onClick="keypadPress"
             android:text="@string/times"
-            android:textColor="#836953" />
+            android:textColor="#000" />
     </TableRow>
 
     <TableRow
@@ -138,14 +138,15 @@
             android:text="@string/nine" />
 
         <Button
-            android:id="@+id/keypad_negative"
+            android:id="@+id/keypad_comma"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="1dp"
             android:layout_weight="1"
-            android:background="@drawable/key_button_background"
+            android:background="@drawable/key_button_comma"
             android:onClick="keypadPress"
-            android:text="@string/minus" />
+            android:text="@string/comma"
+            android:textColor="#000" />
     </TableRow>
 
     <TableRow
@@ -174,15 +175,14 @@
             android:text="@string/zero" />
 
         <Button
-            android:id="@+id/keypad_comma"
+            android:id="@+id/keypad_negative"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_marginRight="1dp"
             android:layout_weight="1"
-            android:background="@drawable/key_button_comma"
+            android:background="@drawable/key_button_background"
             android:onClick="keypadPress"
-            android:text="@string/comma"
-            android:textColor="#7EA7D8" />
+            android:text="@string/minus" />
 
         <Button
             android:id="@+id/keypad_done"
@@ -193,7 +193,7 @@
             android:background="@drawable/key_button_done"
             android:onClick="donePress"
             android:text="@string/done"
-            android:textColor="#82CA9D" />
+            android:textColor="#000" />
     </TableRow>
 
 </TableLayout>
