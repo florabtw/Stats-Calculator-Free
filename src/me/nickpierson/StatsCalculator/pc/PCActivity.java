@@ -1,12 +1,12 @@
 package me.nickpierson.StatsCalculator.pc;
 
 import me.nickpierson.StatsCalculator.utils.KeypadActivity;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.View;
 import android.widget.Button;
 
-public class PCActivity extends Activity implements KeypadActivity {
+public class PCActivity extends ActionBarActivity implements KeypadActivity {
 
 	private PCModel model;
 	private PCView view;
@@ -18,6 +18,8 @@ public class PCActivity extends Activity implements KeypadActivity {
 		model = new PCModel();
 		view = new PCView(this);
 		PCPresenter.create(model, view);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		setContentView(view.getView());
 	}
