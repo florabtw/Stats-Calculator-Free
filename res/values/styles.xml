@@ -29,34 +29,34 @@
     <style name="keypad_button">
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_margin">1.5dp</item>
+        <item name="android:layout_margin">2dp</item>
         <item name="android:layout_weight">1</item>
         <item name="android:textSize">30sp</item>
     </style>
 
     <style name="keypad_button_default" parent="keypad_button">
-        <item name="android:background">@drawable/key_button_background</item>
+        <item name="android:background">@drawable/black_border_selector</item>
         <item name="android:onClick">keypadPress</item>
     </style>
 
     <style name="keypad_button_backspace" parent="keypad_button">
-        <item name="android:background">@drawable/red_border</item>
+        <item name="android:background">@drawable/red_border_selector</item>
         <item name="android:longClickable">true</item>
         <item name="android:onClick">backSpace</item>
     </style>
 
     <style name="keypad_button_multiplier" parent="keypad_button">
-        <item name="android:background">@drawable/brown_border</item>
+        <item name="android:background">@drawable/brown_border_selector</item>
         <item name="android:onClick">keypadPress</item>
     </style>
 
     <style name="keypad_button_comma" parent="keypad_button">
-        <item name="android:background">@drawable/blue_border</item>
+        <item name="android:background">@drawable/blue_border_selector</item>
         <item name="android:onClick">keypadPress</item>
     </style>
 
     <style name="keypad_button_done" parent="keypad_button">
-        <item name="android:background">@drawable/green_border</item>
+        <item name="android:background">@drawable/green_border_selector</item>
         <item name="android:onClick">donePress</item>
     </style>
 
