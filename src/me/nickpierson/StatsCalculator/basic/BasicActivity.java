@@ -2,14 +2,14 @@ package me.nickpierson.StatsCalculator.basic;
 
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.KeypadActivity;
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class BasicActivity extends Activity implements KeypadActivity {
+public class BasicActivity extends ActionBarActivity implements KeypadActivity {
 
 	private BasicView view;
 	private BasicModel model;
@@ -21,6 +21,8 @@ public class BasicActivity extends Activity implements KeypadActivity {
 		view = new BasicView(this);
 		model = new BasicModel(this);
 		BasicPresenter.create(this, model, view);
+
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		setContentView(view.getView());
 	}
