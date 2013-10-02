@@ -5,7 +5,7 @@
     <string name="save_list">Save List</string>
     <string name="load_or_delete_list">Load/Delete List</string>
     <string name="buttonError">Could not determine button. Please restart the app. If problem persists, please contact developer.</string>
-    <string name="basicInputHint">Comma separated values</string>
+    <string name="basicInputHint">eg: 59.4x2,61.34,60x3,65.9</string>
     <string name="sizeHeader">Size:</string>
     <string name="sumHeader">Sum:</string>
     <string name="meanHeader">Mean:</string>
@@ -19,7 +19,6 @@
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
-    <string name="backspace">Bkspc</string>
     <string name="four">4</string>
     <string name="five">5</string>
     <string name="six">6</string>
@@ -30,7 +29,6 @@
     <string name="minus">-</string>
     <string name="zero">0</string>
     <string name="comma">,</string>
-    <string name="done">Done</string>
     <string name="times">x</string>
     <string name="pc_default_value">n/a</string>
     <string name="pc_n">n =</string>
@@ -54,5 +52,7 @@
     <string name="r_hint">Group size</string>
     <string name="n_vals_hint">Duplicates (if any)</string>
     <string name="save_list_hint">Make it memorable!</string>
+    <string name="done_button_desc">Done Button</string>
+    <string name="backspace_Desc">Backspace</string>
 
 </resources>

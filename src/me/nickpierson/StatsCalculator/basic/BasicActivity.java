@@ -42,6 +42,7 @@ public class BasicActivity extends Activity implements KeypadActivity {
 			return true;
 		case R.id.settings_reference:
 			view.menuReference();
+			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
