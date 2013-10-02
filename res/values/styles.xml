@@ -29,8 +29,9 @@
     <style name="keypad_button">
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_margin">1dp</item>
+        <item name="android:layout_margin">1.5dp</item>
         <item name="android:layout_weight">1</item>
+        <item name="android:textSize">30sp</item>
     </style>
 
     <style name="keypad_button_default" parent="keypad_button">

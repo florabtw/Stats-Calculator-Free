@@ -18,6 +18,7 @@ import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
@@ -53,7 +54,7 @@ public class BasicView extends DataActionHandler {
 		etInput = (EditText) view.findViewById(R.id.basic_etInput);
 		resultsAdapter = new BasicAdapter(activity, R.layout.basic_result_item);
 		keypadHelper = new KeypadHelper();
-		Button btnBackspace = (Button) tlKeypad.findViewById(R.id.keypad_backspace);
+		ImageButton btnBackspace = (ImageButton) tlKeypad.findViewById(R.id.keypad_backspace);
 
 		keypadHelper.disableSoftInputFromAppearing(etInput);
 

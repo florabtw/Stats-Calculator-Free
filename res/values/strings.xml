@@ -30,7 +30,6 @@
     <string name="minus">-</string>
     <string name="zero">0</string>
     <string name="comma">,</string>
-    <string name="done">Done</string>
     <string name="times">x</string>
     <string name="pc_default_value">n/a</string>
     <string name="pc_n">n =</string>
@@ -54,5 +53,7 @@
     <string name="r_hint">Group size</string>
     <string name="n_vals_hint">Duplicates (if any)</string>
     <string name="save_list_hint">Make it memorable!</string>
+    <string name="done_button_desc">Done Button</string>
+    <string name="backspace_Desc">Backspace</string>
 
 </resources>

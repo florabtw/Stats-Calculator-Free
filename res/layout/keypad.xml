@@ -23,10 +23,11 @@
             style="@style/keypad_button_default"
             android:text="@string/three" />
 
-        <Button
+        <ImageButton
             android:id="@+id/keypad_backspace"
             style="@style/keypad_button_backspace"
-            android:text="@string/backspace" />
+            android:contentDescription="@string/backspace_Desc"
+            android:src="@drawable/ic_delete" />
     </TableRow>
 
     <TableRow
@@ -53,7 +54,8 @@
         <Button
             android:id="@+id/keypad_times"
             style="@style/keypad_button_multiplier"
-            android:text="@string/times" />
+            android:text="@string/times"
+            android:textColor="@color/pastel_brown" />
     </TableRow>
 
     <TableRow
@@ -80,7 +82,8 @@
         <Button
             android:id="@+id/keypad_comma"
             style="@style/keypad_button_comma"
-            android:text="@string/comma" />
+            android:text="@string/comma"
+            android:textColor="@color/pastel_blue" />
     </TableRow>
 
     <TableRow
@@ -103,10 +106,11 @@
             style="@style/keypad_button_default"
             android:text="@string/minus" />
 
-        <Button
+        <ImageButton
             android:id="@+id/keypad_done"
             style="@style/keypad_button_done"
-            android:text="@string/done" />
+            android:contentDescription="@string/done_button_desc"
+            android:src="@drawable/check_mark" />
     </TableRow>
 
 </TableLayout>
