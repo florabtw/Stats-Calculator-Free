@@ -3,6 +3,10 @@ package me.nickpierson.StatsCalculator.pc;
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.KeypadHelper;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.SubscriptSpan;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -41,6 +45,7 @@ public class PCView extends ActionHandler {
 	private ScrollView svResults;
 	private TableLayout tlKeypad;
 	private FrameLayout flFrame;
+	private TextView tvNsTitle;
 
 	public PCView(PCActivity activity) {
 		this.activity = activity;
@@ -48,12 +53,19 @@ public class PCView extends ActionHandler {
 		svResults = (ScrollView) LayoutInflater.from(activity).inflate(R.layout.perm_comb_results, null);
 		tlKeypad = (TableLayout) LayoutInflater.from(activity).inflate(R.layout.keypad, null);
 		flFrame = (FrameLayout) view.findViewById(R.id.pc_flFrame);
+		tvNsTitle = (TextView) view.findViewById(R.id.pc_ns_title);
 		tvNFact = (TextView) svResults.findViewById(R.id.pc_tvNFact);
 		tvRFact = (TextView) svResults.findViewById(R.id.pc_tvRFact);
 		tvNPermR = (TextView) svResults.findViewById(R.id.pc_tvNPermR);
 		tvNChooseR = (TextView) svResults.findViewById(R.id.pc_tvNChooseR);
 		tvIndistinct = (TextView) svResults.findViewById(R.id.pc_tvIndistinct);
 		ImageButton btnBackspace = (ImageButton) tlKeypad.findViewById(R.id.keypad_backspace);
+
+		SpannableStringBuilder nsTitle = new SpannableStringBuilder(tvNsTitle.getText());
+		subscriptText(nsTitle, 1, 2);
+		subscriptText(nsTitle, 4, 5);
+		subscriptText(nsTitle, 7, 8);
+		tvNsTitle.setText(nsTitle);
 
 		etNVal = (EditText) view.findViewById(R.id.pc_etNVal);
 		etRVal = (EditText) view.findViewById(R.id.pc_etRVal);
@@ -82,6 +94,11 @@ public class PCView extends ActionHandler {
 				return true;
 			}
 		});
+	}
+
+	private void subscriptText(SpannableStringBuilder nsTitle, int start, int end) {
+		nsTitle.setSpan(new SubscriptSpan(), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+		nsTitle.setSpan(new RelativeSizeSpan(.6f), start, end, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 	}
 
 	private void setEditTextClickListener(EditText editText) {

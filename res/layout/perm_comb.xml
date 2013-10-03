@@ -16,8 +16,9 @@
             android:orientation="horizontal" >
 
             <TextView
-                style="@style/pc_style"
-                android:text="@string/pc_n" />
+                style="@style/pc_textview"
+                android:text="@string/pc_n"
+                android:typeface="serif" />
 
             <EditText
                 android:id="@+id/pc_etNVal"
@@ -31,8 +32,9 @@
             android:orientation="horizontal" >
 
             <TextView
-                style="@style/pc_style"
-                android:text="@string/pc_r" />
+                style="@style/pc_textview"
+                android:text="@string/pc_r"
+                android:typeface="serif" />
 
             <EditText
                 android:id="@+id/pc_etRVal"
@@ -46,8 +48,10 @@
             android:orientation="horizontal" >
 
             <TextView
-                style="@style/pc_style"
-                android:text="@string/pc_ns" />
+                android:id="@+id/pc_ns_title"
+                style="@style/pc_textview"
+                android:text="@string/pc_ns"
+                android:typeface="serif" />
 
             <EditText
                 android:id="@+id/pc_etNVals"
