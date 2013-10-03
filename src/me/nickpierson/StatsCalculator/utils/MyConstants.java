@@ -11,9 +11,9 @@ public class MyConstants {
 	public static final String RANGE = "Range";
 	public static final String POP_VAR = "Population Variance";
 	public static final String SAMPLE_VAR = "Sample Variance";
-	public static final String POP_DEV = "Population Std. Deviation";
-	public static final String SAMPLE_DEV = "Sample Std. Deviation";
-	public static final String COEFF_VAR = "Coefficient of Variation";
+	public static final String POP_DEV = "Population\nStd. Deviation";
+	public static final String SAMPLE_DEV = "Sample\nStd. Deviation";
+	public static final String COEFF_VAR = "Coefficient\nof Variation";
 	public static final String SKEWNESS = "Skewness";
 	public static final String KURTOSIS = "Kurtosis";
 
