@@ -47,11 +47,10 @@ public class BasicPresenter {
 
 			@Override
 			public void fire(HashMap<Enum<?>, ?> data) {
-				showEmptyResults(model, view);
 				view.showErrorToast((Integer) data.get(BasicModel.Keys.INVALID_POSITION));
 				view.selectInput((String) data.get(BasicModel.Keys.INVALID_TEXT));
 			}
-		}, BasicModel.Types.INVALID_NUMBER);
+		}, BasicModel.Types.INVALID_INPUT);
 
 		view.addListener(new ActionListener() {
 
