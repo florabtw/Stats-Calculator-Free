@@ -251,16 +251,18 @@ public class BasicModel extends DataActionHandler {
 	}
 
 	private Double calculateGeoMean(List<Double> numberList) {
-		double value = 1;
+		double value = 0;
 		for (double number : numberList) {
 			if (number < 0) {
 				return Double.NaN;
 			}
 
-			value *= number;
+			value += Math.log(number);
 		}
 
-		return Math.pow(value, 1.0 / numberList.size());
+		value = value / numberList.size();
+
+		return Math.pow(Math.E, value);
 	}
 
 	private Double calculateSkewness(List<Double> numberList, double mean, double stdDev) {
