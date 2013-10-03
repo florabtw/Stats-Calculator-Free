@@ -63,4 +63,13 @@ public class BasicActivity extends ActionBarActivity implements KeypadActivity {
 	public void donePress(View button) {
 		view.donePress();
 	}
+
+	@Override
+	public void onBackPressed() {
+		if (view.isKeyPadVisible()) {
+			view.showResults();
+		} else {
+			super.onBackPressed();
+		}
+	}
 }

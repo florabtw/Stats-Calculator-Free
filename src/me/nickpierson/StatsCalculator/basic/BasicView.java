@@ -87,6 +87,10 @@ public class BasicView extends DataActionHandler {
 			resultsAdapter.add(entry);
 		}
 
+		showResults();
+	}
+
+	public void showResults() {
 		flFrame.removeAllViews();
 		flFrame.addView(lvResults);
 	}

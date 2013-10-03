@@ -108,12 +108,10 @@ public class BasicPresenterTest {
 		testMap.put(BasicModel.Keys.INVALID_TEXT, errorText);
 		createPresenter();
 
-		verify(model).addListener(dataListener.capture(), eq(BasicModel.Types.INVALID_NUMBER));
+		verify(model).addListener(dataListener.capture(), eq(BasicModel.Types.INVALID_INPUT));
 
 		dataListener.getValue().fire(testMap);
 
-		verify(model, times(2)).getEmptyResults();
-		verify(view, times(2)).showResults(model.getEmptyResults());
 		verify(view).showErrorToast(errorPosition);
 		verify(view).selectInput(errorText);
 	}

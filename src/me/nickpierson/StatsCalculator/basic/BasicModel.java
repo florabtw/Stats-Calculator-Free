@@ -21,7 +21,7 @@ public class BasicModel extends DataActionHandler {
 	private Activity activity;
 
 	public enum Types {
-		VALID_INPUT, INVALID_NUMBER, SAVE_SUCCESSFUL, SAVE_FAILED, LOAD_ERROR, DELETE_ERROR;
+		VALID_INPUT, INVALID_INPUT, SAVE_SUCCESSFUL, SAVE_FAILED, LOAD_ERROR, DELETE_ERROR;
 	}
 
 	public enum Keys {
@@ -83,7 +83,7 @@ public class BasicModel extends DataActionHandler {
 	private void eventInvalid(HashMap<Enum<?>, Object> results, int position, String text) {
 		results.put(Keys.INVALID_POSITION, position);
 		results.put(Keys.INVALID_TEXT, text);
-		dataEvent(Types.INVALID_NUMBER, results);
+		dataEvent(Types.INVALID_INPUT, results);
 	}
 
 	private boolean isValidFreqItem(String val) {

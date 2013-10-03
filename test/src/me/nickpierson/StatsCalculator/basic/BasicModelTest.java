@@ -135,7 +135,7 @@ public class BasicModelTest {
 
 	public void addAllListeners() {
 		model.addListener(validDataListener, BasicModel.Types.VALID_INPUT);
-		model.addListener(invalidDataListener, BasicModel.Types.INVALID_NUMBER);
+		model.addListener(invalidDataListener, BasicModel.Types.INVALID_INPUT);
 	}
 
 	@Test
