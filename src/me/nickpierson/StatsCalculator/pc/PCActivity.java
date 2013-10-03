@@ -39,4 +39,13 @@ public class PCActivity extends ActionBarActivity implements KeypadActivity {
 		view.donePress();
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (view.isKeypadVisible()) {
+			view.showResults();
+		} else {
+			super.onBackPressed();
+		}
+	}
+
 }
