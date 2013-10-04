@@ -50,6 +50,7 @@
                 android:id="@+id/pc_etNVals"
                 style="@style/pc_edittext"
                 android:layout_weight="2"
+                android:digits="0123456789,"
                 android:hint="@string/n_vals_hint" />
         </TableRow>
     </TableLayout>
@@ -58,6 +59,6 @@
         android:id="@+id/pc_flFrame"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:padding="3dp" />
+        android:layout_margin="3dp" />
 
 </LinearLayout>

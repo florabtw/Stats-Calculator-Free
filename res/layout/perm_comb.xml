@@ -65,6 +65,6 @@
         android:id="@+id/pc_flFrame"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:padding="3dp" />
+        android:layout_margin="3dp" />
 
 </LinearLayout>
