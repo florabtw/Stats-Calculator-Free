@@ -5,9 +5,9 @@
     android:padding="-2dp" >
 
     <TableRow
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="3" >
+        android:layout_weight="1" >
 
         <Button
             android:id="@+id/keypad_one"
@@ -32,10 +32,9 @@
     </TableRow>
 
     <TableRow
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
-        android:layout_weight="3" >
+        android:layout_weight="1" >
 
         <Button
             android:id="@+id/keypad_four"
@@ -60,10 +59,9 @@
     </TableRow>
 
     <TableRow
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_marginBottom="1dp"
-        android:layout_weight="3" >
+        android:layout_weight="1" >
 
         <Button
             android:id="@+id/keypad_seven"
@@ -88,9 +86,9 @@
     </TableRow>
 
     <TableRow
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="3" >
+        android:layout_weight="1" >
 
         <Button
             android:id="@+id/keypad_decimal"
