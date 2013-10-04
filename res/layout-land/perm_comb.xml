@@ -2,63 +2,114 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical"
+    android:baselineAligned="false"
+    android:orientation="horizontal"
     android:padding="3dp" >
 
     <TableLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_width="0dp"
+        android:layout_height="fill_parent"
+        android:layout_weight="3" >
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                style="@style/pc_textview"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/black_border"
+                android:gravity="center"
+                android:padding="10dp"
                 android:text="@string/pc_n"
+                android:textSize="18sp"
                 android:typeface="serif" />
 
             <EditText
                 android:id="@+id/pc_etNVal"
-                style="@style/pc_edittext"
-                android:hint="@string/n_hint" >
-            </EditText>
-
-            <TextView
-                android:id="@+id/pc_ns_title"
-                style="@style/pc_textview"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="3dp"
                 android:layout_weight="2"
-                android:text="@string/pc_ns"
-                android:typeface="serif" />
+                android:background="@drawable/black_border"
+                android:hint="@string/n_hint"
+                android:inputType="number"
+                android:padding="10dp" >
+            </EditText>
         </TableRow>
 
         <TableRow
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content" >
 
             <TextView
-                style="@style/pc_textview"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/black_border"
+                android:gravity="center"
+                android:padding="10dp"
                 android:text="@string/pc_r"
+                android:textSize="18sp"
                 android:typeface="serif" />
 
             <EditText
                 android:id="@+id/pc_etRVal"
-                style="@style/pc_edittext"
-                android:hint="@string/r_hint" />
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="2"
+                android:background="@drawable/black_border"
+                android:hint="@string/r_hint"
+                android:inputType="number"
+                android:padding="10dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/pc_ns_title"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/black_border"
+                android:gravity="center"
+                android:lineSpacingExtra="3dp"
+                android:padding="10dp"
+                android:text="@string/pc_ns"
+                android:textSize="18sp"
+                android:typeface="serif" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
 
             <EditText
                 android:id="@+id/pc_etNVals"
-                style="@style/pc_edittext"
-                android:layout_weight="2"
+                android:layout_width="0dp"
+                android:layout_height="fill_parent"
+                android:layout_margin="3dp"
+                android:layout_weight="1"
+                android:background="@drawable/black_border"
                 android:digits="0123456789,"
-                android:hint="@string/n_vals_hint" />
+                android:hint="@string/n_vals_hint"
+                android:inputType="number"
+                android:padding="10dp" />
         </TableRow>
     </TableLayout>
 
     <FrameLayout
         android:id="@+id/pc_flFrame"
-        android:layout_width="fill_parent"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_margin="3dp" />
+        android:layout_margin="3dp"
+        android:layout_weight="5" />
 
 </LinearLayout>
