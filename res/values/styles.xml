@@ -89,6 +89,11 @@
         <item name="android:padding">5dp</item>
     </style>
 
+    <style name="pc_results_textview_title" parent="pc_results_textview">
+        <item name="android:lineSpacingExtra">3dp</item>
+        <item name="android:typeface">serif</item>
+    </style>
+
     <style name="default_style">
         <item name="android:layout_margin">3dp</item>
         <item name="android:background">@drawable/black_border</item>

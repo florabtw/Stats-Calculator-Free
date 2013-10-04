@@ -46,6 +46,9 @@ public class PCView extends ActionHandler {
 	private TableLayout tlKeypad;
 	private FrameLayout flFrame;
 	private TextView tvNsTitle;
+	private TextView tvNPermRTitle;
+	private TextView tvNChooseRTitle;
+	private TextView tvIndistinctTitle;
 
 	public PCView(PCActivity activity) {
 		this.activity = activity;
@@ -59,13 +62,15 @@ public class PCView extends ActionHandler {
 		tvNPermR = (TextView) svResults.findViewById(R.id.pc_tvNPermR);
 		tvNChooseR = (TextView) svResults.findViewById(R.id.pc_tvNChooseR);
 		tvIndistinct = (TextView) svResults.findViewById(R.id.pc_tvIndistinct);
+		tvNPermRTitle = (TextView) svResults.findViewById(R.id.pc_results_tvNPermR);
+		tvNChooseRTitle = (TextView) svResults.findViewById(R.id.pc_results_tvNCombR);
+		tvIndistinctTitle = (TextView) svResults.findViewById(R.id.pc_results_tvIndistinctTitle);
 		ImageButton btnBackspace = (ImageButton) tlKeypad.findViewById(R.id.keypad_backspace);
 
-		SpannableStringBuilder nsTitle = new SpannableStringBuilder(tvNsTitle.getText());
-		subscriptText(nsTitle, 1, 2);
-		subscriptText(nsTitle, 4, 5);
-		subscriptText(nsTitle, 7, 8);
-		tvNsTitle.setText(nsTitle);
+		subscriptNPermRTitle();
+		subscriptNChooseRTitle();
+		subscriptIndisctinctTitle();
+		subscriptNsTitle();
 
 		etNVal = (EditText) view.findViewById(R.id.pc_etNVal);
 		etRVal = (EditText) view.findViewById(R.id.pc_etRVal);
@@ -94,6 +99,36 @@ public class PCView extends ActionHandler {
 				return true;
 			}
 		});
+	}
+
+	private void subscriptNPermRTitle() {
+		SpannableStringBuilder string = new SpannableStringBuilder(tvNPermRTitle.getText());
+		subscriptText(string, 0, 1);
+		subscriptText(string, 2, 3);
+		tvNPermRTitle.setText(string);
+	}
+
+	private void subscriptNChooseRTitle() {
+		SpannableStringBuilder string = new SpannableStringBuilder(tvNChooseRTitle.getText());
+		subscriptText(string, 0, 1);
+		subscriptText(string, 2, 3);
+		tvNChooseRTitle.setText(string);
+	}
+
+	private void subscriptIndisctinctTitle() {
+		SpannableStringBuilder string = new SpannableStringBuilder(tvIndistinctTitle.getText());
+		subscriptText(string, 6, 7);
+		subscriptText(string, 9, 10);
+		subscriptText(string, 12, 13);
+		tvIndistinctTitle.setText(string);
+	}
+
+	private void subscriptNsTitle() {
+		SpannableStringBuilder nsTitle = new SpannableStringBuilder(tvNsTitle.getText());
+		subscriptText(nsTitle, 1, 2);
+		subscriptText(nsTitle, 4, 5);
+		subscriptText(nsTitle, 7, 8);
+		tvNsTitle.setText(nsTitle);
 	}
 
 	private void subscriptText(SpannableStringBuilder nsTitle, int start, int end) {
