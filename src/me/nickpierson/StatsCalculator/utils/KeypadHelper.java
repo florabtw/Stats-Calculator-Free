@@ -2,7 +2,9 @@ package me.nickpierson.StatsCalculator.utils;
 
 import android.annotation.SuppressLint;
 import android.os.Build;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.widget.EditText;
 
@@ -22,6 +24,38 @@ public class KeypadHelper {
 		String remainingText = etInput.getText().subSequence(cursorPosition, textLength).toString();
 
 		etInput.setText(remainingText);
+	}
+
+	public void watchEditText(EditText etInput) {
+		etInput.addTextChangedListener(new TextWatcher() {
+
+			@Override
+			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			}
+
+			@Override
+			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			}
+
+			@Override
+			public void afterTextChanged(Editable s) {
+				for (int i = 0; i < s.toString().length(); i++) {
+					if (!isAcceptableChar(s.charAt(i))) {
+						s.replace(i, i + 1, "");
+					}
+				}
+			}
+		});
+	}
+
+	protected boolean isAcceptableChar(char c) {
+		if (Character.isDigit(c)) {
+			return true;
+		} else if (c == '.' || c == ',' || c == '-' || c == 'x') {
+			return true;
+		}
+
+		return false;
 	}
 
 	/*

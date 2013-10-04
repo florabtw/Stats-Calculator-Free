@@ -66,6 +66,7 @@ public class PCView extends ActionHandler {
 		tvNChooseRTitle = (TextView) svResults.findViewById(R.id.pc_results_tvNCombR);
 		tvIndistinctTitle = (TextView) svResults.findViewById(R.id.pc_results_tvIndistinctTitle);
 		ImageButton btnBackspace = (ImageButton) tlKeypad.findViewById(R.id.keypad_backspace);
+		Button btnMultiply = (Button) tlKeypad.findViewById(R.id.keypad_times);
 
 		subscriptNPermRTitle();
 		subscriptNChooseRTitle();
@@ -88,6 +89,7 @@ public class PCView extends ActionHandler {
 
 		flFrame.addView(svResults);
 
+		btnMultiply.setEnabled(false);
 		btnBackspace.setOnLongClickListener(new OnLongClickListener() {
 
 			@Override
