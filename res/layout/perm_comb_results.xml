@@ -16,9 +16,8 @@
             android:padding="7dp" >
 
             <TextView
-                style="@style/pc_results_textview"
-                android:text="@string/n_fact"
-                android:typeface="serif" />
+                style="@style/pc_results_textview_title"
+                android:text="@string/n_fact" />
 
             <TextView
                 android:id="@+id/pc_tvNFact"
@@ -32,9 +31,8 @@
             android:padding="7dp" >
 
             <TextView
-                style="@style/pc_results_textview"
-                android:text="@string/r_fact"
-                android:typeface="serif" />
+                style="@style/pc_results_textview_title"
+                android:text="@string/r_fact" />
 
             <TextView
                 android:id="@+id/pc_tvRFact"
@@ -48,9 +46,9 @@
             android:padding="7dp" >
 
             <TextView
-                style="@style/pc_results_textview"
-                android:text="@string/n_perm_r"
-                android:typeface="serif" />
+                android:id="@+id/pc_results_tvNPermR"
+                style="@style/pc_results_textview_title"
+                android:text="@string/n_perm_r" />
 
             <TextView
                 android:id="@+id/pc_tvNPermR"
@@ -64,9 +62,9 @@
             android:padding="7dp" >
 
             <TextView
-                style="@style/pc_results_textview"
-                android:text="@string/n_comb_r"
-                android:typeface="serif" />
+                android:id="@+id/pc_results_tvNCombR"
+                style="@style/pc_results_textview_title"
+                android:text="@string/n_comb_r" />
 
             <TextView
                 android:id="@+id/pc_tvNChooseR"
@@ -80,7 +78,8 @@
             android:padding="7dp" >
 
             <TextView
-                style="@style/pc_results_textview"
+                android:id="@+id/pc_results_tvIndistinctTitle"
+                style="@style/pc_results_textview_title"
                 android:text="@string/indistinct_perm" />
 
             <TextView
