@@ -57,6 +57,7 @@ public class BasicView extends DataActionHandler {
 		ImageButton btnBackspace = (ImageButton) tlKeypad.findViewById(R.id.keypad_backspace);
 
 		keypadHelper.disableSoftInputFromAppearing(etInput);
+		keypadHelper.watchEditText(etInput);
 
 		lvResults.setAdapter(resultsAdapter);
 
