@@ -110,8 +110,8 @@
     <style name="pc_textview" parent="pc_style">
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
-        <item name="android:padding">2dp</item>
         <item name="android:layout_weight">2</item>
+        <item name="android:lineSpacingExtra">3dp</item>
     </style>
 
     <style name="basic_edittext" parent="default_style">

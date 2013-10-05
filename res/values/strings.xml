@@ -38,7 +38,7 @@
     <string name="r_fact">r!</string>
     <string name="n_perm_r">nPr</string>
     <string name="n_comb_r">nCr</string>
-    <string name="indistinct_perm">n! \u00F7 n1!n2!n3!...</string>
+    <string name="indistinct_perm">n! \u00F7\nn1!n2!n3!...</string>
     <string name="request_list_name">What would you like to name the list?</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
