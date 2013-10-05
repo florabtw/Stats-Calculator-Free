@@ -11,8 +11,6 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import me.nickpierson.StatsCalculator.pc.PCModel;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -236,5 +234,14 @@ public class PCModelTest {
 			list.add(val);
 		}
 		return list;
+	}
+
+	@Test
+	public void formatReturnsFormattedNumber() {
+		String expectedReturn1 = "1.0000000E9";
+		String expectedReturn2 = "1.2345678E12";
+
+		assertEquals(expectedReturn1, model.format(BigInteger.valueOf(1000000000L)));
+		assertEquals(expectedReturn2, model.format(BigInteger.valueOf(1234567898765L)));
 	}
 }

@@ -174,4 +174,10 @@ public class PCModel extends DataActionHandler {
 
 		return calculateFact(n).divide(denom);
 	}
+
+	public String format(BigInteger number) {
+		String numString = number.toString();
+
+		return numString.substring(0, 1) + "." + numString.substring(1, 8) + "E" + (numString.length() - 1);
+	}
 }
