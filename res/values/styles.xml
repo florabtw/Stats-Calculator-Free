@@ -85,7 +85,7 @@
     </style>
 
     <style name="pc_results_textview" parent="basic_textview">
-        <item name="android:layout_weight">1</item>
+        <item name="android:layout_weight">3</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">5dp</item>
     </style>
@@ -93,6 +93,7 @@
     <style name="pc_results_textview_title" parent="pc_results_textview">
         <item name="android:lineSpacingExtra">3dp</item>
         <item name="android:typeface">serif</item>
+        <item name="android:layout_weight">2</item>
     </style>
 
     <style name="default_style">
@@ -104,13 +105,13 @@
     <style name="pc_style" parent="default_style">
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">0dp</item>
-        <item name="android:layout_weight">1</item>
     </style>
 
     <style name="pc_textview" parent="pc_style">
         <item name="android:textSize">18sp</item>
         <item name="android:gravity">center</item>
         <item name="android:padding">2dp</item>
+        <item name="android:layout_weight">2</item>
     </style>
 
     <style name="basic_edittext" parent="default_style">
@@ -122,6 +123,7 @@
 
     <style name="pc_edittext" parent="pc_style">
         <item name="android:inputType">number</item>
+        <item name="android:layout_weight">3</item>
     </style>
 
     <style name="basic_listview">
