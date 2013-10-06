@@ -10,6 +10,7 @@ import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -112,7 +113,13 @@ public class BasicView extends DataActionHandler {
 	public void showSaveListPopup() {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 
-		View alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog, null);
+		View alertView;
+		if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+			alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog, null);
+		} else {
+			alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog_old, null);
+		}
+		
 		final EditText etName = (EditText) alertView.findViewById(R.id.save_list_etListName);
 
 		alertBuilder.setView(alertView);
