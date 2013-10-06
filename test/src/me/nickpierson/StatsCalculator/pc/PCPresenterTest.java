@@ -204,10 +204,11 @@ public class PCPresenterTest {
 
 	@Test
 	public void numbersOverOneBillionAreFormatted() {
-		when(model.calculateFact(any(Integer.class))).thenReturn(BigInteger.valueOf(1000000001));
-		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(1000000001));
-		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(1000000001));
-		when(model.calculateIndistinct(any(Integer.class), anyListOf(Integer.class))).thenReturn(BigInteger.valueOf(1000000001));
+		BigInteger testNumber = BigInteger.valueOf(1000000001);
+		when(model.calculateFact(any(Integer.class))).thenReturn(testNumber);
+		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(testNumber);
+		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(testNumber);
+		when(model.calculateIndistinct(any(Integer.class), anyListOf(Integer.class))).thenReturn(testNumber);
 		createPresenter();
 		HashMap<Enum<?>, Object> map = new HashMap<Enum<?>, Object>();
 		ArrayList<Integer> testNVals = new ArrayList<Integer>();
@@ -223,11 +224,12 @@ public class PCPresenterTest {
 
 		dataListener.getValue().fire(map);
 
-		verify(view).setNFactorial("1E9");
-		verify(view).setRFactorial("1E9");
-		verify(view).setPermutation("1E9");
-		verify(view).setCombination("1E9");
-		verify(view).setIndistinct("1E9");
+		verify(model, times(5)).format(testNumber);
+		verify(view).setNFactorial(model.format(testNumber));
+		verify(view).setRFactorial(model.format(testNumber));
+		verify(view).setPermutation(model.format(testNumber));
+		verify(view).setCombination(model.format(testNumber));
+		verify(view).setIndistinct(model.format(testNumber));
 	}
 
 	private void verifyResultsShown() {
