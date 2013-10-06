@@ -118,7 +118,7 @@
     <style name="basic_edittext" parent="default_style">
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_width">fill_parent</item>
-        <item name="android:inputType">text</item>
+        <item name="android:inputType">textMultiLine</item>
         <item name="android:maxLines">4</item>
     </style>
 
