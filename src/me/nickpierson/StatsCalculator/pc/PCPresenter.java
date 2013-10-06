@@ -1,6 +1,7 @@
 package me.nickpierson.StatsCalculator.pc;
 
 import java.math.BigInteger;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -147,7 +148,7 @@ public class PCPresenter {
 		if (number.compareTo(BigInteger.valueOf(MyConstants.MAX_PLAIN_FORMAT)) == 1) {
 			stringValue = model.format(number);
 		} else {
-			stringValue = number.toString();
+			stringValue = new DecimalFormat().format(number);
 		}
 		return stringValue;
 	}
