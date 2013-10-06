@@ -14,7 +14,7 @@ public class BasicReferenceView {
 
 	int[] images = { R.drawable.arith_mean, R.drawable.geo_mean, R.drawable.sample_var, R.drawable.sample_dev, R.drawable.coeff_var, R.drawable.skewness,
 			R.drawable.kurtosis };
-	String[] titles = { MyConstants.ARITH_MEAN, MyConstants.GEO_MEAN, MyConstants.SAMPLE_VAR, MyConstants.SAMPLE_DEV, MyConstants.REF_COEFF_VAR,
+	String[] titles = { MyConstants.ARITH_MEAN, MyConstants.GEO_MEAN, MyConstants.SAMPLE_VAR, MyConstants.REF_SAMPLE_DEV, MyConstants.REF_COEFF_VAR,
 			MyConstants.REF_SKEWNESS, MyConstants.REF_KURTOSIS };
 
 	public BasicReferenceView(BasicReferenceActivity activity) {

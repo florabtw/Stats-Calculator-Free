@@ -17,7 +17,8 @@ public class MyConstants {
 	public static final String SKEWNESS = "Skewness";
 	public static final String KURTOSIS = "Kurtosis";
 
-	public static final String REF_COEFF_VAR = COEFF_VAR + " (sample)";
+	public static final String REF_SAMPLE_DEV = "Sample Std. Deviation";
+	public static final String REF_COEFF_VAR = "Coefficient of Variation (sample)";
 	public static final String REF_SKEWNESS = SKEWNESS + " (population)";
 	public static final String REF_KURTOSIS = KURTOSIS + " (population)";
 
