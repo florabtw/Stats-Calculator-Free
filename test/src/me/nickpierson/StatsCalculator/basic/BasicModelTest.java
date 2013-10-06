@@ -106,7 +106,7 @@ public class BasicModelTest {
 		invalidMapThirdPos.put(BasicModel.Keys.INVALID_POSITION, 3);
 		addAllListeners();
 
-		verifyInvalidInput("", invalidMapFirstPos, "");
+		verifyInvalidInput(",,", invalidMapFirstPos, "");
 
 		verifyInvalidInput("23x1.5", invalidMapFirstPos, "23x1.5");
 

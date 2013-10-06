@@ -1,8 +1,10 @@
 package me.nickpierson.StatsCalculator.basic;
 
+import java.text.DecimalFormat;
 import java.util.LinkedHashMap;
 
 import me.nickpierson.StatsCalculator.R;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,7 +34,17 @@ public class BasicAdapter extends ArrayAdapter<LinkedHashMap.Entry<String, Doubl
 		if (answer == null) {
 			tvAnswer.setText("None");
 		} else {
-			tvAnswer.setText(getItem(position).getValue().toString());
+			String stringAnswer = answer.toString();
+			if (answer > MyConstants.MAX_PLAIN_FORMAT) {
+				DecimalFormat format = new DecimalFormat(MyConstants.DECIMAL_FORMAT_LARGE);
+				stringAnswer = format.format(answer);
+			} else {
+				DecimalFormat format = new DecimalFormat();
+				format.setMaximumFractionDigits(MyConstants.DECIMAL_PLACES_LARGE);
+				stringAnswer = format.format(answer);
+			}
+
+			tvAnswer.setText(stringAnswer);
 		}
 
 		return item;

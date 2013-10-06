@@ -76,7 +76,14 @@ public class BasicModel extends DataActionHandler {
 			}
 		}
 
-		results.put(Keys.VALIDATED_LIST, convertList(input));
+		ArrayList<Double> list = convertList(input);
+
+		if (list.isEmpty()) {
+			eventInvalid(results, 1, "");
+			return;
+		}
+
+		results.put(Keys.VALIDATED_LIST, list);
 		dataEvent(Types.VALID_INPUT, results);
 	}
 

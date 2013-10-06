@@ -22,6 +22,8 @@ public class MyConstants {
 	public static final String REF_KURTOSIS = KURTOSIS + " (population)";
 
 	public static final String NOT_APPLICABLE = "n/a";
+	public static final String DECIMAL_FORMAT_LARGE = "0.##########E0";
+	public static final int DECIMAL_PLACES_LARGE = 10;
 
 	public static final int PC_MAX_INPUT = 1000;
 	public static final int MAX_FREQUENCY = 100000;
