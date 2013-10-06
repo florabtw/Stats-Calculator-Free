@@ -203,6 +203,23 @@ public class PCPresenterTest {
 	}
 
 	@Test
+	public void numbersOverOneThousandAreFormatted() {
+		int testNumber = 8;
+		BigInteger testResult = BigInteger.valueOf(40320);
+		String expectedResult = "40,320";
+		when(model.calculateFact(any(Integer.class))).thenReturn(testResult);
+		createPresenter();
+		HashMap<Enum<?>, Integer> map = new HashMap<Enum<?>, Integer>();
+		map.put(PCModel.Keys.N_VALUE, testNumber);
+
+		verify(model).addListener(dataListener.capture(), eq(PCModel.Types.ONLY_VALID_N));
+
+		dataListener.getValue().fire(map);
+
+		verify(view).setNFactorial(expectedResult);
+	}
+
+	@Test
 	public void numbersOverOneBillionAreFormatted() {
 		BigInteger testNumber = BigInteger.valueOf(1000000001);
 		when(model.calculateFact(any(Integer.class))).thenReturn(testNumber);
