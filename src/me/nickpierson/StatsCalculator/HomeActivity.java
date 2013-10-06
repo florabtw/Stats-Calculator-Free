@@ -1,9 +1,9 @@
 package me.nickpierson.StatsCalculator;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 
-public class HomeActivity extends Activity {
+public class HomeActivity extends ActionBarActivity {
 
 	private HomeView view;
 	private HomeModel model;
