@@ -146,7 +146,7 @@ public class PCPresenter {
 	private static String getFormattedNumber(BigInteger number) {
 		String stringValue;
 		if (number.compareTo(BigInteger.valueOf(MyConstants.MAX_PLAIN_FORMAT)) == 1) {
-			stringValue = new DecimalFormat(MyConstants.DECIMAL_FORMAT).format(number);
+			stringValue = new DecimalFormat(MyConstants.DECIMAL_FORMAT_SMALL).format(number);
 		} else {
 			stringValue = number.toString();
 		}
