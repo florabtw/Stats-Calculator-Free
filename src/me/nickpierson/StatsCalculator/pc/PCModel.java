@@ -176,8 +176,21 @@ public class PCModel extends DataActionHandler {
 	}
 
 	public String format(BigInteger number) {
+		/* Works for all numbers 1 billion and greater */
 		String numString = number.toString();
+		String result = numString.substring(0, 8);
+		int length = numString.length() - 1;
 
-		return numString.substring(0, 1) + "." + numString.substring(1, 8) + "E" + (numString.length() - 1);
+		int firstHidden = Integer.valueOf(numString.substring(8, 9));
+		if (firstHidden >= 5) {
+			Long increment = Long.valueOf(result) + 1;
+			if (increment.toString().length() == 9) {
+				length++;
+			}
+
+			result = increment.toString().substring(0, 8);
+		}
+
+		return result.substring(0, 1) + '.' + result.substring(1, 8) + "E" + length;
 	}
 }
