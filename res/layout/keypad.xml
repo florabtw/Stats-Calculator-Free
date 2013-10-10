@@ -91,9 +91,9 @@
         android:layout_weight="1" >
 
         <Button
-            android:id="@+id/keypad_decimal"
+            android:id="@+id/keypad_negative"
             style="@style/keypad_button_default"
-            android:text="@string/period" />
+            android:text="@string/minus" />
 
         <Button
             android:id="@+id/keypad_zero"
@@ -101,9 +101,9 @@
             android:text="@string/zero" />
 
         <Button
-            android:id="@+id/keypad_negative"
+            android:id="@+id/keypad_decimal"
             style="@style/keypad_button_default"
-            android:text="@string/minus" />
+            android:text="@string/period" />
 
         <ImageButton
             android:id="@+id/keypad_done"
