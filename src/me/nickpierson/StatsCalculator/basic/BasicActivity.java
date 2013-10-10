@@ -1,7 +1,10 @@
 package me.nickpierson.StatsCalculator.basic;
 
+import java.util.LinkedHashMap;
+
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.KeypadActivity;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -25,6 +28,31 @@ public class BasicActivity extends ActionBarActivity implements KeypadActivity {
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 		setContentView(view.getView());
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		outState.putSerializable(MyConstants.RESULTS_KEY, model.getResults());
+		outState.putBoolean(MyConstants.KEYPAD_KEY, view.isKeyPadVisible());
+		outState.putInt(MyConstants.SCROLL_POSITION_KEY, view.getScrollPosition());
+		super.onSaveInstanceState(outState);
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		if (savedInstanceState != null) {
+			LinkedHashMap<String, Double> results = (LinkedHashMap<String, Double>) savedInstanceState.getSerializable(MyConstants.RESULTS_KEY);
+			model.setResults(results);
+			view.showResults(results);
+
+			view.setScrollPosition(savedInstanceState.getInt(MyConstants.SCROLL_POSITION_KEY));
+
+			if (savedInstanceState.getBoolean(MyConstants.KEYPAD_KEY)) {
+				view.showKeypad();
+			}
+		}
+		super.onRestoreInstanceState(savedInstanceState);
 	}
 
 	@Override

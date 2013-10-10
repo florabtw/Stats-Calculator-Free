@@ -2,6 +2,10 @@ package me.nickpierson.StatsCalculator.utils;
 
 public class MyConstants {
 
+	public static final String RESULTS_KEY = "RESULTS";
+	public static final String KEYPAD_KEY = "KEYPAD";
+	public static final String SCROLL_POSITION_KEY = "SCROLL_POSITION";
+
 	public static final String SIZE = "Size";
 	public static final String SUM = "Sum";
 	public static final String ARITH_MEAN = "Arithmetic Mean";
@@ -35,4 +39,5 @@ public class MyConstants {
 	public static final String SAVE_FAILED = "List was NOT able to be saved!";
 	public static final String LIST_LOAD_ERROR = "Error while loading list. Please try again later.";
 	public static final String LIST_DELETE_ERROR = "Error while deleting list. Please try again later.";
+
 }

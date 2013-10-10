@@ -10,6 +10,7 @@ import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -57,6 +58,10 @@ public class BasicView extends DataActionHandler {
 		keypadHelper = new KeypadHelper();
 		ImageButton btnBackspace = (ImageButton) tlKeypad.findViewById(R.id.keypad_backspace);
 
+		if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			etInput.setMaxLines(2);
+		}
+
 		keypadHelper.disableSoftInputFromAppearing(etInput);
 		keypadHelper.watchEditText(etInput);
 
@@ -83,9 +88,9 @@ public class BasicView extends DataActionHandler {
 		});
 	}
 
-	public void showResults(LinkedHashMap<String, Double> result) {
+	public void showResults(LinkedHashMap<String, Double> results) {
 		resultsAdapter.clear();
-		for (Entry<String, Double> entry : result.entrySet()) {
+		for (Entry<String, Double> entry : results.entrySet()) {
 			resultsAdapter.add(entry);
 		}
 
@@ -110,6 +115,15 @@ public class BasicView extends DataActionHandler {
 		Toast.makeText(activity, String.format(MyConstants.DESCRIPTIVE_NUMBER_ERROR, errorItem), Toast.LENGTH_SHORT).show();
 	}
 
+	public void selectInput(String string) {
+		int startIndex = etInput.getText().toString().indexOf(string);
+
+		/* Just in case */
+		if (startIndex >= 0) {
+			etInput.setSelection(startIndex, startIndex + string.length());
+		}
+	}
+
 	public void showSaveListPopup() {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 
@@ -119,7 +133,7 @@ public class BasicView extends DataActionHandler {
 		} else {
 			alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog_old, null);
 		}
-		
+
 		final EditText etName = (EditText) alertView.findViewById(R.id.save_list_etListName);
 
 		alertBuilder.setView(alertView);
@@ -201,20 +215,19 @@ public class BasicView extends DataActionHandler {
 		return view;
 	}
 
+	public void setScrollPosition(int position) {
+		lvResults.setSelectionFromTop(position, 0);
+	}
+
+	public int getScrollPosition() {
+		return lvResults.getFirstVisiblePosition();
+	}
+
 	public String getInput() {
 		return etInput.getText().toString();
 	}
 
 	public void setInputText(String list) {
 		etInput.setText(list);
-	}
-
-	public void selectInput(String string) {
-		int startIndex = etInput.getText().toString().indexOf(string);
-
-		/* Just in case */
-		if (startIndex >= 0) {
-			etInput.setSelection(startIndex, startIndex + string.length());
-		}
 	}
 }
