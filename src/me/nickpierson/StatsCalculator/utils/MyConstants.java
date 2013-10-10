@@ -4,6 +4,7 @@ public class MyConstants {
 
 	public static final String RESULTS_KEY = "RESULTS";
 	public static final String KEYPAD_KEY = "KEYPAD";
+	public static final String SCROLL_POSITION_KEY = "SCROLL_POSITION";
 
 	public static final String SIZE = "Size";
 	public static final String SUM = "Sum";

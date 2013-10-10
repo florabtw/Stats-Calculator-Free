@@ -34,6 +34,7 @@ public class BasicActivity extends ActionBarActivity implements KeypadActivity {
 	protected void onSaveInstanceState(Bundle outState) {
 		outState.putSerializable(MyConstants.RESULTS_KEY, model.getResults());
 		outState.putBoolean(MyConstants.KEYPAD_KEY, view.isKeyPadVisible());
+		outState.putInt(MyConstants.SCROLL_POSITION_KEY, view.getScrollPosition());
 		super.onSaveInstanceState(outState);
 	}
 
@@ -44,6 +45,8 @@ public class BasicActivity extends ActionBarActivity implements KeypadActivity {
 			LinkedHashMap<String, Double> results = (LinkedHashMap<String, Double>) savedInstanceState.getSerializable(MyConstants.RESULTS_KEY);
 			model.setResults(results);
 			view.showResults(results);
+
+			view.setScrollPosition(savedInstanceState.getInt(MyConstants.SCROLL_POSITION_KEY));
 
 			if (savedInstanceState.getBoolean(MyConstants.KEYPAD_KEY)) {
 				view.showKeypad();

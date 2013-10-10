@@ -110,6 +110,15 @@ public class BasicView extends DataActionHandler {
 		Toast.makeText(activity, String.format(MyConstants.DESCRIPTIVE_NUMBER_ERROR, errorItem), Toast.LENGTH_SHORT).show();
 	}
 
+	public void selectInput(String string) {
+		int startIndex = etInput.getText().toString().indexOf(string);
+
+		/* Just in case */
+		if (startIndex >= 0) {
+			etInput.setSelection(startIndex, startIndex + string.length());
+		}
+	}
+
 	public void showSaveListPopup() {
 		AlertDialog.Builder alertBuilder = new AlertDialog.Builder(activity);
 
@@ -201,20 +210,19 @@ public class BasicView extends DataActionHandler {
 		return view;
 	}
 
+	public void setScrollPosition(int position) {
+		lvResults.setSelectionFromTop(position, 0);
+	}
+
+	public int getScrollPosition() {
+		return lvResults.getFirstVisiblePosition();
+	}
+
 	public String getInput() {
 		return etInput.getText().toString();
 	}
 
 	public void setInputText(String list) {
 		etInput.setText(list);
-	}
-
-	public void selectInput(String string) {
-		int startIndex = etInput.getText().toString().indexOf(string);
-
-		/* Just in case */
-		if (startIndex >= 0) {
-			etInput.setSelection(startIndex, startIndex + string.length());
-		}
 	}
 }
