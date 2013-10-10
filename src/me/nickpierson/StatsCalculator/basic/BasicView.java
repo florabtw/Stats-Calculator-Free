@@ -10,6 +10,7 @@ import me.nickpierson.StatsCalculator.utils.MyConstants;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -56,6 +57,10 @@ public class BasicView extends DataActionHandler {
 		resultsAdapter = new BasicAdapter(activity, R.layout.basic_result_item);
 		keypadHelper = new KeypadHelper();
 		ImageButton btnBackspace = (ImageButton) tlKeypad.findViewById(R.id.keypad_backspace);
+
+		if (activity.getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+			etInput.setMaxLines(2);
+		}
 
 		keypadHelper.disableSoftInputFromAppearing(etInput);
 		keypadHelper.watchEditText(etInput);
