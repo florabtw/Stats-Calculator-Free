@@ -23,16 +23,25 @@ public class BasicAdapter extends ArrayAdapter<LinkedHashMap.Entry<String, Doubl
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View item = LayoutInflater.from(getContext()).inflate(resource, null);
+		ViewHolder view;
 
-		TextView tvTitle = (TextView) item.findViewById(R.id.basic_tvResultTitle);
-		TextView tvAnswer = (TextView) item.findViewById(R.id.basic_tvResultAnswer);
+		if (convertView == null) {
+			convertView = LayoutInflater.from(getContext()).inflate(resource, null);
 
-		tvTitle.setText(getItem(position).getKey());
+			view = new ViewHolder();
+			view.tvTitle = (TextView) convertView.findViewById(R.id.basic_tvResultTitle);
+			view.tvAnswer = (TextView) convertView.findViewById(R.id.basic_tvResultAnswer);
+
+			convertView.setTag(view);
+		} else {
+			view = (ViewHolder) convertView.getTag();
+		}
+
+		view.tvTitle.setText(getItem(position).getKey());
 
 		Double answer = getItem(position).getValue();
 		if (answer == null) {
-			tvAnswer.setText("None");
+			view.tvAnswer.setText("None");
 		} else {
 			String stringAnswer = answer.toString();
 			if (answer > MyConstants.MAX_PLAIN_FORMAT) {
@@ -44,14 +53,19 @@ public class BasicAdapter extends ArrayAdapter<LinkedHashMap.Entry<String, Doubl
 				stringAnswer = format.format(answer);
 			}
 
-			tvAnswer.setText(stringAnswer);
+			view.tvAnswer.setText(stringAnswer);
 		}
 
-		return item;
+		return convertView;
 	}
 
 	@Override
 	public boolean isEnabled(int position) {
 		return false;
+	}
+
+	static class ViewHolder {
+		TextView tvTitle;
+		TextView tvAnswer;
 	}
 }
