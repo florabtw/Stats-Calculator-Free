@@ -23,7 +23,7 @@ public class PCActivity extends ActionBarActivity implements KeypadActivity {
 
 		setContentView(view.getView());
 	}
-
+	
 	@Override
 	public void keypadPress(View button) {
 		view.keypadPress((Button) button);

@@ -19,6 +19,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class BasicModel extends DataActionHandler {
 
 	private Activity activity;
+	private LinkedHashMap<String, Double> results;
 
 	public enum Types {
 		VALID_INPUT, INVALID_INPUT, SAVE_SUCCESSFUL, SAVE_FAILED, LOAD_ERROR, DELETE_ERROR;
@@ -30,25 +31,25 @@ public class BasicModel extends DataActionHandler {
 
 	public BasicModel(Activity activity) {
 		this.activity = activity;
+		results = new LinkedHashMap<String, Double>();
 	}
 
 	public LinkedHashMap<String, Double> getEmptyResults() {
-		LinkedHashMap<String, Double> emptyMap = new LinkedHashMap<String, Double>();
-		emptyMap.put(MyConstants.SIZE, 0.0);
-		emptyMap.put(MyConstants.SUM, 0.0);
-		emptyMap.put(MyConstants.ARITH_MEAN, 0.0);
-		emptyMap.put(MyConstants.GEO_MEAN, 0.0);
-		emptyMap.put(MyConstants.MEDIAN, 0.0);
-		emptyMap.put(MyConstants.MODE, null);
-		emptyMap.put(MyConstants.RANGE, 0.0);
-		emptyMap.put(MyConstants.POP_VAR, 0.0);
-		emptyMap.put(MyConstants.SAMPLE_VAR, 0.0);
-		emptyMap.put(MyConstants.POP_DEV, 0.0);
-		emptyMap.put(MyConstants.SAMPLE_DEV, 0.0);
-		emptyMap.put(MyConstants.COEFF_VAR, 0.0);
-		emptyMap.put(MyConstants.SKEWNESS, 0.0);
-		emptyMap.put(MyConstants.KURTOSIS, 0.0);
-		return emptyMap;
+		results.put(MyConstants.SIZE, 0.0);
+		results.put(MyConstants.SUM, 0.0);
+		results.put(MyConstants.ARITH_MEAN, 0.0);
+		results.put(MyConstants.GEO_MEAN, 0.0);
+		results.put(MyConstants.MEDIAN, 0.0);
+		results.put(MyConstants.MODE, null);
+		results.put(MyConstants.RANGE, 0.0);
+		results.put(MyConstants.POP_VAR, 0.0);
+		results.put(MyConstants.SAMPLE_VAR, 0.0);
+		results.put(MyConstants.POP_DEV, 0.0);
+		results.put(MyConstants.SAMPLE_DEV, 0.0);
+		results.put(MyConstants.COEFF_VAR, 0.0);
+		results.put(MyConstants.SKEWNESS, 0.0);
+		results.put(MyConstants.KURTOSIS, 0.0);
+		return results;
 	}
 
 	public void validateInput(String input) {
@@ -158,23 +159,22 @@ public class BasicModel extends DataActionHandler {
 	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
 		Collections.sort(numberList);
 
-		LinkedHashMap<String, Double> result = new LinkedHashMap<String, Double>();
-		result.put(MyConstants.SIZE, (double) numberList.size());
-		result.put(MyConstants.SUM, calculateSum(numberList));
-		result.put(MyConstants.ARITH_MEAN, result.get(MyConstants.SUM) / result.get(MyConstants.SIZE));
-		result.put(MyConstants.GEO_MEAN, calculateGeoMean(numberList));
-		result.put(MyConstants.MEDIAN, calculateMedian(numberList, result.get(MyConstants.SIZE)));
-		result.put(MyConstants.MODE, calculateMode(numberList));
-		result.put(MyConstants.RANGE, calculateRange(numberList));
-		result.put(MyConstants.POP_VAR, calculatePopVariance(numberList, result.get(MyConstants.ARITH_MEAN), result.get(MyConstants.SIZE)));
-		result.put(MyConstants.SAMPLE_VAR, calculateSampleVariance(numberList, result.get(MyConstants.ARITH_MEAN), result.get(MyConstants.SIZE)));
-		result.put(MyConstants.POP_DEV, Math.sqrt(result.get(MyConstants.POP_VAR)));
-		result.put(MyConstants.SAMPLE_DEV, Math.sqrt(result.get(MyConstants.SAMPLE_VAR)));
-		result.put(MyConstants.COEFF_VAR, result.get(MyConstants.SAMPLE_DEV) / result.get(MyConstants.ARITH_MEAN));
-		result.put(MyConstants.SKEWNESS, calculateSkewness(numberList, result.get(MyConstants.ARITH_MEAN), result.get(MyConstants.POP_DEV)));
-		result.put(MyConstants.KURTOSIS, calculateKurtosis(numberList, result.get(MyConstants.ARITH_MEAN), result.get(MyConstants.POP_DEV)));
+		results.put(MyConstants.SIZE, (double) numberList.size());
+		results.put(MyConstants.SUM, calculateSum(numberList));
+		results.put(MyConstants.ARITH_MEAN, results.get(MyConstants.SUM) / results.get(MyConstants.SIZE));
+		results.put(MyConstants.GEO_MEAN, calculateGeoMean(numberList));
+		results.put(MyConstants.MEDIAN, calculateMedian(numberList, results.get(MyConstants.SIZE)));
+		results.put(MyConstants.MODE, calculateMode(numberList));
+		results.put(MyConstants.RANGE, calculateRange(numberList));
+		results.put(MyConstants.POP_VAR, calculatePopVariance(numberList, results.get(MyConstants.ARITH_MEAN), results.get(MyConstants.SIZE)));
+		results.put(MyConstants.SAMPLE_VAR, calculateSampleVariance(numberList, results.get(MyConstants.ARITH_MEAN), results.get(MyConstants.SIZE)));
+		results.put(MyConstants.POP_DEV, Math.sqrt(results.get(MyConstants.POP_VAR)));
+		results.put(MyConstants.SAMPLE_DEV, Math.sqrt(results.get(MyConstants.SAMPLE_VAR)));
+		results.put(MyConstants.COEFF_VAR, results.get(MyConstants.SAMPLE_DEV) / results.get(MyConstants.ARITH_MEAN));
+		results.put(MyConstants.SKEWNESS, calculateSkewness(numberList, results.get(MyConstants.ARITH_MEAN), results.get(MyConstants.POP_DEV)));
+		results.put(MyConstants.KURTOSIS, calculateKurtosis(numberList, results.get(MyConstants.ARITH_MEAN), results.get(MyConstants.POP_DEV)));
 
-		return result;
+		return results;
 	}
 
 	private double calculateSum(List<Double> numberList) {
@@ -344,5 +344,13 @@ public class BasicModel extends DataActionHandler {
 		if (!isDeleted) {
 			event(Types.DELETE_ERROR);
 		}
+	}
+
+	public LinkedHashMap<String, Double> getResults() {
+		return results;
+	}
+
+	public void setResults(LinkedHashMap<String, Double> results) {
+		this.results = results;
 	}
 }
