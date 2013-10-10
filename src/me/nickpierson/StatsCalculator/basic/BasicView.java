@@ -83,9 +83,9 @@ public class BasicView extends DataActionHandler {
 		});
 	}
 
-	public void showResults(LinkedHashMap<String, Double> result) {
+	public void showResults(LinkedHashMap<String, Double> results) {
 		resultsAdapter.clear();
-		for (Entry<String, Double> entry : result.entrySet()) {
+		for (Entry<String, Double> entry : results.entrySet()) {
 			resultsAdapter.add(entry);
 		}
 
@@ -119,7 +119,7 @@ public class BasicView extends DataActionHandler {
 		} else {
 			alertView = LayoutInflater.from(activity).inflate(R.layout.save_list_dialog_old, null);
 		}
-		
+
 		final EditText etName = (EditText) alertView.findViewById(R.id.save_list_etListName);
 
 		alertBuilder.setView(alertView);

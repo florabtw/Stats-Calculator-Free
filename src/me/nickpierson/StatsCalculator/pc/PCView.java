@@ -1,5 +1,7 @@
 package me.nickpierson.StatsCalculator.pc;
 
+import java.util.ArrayList;
+
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.KeypadHelper;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
@@ -247,6 +249,24 @@ public class PCView extends ActionHandler {
 
 	public String getNVals() {
 		return etNVals.getText().toString();
+	}
+
+	public ArrayList<String> getResults() {
+		ArrayList<String> results = new ArrayList<String>();
+		results.add(tvNFact.getText().toString());
+		results.add(tvRFact.getText().toString());
+		results.add(tvNPermR.getText().toString());
+		results.add(tvNChooseR.getText().toString());
+		results.add(tvIndistinct.getText().toString());
+		return results;
+	}
+
+	public void setResults(ArrayList<String> results) {
+		setNFactorial(results.get(0));
+		setRFactorial(results.get(1));
+		setPermutation(results.get(2));
+		setCombination(results.get(3));
+		setIndistinct(results.get(4));
 	}
 
 	public View getView() {
