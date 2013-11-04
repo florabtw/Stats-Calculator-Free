@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -19,7 +18,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class BasicModel extends DataActionHandler {
 
 	private Activity activity;
-	private LinkedHashMap<String, Double> results;
+	private Double[] results;
 
 	public enum Types {
 		VALID_INPUT, INVALID_INPUT, SAVE_SUCCESSFUL, SAVE_FAILED, LOAD_ERROR, DELETE_ERROR;
@@ -31,24 +30,18 @@ public class BasicModel extends DataActionHandler {
 
 	public BasicModel(Activity activity) {
 		this.activity = activity;
-		results = new LinkedHashMap<String, Double>();
+
+		results = new Double[14];
 	}
 
-	public LinkedHashMap<String, Double> getEmptyResults() {
-		results.put(MyConstants.SIZE, 0.0);
-		results.put(MyConstants.SUM, 0.0);
-		results.put(MyConstants.ARITH_MEAN, 0.0);
-		results.put(MyConstants.GEO_MEAN, 0.0);
-		results.put(MyConstants.MEDIAN, 0.0);
-		results.put(MyConstants.MODE, null);
-		results.put(MyConstants.RANGE, 0.0);
-		results.put(MyConstants.POP_VAR, 0.0);
-		results.put(MyConstants.SAMPLE_VAR, 0.0);
-		results.put(MyConstants.POP_DEV, 0.0);
-		results.put(MyConstants.SAMPLE_DEV, 0.0);
-		results.put(MyConstants.COEFF_VAR, 0.0);
-		results.put(MyConstants.SKEWNESS, 0.0);
-		results.put(MyConstants.KURTOSIS, 0.0);
+	public Double[] getEmptyResults() {
+		for (int i = 0; i < results.length; i++) {
+			results[i] = 0.0;
+		}
+
+		// mode
+		results[5] = null;
+
 		return results;
 	}
 
@@ -156,23 +149,23 @@ public class BasicModel extends DataActionHandler {
 		return convertedList;
 	}
 
-	public LinkedHashMap<String, Double> calculateResults(List<Double> numberList) {
+	public Double[] calculateResults(List<Double> numberList) {
 		Collections.sort(numberList);
 
-		results.put(MyConstants.SIZE, (double) numberList.size());
-		results.put(MyConstants.SUM, calculateSum(numberList));
-		results.put(MyConstants.ARITH_MEAN, results.get(MyConstants.SUM) / results.get(MyConstants.SIZE));
-		results.put(MyConstants.GEO_MEAN, calculateGeoMean(numberList));
-		results.put(MyConstants.MEDIAN, calculateMedian(numberList, results.get(MyConstants.SIZE)));
-		results.put(MyConstants.MODE, calculateMode(numberList));
-		results.put(MyConstants.RANGE, calculateRange(numberList));
-		results.put(MyConstants.POP_VAR, calculatePopVariance(numberList, results.get(MyConstants.ARITH_MEAN), results.get(MyConstants.SIZE)));
-		results.put(MyConstants.SAMPLE_VAR, calculateSampleVariance(numberList, results.get(MyConstants.ARITH_MEAN), results.get(MyConstants.SIZE)));
-		results.put(MyConstants.POP_DEV, Math.sqrt(results.get(MyConstants.POP_VAR)));
-		results.put(MyConstants.SAMPLE_DEV, Math.sqrt(results.get(MyConstants.SAMPLE_VAR)));
-		results.put(MyConstants.COEFF_VAR, results.get(MyConstants.SAMPLE_DEV) / results.get(MyConstants.ARITH_MEAN));
-		results.put(MyConstants.SKEWNESS, calculateSkewness(numberList, results.get(MyConstants.ARITH_MEAN), results.get(MyConstants.POP_DEV)));
-		results.put(MyConstants.KURTOSIS, calculateKurtosis(numberList, results.get(MyConstants.ARITH_MEAN), results.get(MyConstants.POP_DEV)));
+		results[0] = (double) numberList.size();
+		results[1] = calculateSum(numberList);
+		results[2] = results[1] / results[0];
+		results[3] = calculateGeoMean(numberList);
+		results[4] = calculateMedian(numberList, results[0]);
+		results[5] = calculateMode(numberList);
+		results[6] = calculateRange(numberList);
+		results[7] = calculatePopVariance(numberList, results[2], results[0]);
+		results[8] = calculateSampleVariance(numberList, results[2], results[0]);
+		results[9] = Math.sqrt(results[7]);
+		results[10] = Math.sqrt(results[8]);
+		results[11] = results[10] / results[2];
+		results[12] = calculateSkewness(numberList, results[2], results[9]);
+		results[13] = calculateKurtosis(numberList, results[2], results[9]);
 
 		return results;
 	}
@@ -346,11 +339,11 @@ public class BasicModel extends DataActionHandler {
 		}
 	}
 
-	public LinkedHashMap<String, Double> getResults() {
+	public Double[] getResults() {
 		return results;
 	}
 
-	public void setResults(LinkedHashMap<String, Double> results) {
+	public void setResults(Double[] results) {
 		this.results = results;
 	}
 }

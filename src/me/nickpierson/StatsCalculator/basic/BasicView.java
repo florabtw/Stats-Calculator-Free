@@ -1,8 +1,6 @@
 package me.nickpierson.StatsCalculator.basic;
 
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map.Entry;
 
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.KeypadHelper;
@@ -47,6 +45,8 @@ public class BasicView extends DataActionHandler {
 	private BasicAdapter resultsAdapter;
 	private KeypadHelper keypadHelper;
 
+	private String[] titles;
+
 	public BasicView(BasicActivity activity) {
 		this.activity = activity;
 		view = (RelativeLayout) LayoutInflater.from(activity).inflate(R.layout.basic, null);
@@ -86,12 +86,15 @@ public class BasicView extends DataActionHandler {
 				return true;
 			}
 		});
+
+		titles = activity.getResources().getStringArray(R.array.descriptive_titles);
 	}
 
-	public void showResults(LinkedHashMap<String, Double> results) {
+	public void showResults(Double[] results) {
 		resultsAdapter.clear();
-		for (Entry<String, Double> entry : results.entrySet()) {
-			resultsAdapter.add(entry);
+
+		for (int i = 0; i < results.length; i++) {
+			resultsAdapter.add(new BasicListItem(titles[i], results[i]));
 		}
 
 		showResults();

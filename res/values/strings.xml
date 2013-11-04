@@ -4,18 +4,21 @@
     <string name="app_name">Stats Calculator</string>
     <string name="save_list">Save List</string>
     <string name="load_or_delete_list">Load/Delete List</string>
-    <string name="buttonError">Could not determine button. Please restart the app. If problem persists, please contact developer.</string>
-    <string name="basicInputHint">eg: 59.4x2,61.34,60x3,65.9</string>
-    <string name="sizeHeader">Size:</string>
-    <string name="sumHeader">Sum:</string>
-    <string name="meanHeader">Mean:</string>
-    <string name="medianHeader">Median:</string>
-    <string name="modeHeader">Mode:</string>
-    <string name="rangeHeader">Range:</string>
-    <string name="varianceSampleHeader">Variance (Sample):</string>
-    <string name="variancePopHeader">Variance (Pop.):</string>
-    <string name="stdDevSampleHeader">Std. Deviation (Sample):</string>
-    <string name="stdDevPopHeader">Std. Deviation (Pop.):</string>
+    <string name="basic_input_hint">eg: 59.4x2,61.34,60x3,65.9</string>
+    <string name="size">Size</string>
+    <string name="sum">Sum</string>
+    <string name="arith_mean">Arithmetic Mean</string>
+    <string name="geo_mean">Geometric Mean</string>
+    <string name="median">Median</string>
+    <string name="mode">Mode</string>
+    <string name="range">Range</string>
+    <string name="sample_var">Sample Variance</string>
+    <string name="pop_var">Population Variance</string>
+    <string name="sample_dev">Sample Std. Deviation</string>
+    <string name="pop_dev">Population Std. Deviation</string>
+    <string name="coeff_var">Coefficient of Variation</string>
+    <string name="skewness">Skewness</string>
+    <string name="kurtosis">Kurtosis</string>
     <string name="one">1</string>
     <string name="two">2</string>
     <string name="three">3</string>
@@ -33,12 +36,12 @@
     <string name="pc_default_value">n/a</string>
     <string name="pc_n">n =</string>
     <string name="pc_r">r =</string>
-    <string name="pc_ns">n1,n2,n3,... =</string>
+    <string name="pc_ns">n1,n2,n3,&#8230; =</string>
     <string name="n_fact">n!</string>
     <string name="r_fact">r!</string>
     <string name="n_perm_r">nPr</string>
     <string name="n_comb_r">nCr</string>
-    <string name="indistinct_perm">n! \u00F7\nn1!n2!n3!...</string>
+    <string name="indistinct_perm">n! \u00F7\nn1!n2!n3!&#8230;</string>
     <string name="request_list_name">What would you like to name the list?</string>
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>

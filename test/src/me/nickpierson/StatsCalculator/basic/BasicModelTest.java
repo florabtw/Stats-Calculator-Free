@@ -16,9 +16,6 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
-
-import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -57,20 +54,17 @@ public class BasicModelTest {
 
 	@Test
 	public void modelReturnsEmptyHashMapOnRequest() {
-		LinkedHashMap<String, Double> emptyMap = model.getEmptyResults();
-		assertEquals(0.0, emptyMap.get(MyConstants.SIZE), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.SUM), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.ARITH_MEAN), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.MEDIAN), DELTA);
-		assertEquals(null, emptyMap.get(MyConstants.MODE));
-		assertEquals(0.0, emptyMap.get(MyConstants.RANGE), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.POP_VAR), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.SAMPLE_VAR), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.POP_DEV), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.SAMPLE_DEV), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.COEFF_VAR), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.SKEWNESS), DELTA);
-		assertEquals(0.0, emptyMap.get(MyConstants.KURTOSIS), DELTA);
+		Double[] emptyMap = model.getEmptyResults();
+
+		for (int i = 0; i < 5; i++) {
+			assertEquals(0.0, emptyMap[i], DELTA);
+		}
+
+		assertEquals(null, emptyMap[5]);
+
+		for (int i = 6; i < emptyMap.length; i++) {
+			assertEquals(0.0, emptyMap[i], DELTA);
+		}
 	}
 
 	@SuppressWarnings("unchecked")
@@ -142,27 +136,27 @@ public class BasicModelTest {
 	public void calculateResults_CalculatesCorrectResult() {
 		ArrayList<Double> sampleInput = makeValidList(45, 68.1, 29.4, -54, -.19, 3.0001);
 
-		LinkedHashMap<String, Double> actualResult = model.calculateResults(sampleInput);
+		Double[] actualResults = model.calculateResults(sampleInput);
 
-		assertEquals(91.3101, actualResult.get(MyConstants.SUM), DELTA);
-		assertEquals(6.0, actualResult.get(MyConstants.SIZE), DELTA);
-		assertEquals(15.21835, actualResult.get(MyConstants.ARITH_MEAN), DELTA);
-		assertEquals(Double.NaN, actualResult.get(MyConstants.GEO_MEAN), DELTA);
-		assertEquals(16.20005, actualResult.get(MyConstants.MEDIAN), DELTA);
-		assertEquals(null, actualResult.get(MyConstants.MODE));
-		assertEquals(122.1, actualResult.get(MyConstants.RANGE), DELTA);
-		assertEquals(1510.402939, actualResult.get(MyConstants.POP_VAR), DELTA);
-		assertEquals(1812.483527, actualResult.get(MyConstants.SAMPLE_VAR), DELTA);
-		assertEquals(38.863902, actualResult.get(MyConstants.POP_DEV), DELTA);
-		assertEquals(42.573272, actualResult.get(MyConstants.SAMPLE_DEV), DELTA);
-		assertEquals(2.797495, actualResult.get(MyConstants.COEFF_VAR), DELTA);
-		assertEquals(-.4542037, actualResult.get(MyConstants.SKEWNESS), DELTA);
-		assertEquals(2.314556, actualResult.get(MyConstants.KURTOSIS), DELTA);
+		assertEquals(6.0, actualResults[0], DELTA);
+		assertEquals(91.3101, actualResults[1], DELTA);
+		assertEquals(15.21835, actualResults[2], DELTA);
+		assertEquals(Double.NaN, actualResults[3], DELTA);
+		assertEquals(16.20005, actualResults[4], DELTA);
+		assertEquals(null, actualResults[5]);
+		assertEquals(122.1, actualResults[6], DELTA);
+		assertEquals(1510.402939, actualResults[7], DELTA);
+		assertEquals(1812.483527, actualResults[8], DELTA);
+		assertEquals(38.863902, actualResults[9], DELTA);
+		assertEquals(42.573272, actualResults[10], DELTA);
+		assertEquals(2.797495, actualResults[11], DELTA);
+		assertEquals(-.4542037, actualResults[12], DELTA);
+		assertEquals(2.314556, actualResults[13], DELTA);
 
 		ArrayList<Double> sampleInput1 = makeValidList(45, 68.1, 29.4, 54, 5.3, 5.3);
-		LinkedHashMap<String, Double> actualResult1 = model.calculateResults(sampleInput1);
-		assertEquals(5.3, actualResult1.get(MyConstants.MODE), DELTA);
-		assertEquals(22.695621, actualResult1.get(MyConstants.GEO_MEAN), DELTA);
+		Double[] actualResult1 = model.calculateResults(sampleInput1);
+		assertEquals(22.695621, actualResult1[3], DELTA);
+		assertEquals(5.3, actualResult1[5], DELTA);
 	}
 
 	private ArrayList<Double> makeValidList(double... args) {
