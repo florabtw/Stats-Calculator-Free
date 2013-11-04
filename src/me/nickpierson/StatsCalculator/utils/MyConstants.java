@@ -21,4 +21,9 @@ public class MyConstants {
 	public static final String LIST_LOAD_ERROR = "Error while loading list. Please try again later.";
 	public static final String LIST_DELETE_ERROR = "Error while deleting list. Please try again later.";
 
+	public static final String DEVELOPER_EMAIL = "nkcrpn@gmail.com";
+	public static final String EMAIL_SUBJECT = "[Contact] Stats Calculator";
+	public static final String EMAIL_CHOOSER_TITLE = "Send email...";
+	public static final String RATE_ERROR = "Error while trying to open Play Store.";
+
 }
