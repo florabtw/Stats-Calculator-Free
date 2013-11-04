@@ -57,7 +57,7 @@
     <string name="save_list_hint">Make it memorable!</string>
     <string name="done_button_desc">Done Button</string>
     <string name="backspace_Desc">Backspace</string>
-    <string name="home_menu_contact">Contact Developer</string>
-    <string name="home_menu_rate">Rate This App</string>
+    <string name="home_menu_contact">Contact developer</string>
+    <string name="home_menu_rate">Rate this app</string>
 
 </resources>

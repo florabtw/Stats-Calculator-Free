@@ -6,6 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import me.nickpierson.StatsCalculator.basic.BasicActivity;
 import me.nickpierson.StatsCalculator.pc.PCActivity;
+import me.nickpierson.StatsCalculator.utils.MyConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -15,6 +16,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.content.Intent;
+import android.net.Uri;
 
 import com.thecellutioncenter.mvplib.ActionListener;
 
@@ -60,5 +62,21 @@ public class HomePresenterTest {
 		listener.getValue().fire();
 
 		verify(activity, times(2)).startActivity(new Intent(activity, PCActivity.class));
+	}
+
+	@Test
+	public void whenContactDeveloperMenuItemSelected_ThenEmailIntentIsShown() {
+		Uri emailUri = Uri.fromParts("mailto", MyConstants.DEVELOPER_EMAIL, null);
+		Intent emailIntent = new Intent(Intent.ACTION_SENDTO, emailUri);
+		emailIntent.putExtra(Intent.EXTRA_SUBJECT, MyConstants.EMAIL_SUBJECT);
+		Intent testIntent = Intent.createChooser(emailIntent, MyConstants.EMAIL_CHOOSER_TITLE);
+
+		createPresenter();
+
+		verify(view).addListener(listener.capture(), eq(HomeView.Types.MENU_CONTACT));
+
+		listener.getValue().fire();
+
+		verify(activity).startActivity(testIntent);
 	}
 }
