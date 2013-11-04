@@ -1,7 +1,6 @@
 package me.nickpierson.StatsCalculator.basic;
 
 import java.text.DecimalFormat;
-import java.util.LinkedHashMap;
 
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
@@ -12,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-public class BasicAdapter extends ArrayAdapter<LinkedHashMap.Entry<String, Double>> {
+public class BasicAdapter extends ArrayAdapter<BasicListItem> {
 
 	private int resource;
 
@@ -37,9 +36,9 @@ public class BasicAdapter extends ArrayAdapter<LinkedHashMap.Entry<String, Doubl
 			view = (ViewHolder) convertView.getTag();
 		}
 
-		view.tvTitle.setText(getItem(position).getKey());
+		view.tvTitle.setText(getItem(position).getTitle());
 
-		Double answer = getItem(position).getValue();
+		Double answer = getItem(position).getAnswer();
 		if (answer == null) {
 			view.tvAnswer.setText("None");
 		} else {

@@ -1,7 +1,5 @@
 package me.nickpierson.StatsCalculator.basic;
 
-import java.util.LinkedHashMap;
-
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.utils.KeypadActivity;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
@@ -38,11 +36,10 @@ public class BasicActivity extends ActionBarActivity implements KeypadActivity {
 		super.onSaveInstanceState(outState);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
-			LinkedHashMap<String, Double> results = (LinkedHashMap<String, Double>) savedInstanceState.getSerializable(MyConstants.RESULTS_KEY);
+			Double[] results = (Double[]) savedInstanceState.getSerializable(MyConstants.RESULTS_KEY);
 			model.setResults(results);
 			view.showResults(results);
 

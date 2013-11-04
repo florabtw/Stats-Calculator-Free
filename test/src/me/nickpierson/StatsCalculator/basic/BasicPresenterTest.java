@@ -4,13 +4,11 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 
 import me.nickpierson.StatsCalculator.utils.MyConstants;
 
@@ -46,7 +44,7 @@ public class BasicPresenterTest {
 		listener = ArgumentCaptor.forClass(ActionListener.class);
 		dataListener = ArgumentCaptor.forClass(DataActionListener.class);
 
-		when(model.getEmptyResults()).thenReturn(new LinkedHashMap<String, Double>());
+		when(model.getEmptyResults()).thenReturn(new Double[14]);
 	}
 
 	public void createPresenter() {
@@ -95,8 +93,7 @@ public class BasicPresenterTest {
 
 		dataListener.getValue().fire(testMap);
 
-		verify(model).calculateResults(testResults);
-		verify(view, times(2)).showResults(model.calculateResults(testResults));
+		verify(view).showResults(model.calculateResults(testResults));
 	}
 
 	@Test

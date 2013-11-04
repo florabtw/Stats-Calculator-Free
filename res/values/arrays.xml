@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string-array name="descriptive_tags">
+    <string-array name="descriptive_titles">
         <item>@string/size</item>
         <item>@string/sum</item>
         <item>@string/arith_mean</item>
