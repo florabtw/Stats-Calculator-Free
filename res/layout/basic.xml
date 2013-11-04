@@ -8,7 +8,7 @@
     <EditText
         android:id="@+id/basic_etInput"
         style="@style/basic_edittext"
-        android:hint="@string/basicInputHint" />
+        android:hint="@string/basic_input_hint" />
 
     <FrameLayout
         android:id="@+id/basic_flContent"

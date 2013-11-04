@@ -21,11 +21,6 @@ public class MyConstants {
 	public static final String SKEWNESS = "Skewness";
 	public static final String KURTOSIS = "Kurtosis";
 
-	public static final String REF_SAMPLE_DEV = "Sample Std. Deviation";
-	public static final String REF_COEFF_VAR = "Coefficient of Variation (sample)";
-	public static final String REF_SKEWNESS = SKEWNESS + " (population)";
-	public static final String REF_KURTOSIS = KURTOSIS + " (population)";
-
 	public static final String NOT_APPLICABLE = "n/a";
 	public static final String DECIMAL_FORMAT_LARGE = "0.##########E0";
 	public static final int DECIMAL_PLACES_LARGE = 10;
