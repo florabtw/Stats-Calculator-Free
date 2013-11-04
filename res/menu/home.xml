@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/home_contact_developer"
+        android:showAsAction="never"
+        android:title="@string/home_menu_contact"/>
+    <item
+        android:id="@+id/home_rate_app"
+        android:showAsAction="never"
+        android:title="@string/home_menu_rate"/>
+
+</menu>
