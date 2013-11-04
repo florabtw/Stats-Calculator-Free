@@ -34,6 +34,7 @@ public class HomeActivity extends ActionBarActivity {
 			view.menuContact();
 			return true;
 		case R.id.home_rate_app:
+			view.menuRate();
 			return true;
 		default:
 			return false;

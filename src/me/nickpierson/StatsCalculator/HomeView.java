@@ -12,7 +12,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class HomeView extends DataActionHandler {
 
 	public enum Types {
-		DESCRIPTIVE_BUTTON, PERM_COMB_BUTTON, MENU_CONTACT;
+		DESCRIPTIVE_BUTTON, PERM_COMB_BUTTON, MENU_CONTACT, MENU_RATE;
 	}
 
 	private LinearLayout view;
@@ -54,6 +54,10 @@ public class HomeView extends DataActionHandler {
 
 	public void menuContact() {
 		event(Types.MENU_CONTACT);
+	}
+
+	public void menuRate() {
+		event(Types.MENU_RATE);
 	}
 
 }

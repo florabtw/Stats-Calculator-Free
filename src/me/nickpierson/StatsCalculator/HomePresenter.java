@@ -37,5 +37,20 @@ public class HomePresenter {
 				activity.startActivity(Intent.createChooser(emailIntent, MyConstants.EMAIL_CHOOSER_TITLE));
 			}
 		}, HomeView.Types.MENU_CONTACT);
+
+		view.addListener(new ActionListener() {
+
+			@Override
+			public void fire() {
+				Uri uri = Uri.parse("market://details?id=" + activity.getApplicationContext().getPackageName());
+				Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
+
+				try {
+					activity.startActivity(rateAppIntent);
+				} catch (Exception e) {
+					view.showToast(MyConstants.RATE_ERROR);
+				}
+			}
+		}, HomeView.Types.MENU_RATE);
 	}
 }
