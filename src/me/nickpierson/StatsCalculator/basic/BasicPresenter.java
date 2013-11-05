@@ -39,7 +39,7 @@ public class BasicPresenter {
 			@Override
 			public void fire(HashMap<Enum<?>, ?> data) {
 				ArrayList<Double> validList = (ArrayList<Double>) data.get(BasicModel.Keys.VALIDATED_LIST);
-				Double[] calculateResults = model.calculateResults(validList);
+				double[] calculateResults = model.calculateResults(validList);
 				view.showResults(calculateResults);
 			}
 		}, BasicModel.Types.VALID_INPUT);

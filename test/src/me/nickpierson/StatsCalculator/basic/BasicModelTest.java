@@ -54,16 +54,10 @@ public class BasicModelTest {
 
 	@Test
 	public void modelReturnsEmptyHashMapOnRequest() {
-		Double[] emptyMap = model.getEmptyResults();
+		double[] emptyMap = model.getEmptyResults();
 
-		for (int i = 0; i < 5; i++) {
-			assertEquals(0.0, emptyMap[i], DELTA);
-		}
-
-		assertEquals(null, emptyMap[5]);
-
-		for (int i = 6; i < emptyMap.length; i++) {
-			assertEquals(0.0, emptyMap[i], DELTA);
+		for (int i = 0; i < emptyMap.length; i++) {
+			assertTrue(Double.isNaN(emptyMap[i]));
 		}
 	}
 
@@ -136,27 +130,31 @@ public class BasicModelTest {
 	public void calculateResults_CalculatesCorrectResult() {
 		ArrayList<Double> sampleInput = makeValidList(45, 68.1, 29.4, -54, -.19, 3.0001);
 
-		Double[] actualResults = model.calculateResults(sampleInput);
+		double[] actualResults = model.calculateResults(sampleInput);
 
 		assertEquals(6.0, actualResults[0], DELTA);
 		assertEquals(91.3101, actualResults[1], DELTA);
 		assertEquals(15.21835, actualResults[2], DELTA);
 		assertEquals(Double.NaN, actualResults[3], DELTA);
 		assertEquals(16.20005, actualResults[4], DELTA);
-		assertEquals(null, actualResults[5]);
+		assertEquals(Double.NaN, actualResults[5], DELTA);
 		assertEquals(122.1, actualResults[6], DELTA);
-		assertEquals(1510.402939, actualResults[7], DELTA);
-		assertEquals(1812.483527, actualResults[8], DELTA);
-		assertEquals(38.863902, actualResults[9], DELTA);
-		assertEquals(42.573272, actualResults[10], DELTA);
+		assertEquals(1812.483527, actualResults[7], DELTA);
+		assertEquals(1510.402939, actualResults[8], DELTA);
+		assertEquals(42.573272, actualResults[9], DELTA);
+		assertEquals(38.863902, actualResults[10], DELTA);
 		assertEquals(2.797495, actualResults[11], DELTA);
 		assertEquals(-.4542037, actualResults[12], DELTA);
 		assertEquals(2.314556, actualResults[13], DELTA);
 
 		ArrayList<Double> sampleInput1 = makeValidList(45, 68.1, 29.4, 54, 5.3, 5.3);
-		Double[] actualResult1 = model.calculateResults(sampleInput1);
+		double[] actualResult1 = model.calculateResults(sampleInput1);
 		assertEquals(22.695621, actualResult1[3], DELTA);
 		assertEquals(5.3, actualResult1[5], DELTA);
+
+		ArrayList<Double> sampleInput2 = makeValidList(-99.5, -55, -32.2);
+		double[] actualResult2 = model.calculateResults(sampleInput2);
+		assertEquals(67.3, actualResult2[6], DELTA);
 	}
 
 	private ArrayList<Double> makeValidList(double... args) {

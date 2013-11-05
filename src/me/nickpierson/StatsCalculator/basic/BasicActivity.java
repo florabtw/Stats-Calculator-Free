@@ -30,7 +30,7 @@ public class BasicActivity extends ActionBarActivity implements KeypadActivity {
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		outState.putSerializable(MyConstants.RESULTS_KEY, model.getResults());
+		outState.putDoubleArray(MyConstants.RESULTS_KEY, model.getResults());
 		outState.putBoolean(MyConstants.KEYPAD_KEY, view.isKeyPadVisible());
 		outState.putInt(MyConstants.SCROLL_POSITION_KEY, view.getScrollPosition());
 		super.onSaveInstanceState(outState);
@@ -39,7 +39,7 @@ public class BasicActivity extends ActionBarActivity implements KeypadActivity {
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		if (savedInstanceState != null) {
-			Double[] results = (Double[]) savedInstanceState.getSerializable(MyConstants.RESULTS_KEY);
+			double[] results = savedInstanceState.getDoubleArray(MyConstants.RESULTS_KEY);
 			model.setResults(results);
 			view.showResults(results);
 
