@@ -90,7 +90,7 @@ public class BasicView extends DataActionHandler {
 		titles = activity.getResources().getStringArray(R.array.descriptive_titles);
 	}
 
-	public void showResults(Double[] results) {
+	public void showResults(double[] results) {
 		resultsAdapter.clear();
 
 		for (int i = 0; i < results.length; i++) {

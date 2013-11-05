@@ -2,6 +2,10 @@ package me.nickpierson.StatsCalculator.utils;
 
 public class MyConstants {
 
+	public enum Titles {
+		SIZE, SUM, ARITH_MEAN, GEO_MEAN, MEDIAN, MODE, RANGE, SAMPLE_VAR, POP_VAR, SAMPLE_DEV, POP_DEV, COEFF_VAR, SKEWNESS, KURTOSIS;
+	}
+
 	public static final String RESULTS_KEY = "RESULTS";
 	public static final String KEYPAD_KEY = "KEYPAD";
 	public static final String SCROLL_POSITION_KEY = "SCROLL_POSITION";

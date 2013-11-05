@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 
 import me.nickpierson.StatsCalculator.utils.MyConstants;
+import me.nickpierson.StatsCalculator.utils.MyConstants.Titles;
 import android.app.Activity;
 
 import com.thecellutioncenter.mvplib.DataActionHandler;
@@ -18,7 +19,7 @@ import com.thecellutioncenter.mvplib.DataActionHandler;
 public class BasicModel extends DataActionHandler {
 
 	private Activity activity;
-	private Double[] results;
+	private double[] results;
 
 	public enum Types {
 		VALID_INPUT, INVALID_INPUT, SAVE_SUCCESSFUL, SAVE_FAILED, LOAD_ERROR, DELETE_ERROR;
@@ -31,16 +32,13 @@ public class BasicModel extends DataActionHandler {
 	public BasicModel(Activity activity) {
 		this.activity = activity;
 
-		results = new Double[14];
+		results = new double[Titles.values().length];
 	}
 
-	public Double[] getEmptyResults() {
+	public double[] getEmptyResults() {
 		for (int i = 0; i < results.length; i++) {
-			results[i] = 0.0;
+			results[i] = Double.NaN;
 		}
-
-		// mode
-		results[5] = null;
 
 		return results;
 	}
@@ -53,6 +51,7 @@ public class BasicModel extends DataActionHandler {
 			return;
 		}
 
+		// Checks if input is valid
 		String[] values = input.split(",");
 		for (int i = 0; i < values.length; i++) {
 			String currVal = values[i];
@@ -149,23 +148,23 @@ public class BasicModel extends DataActionHandler {
 		return convertedList;
 	}
 
-	public Double[] calculateResults(List<Double> numberList) {
+	public double[] calculateResults(List<Double> numberList) {
 		Collections.sort(numberList);
 
-		results[0] = (double) numberList.size();
-		results[1] = calculateSum(numberList);
-		results[2] = results[1] / results[0];
-		results[3] = calculateGeoMean(numberList);
-		results[4] = calculateMedian(numberList, results[0]);
-		results[5] = calculateMode(numberList);
-		results[6] = calculateRange(numberList);
-		results[7] = calculatePopVariance(numberList, results[2], results[0]);
-		results[8] = calculateSampleVariance(numberList, results[2], results[0]);
-		results[9] = Math.sqrt(results[7]);
-		results[10] = Math.sqrt(results[8]);
-		results[11] = results[10] / results[2];
-		results[12] = calculateSkewness(numberList, results[2], results[9]);
-		results[13] = calculateKurtosis(numberList, results[2], results[9]);
+		results[Titles.SIZE.ordinal()] = numberList.size();
+		results[Titles.SUM.ordinal()] = calculateSum(numberList);
+		results[Titles.ARITH_MEAN.ordinal()] = results[Titles.SUM.ordinal()] / results[Titles.SIZE.ordinal()];
+		results[Titles.GEO_MEAN.ordinal()] = calculateGeoMean(numberList);
+		results[Titles.MEDIAN.ordinal()] = calculateMedian(numberList, results[Titles.SIZE.ordinal()]);
+		results[Titles.MODE.ordinal()] = calculateMode(numberList);
+		results[Titles.RANGE.ordinal()] = calculateRange(numberList);
+		results[Titles.SAMPLE_VAR.ordinal()] = calculateSampleVariance(numberList, results[Titles.ARITH_MEAN.ordinal()], results[Titles.SIZE.ordinal()]);
+		results[Titles.POP_VAR.ordinal()] = calculatePopVariance(numberList, results[Titles.ARITH_MEAN.ordinal()], results[Titles.SIZE.ordinal()]);
+		results[Titles.SAMPLE_DEV.ordinal()] = Math.sqrt(results[Titles.SAMPLE_VAR.ordinal()]);
+		results[Titles.POP_DEV.ordinal()] = Math.sqrt(results[Titles.POP_VAR.ordinal()]);
+		results[Titles.COEFF_VAR.ordinal()] = results[Titles.SAMPLE_DEV.ordinal()] / results[Titles.ARITH_MEAN.ordinal()];
+		results[Titles.SKEWNESS.ordinal()] = calculateSkewness(numberList, results[Titles.ARITH_MEAN.ordinal()], results[Titles.POP_DEV.ordinal()]);
+		results[Titles.KURTOSIS.ordinal()] = calculateKurtosis(numberList, results[Titles.ARITH_MEAN.ordinal()], results[Titles.POP_DEV.ordinal()]);
 
 		return results;
 	}
@@ -190,7 +189,7 @@ public class BasicModel extends DataActionHandler {
 		}
 	}
 
-	private Double calculateMode(List<Double> numberList) {
+	private double calculateMode(List<Double> numberList) {
 		HashMap<Double, Integer> freqs = new HashMap<Double, Integer>();
 		for (double num : numberList) {
 			Integer freq = freqs.get(num);
@@ -212,14 +211,14 @@ public class BasicModel extends DataActionHandler {
 		}
 
 		if (isSimilarMax) {
-			return null;
+			return Double.NaN;
 		} else {
 			return mode;
 		}
 	}
 
 	private double calculateRange(List<Double> numberList) {
-		double max = Double.MIN_VALUE, min = Double.MAX_VALUE;
+		double max = -Double.MAX_VALUE, min = Double.MAX_VALUE;
 		for (double num : numberList) {
 			if (num > max) {
 				max = num;
@@ -250,7 +249,7 @@ public class BasicModel extends DataActionHandler {
 		return sum;
 	}
 
-	private Double calculateGeoMean(List<Double> numberList) {
+	private double calculateGeoMean(List<Double> numberList) {
 		double value = 0;
 		for (double number : numberList) {
 			if (number < 0) {
@@ -265,15 +264,15 @@ public class BasicModel extends DataActionHandler {
 		return Math.pow(Math.E, value);
 	}
 
-	private Double calculateSkewness(List<Double> numberList, double mean, double stdDev) {
+	private double calculateSkewness(List<Double> numberList, double mean, double stdDev) {
 		return calculateKurtOrSkew(3, numberList, mean, stdDev);
 	}
 
-	private Double calculateKurtosis(List<Double> numberList, double mean, double stdDev) {
+	private double calculateKurtosis(List<Double> numberList, double mean, double stdDev) {
 		return calculateKurtOrSkew(4, numberList, mean, stdDev);
 	}
 
-	private Double calculateKurtOrSkew(int power, List<Double> numberList, double mean, double stdDev) {
+	private double calculateKurtOrSkew(int power, List<Double> numberList, double mean, double stdDev) {
 		double sum = 0;
 		for (double number : numberList) {
 			sum += Math.pow(number - mean, power);
@@ -339,11 +338,11 @@ public class BasicModel extends DataActionHandler {
 		}
 	}
 
-	public Double[] getResults() {
+	public double[] getResults() {
 		return results;
 	}
 
-	public void setResults(Double[] results) {
+	public void setResults(double[] results) {
 		this.results = results;
 	}
 }

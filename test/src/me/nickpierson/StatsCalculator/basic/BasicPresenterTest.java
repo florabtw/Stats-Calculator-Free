@@ -44,7 +44,7 @@ public class BasicPresenterTest {
 		listener = ArgumentCaptor.forClass(ActionListener.class);
 		dataListener = ArgumentCaptor.forClass(DataActionListener.class);
 
-		when(model.getEmptyResults()).thenReturn(new Double[14]);
+		when(model.getEmptyResults()).thenReturn(new double[14]);
 	}
 
 	public void createPresenter() {
