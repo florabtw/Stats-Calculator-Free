@@ -17,5 +17,4 @@ public class FreeHomeActivity extends HomeActivity {
 
 		setContentView(view.getView());
 	}
-
 }
