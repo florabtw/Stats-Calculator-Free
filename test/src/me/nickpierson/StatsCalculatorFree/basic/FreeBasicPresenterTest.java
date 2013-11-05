@@ -1,10 +1,11 @@
 package me.nickpierson.StatsCalculatorFree.basic;
 
-import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import me.nickpierson.StatsCalculator.basic.BasicPresenterTest;
 import me.nickpierson.StatsCalculator.basic.BasicView;
+import me.nickpierson.StatsCalculatorFree.basic.reference.FreeBasicReferenceActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,6 +31,6 @@ public class FreeBasicPresenterTest extends BasicPresenterTest {
 
 		listener.getValue().fire();
 
-		verify(activity).startActivity(any(Intent.class));
+		verify(activity, times(2)).startActivity(new Intent(activity, FreeBasicReferenceActivity.class));
 	}
 }

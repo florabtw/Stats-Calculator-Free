@@ -30,7 +30,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.nickpierson.StatsCalculatorFree.HomeActivity" />
+                android:value="me.nickpierson.StatsCalculatorFree.FreeHomeActivity" />
         </activity>
         <activity
             android:name="me.nickpierson.StatsCalculatorFree.pc.FreePCActivity"
@@ -39,7 +39,7 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.nickpierson.StatsCalculatorFree.HomeActivity" />
+                android:value="me.nickpierson.StatsCalculatorFree.FreeHomeActivity" />
         </activity>
         <activity
             android:name="me.nickpierson.StatsCalculatorFree.basic.reference.FreeBasicReferenceActivity"
@@ -47,7 +47,7 @@
             android:parentActivityName="me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.nickpierson.StatsCalculatorFree.basic.BasicActivity" />
+                android:value="me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity" />
         </activity>
     </application>
 
