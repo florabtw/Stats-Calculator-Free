@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import me.nickpierson.StatsCalculator.utils.MyConstants;
+import me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,13 +34,13 @@ public class BasicPresenterTest {
 
 	ArgumentCaptor<ActionListener> listener;
 	private ArgumentCaptor<DataActionListener> dataListener;
-	private BasicActivity activity;
+	private FreeBasicActivity activity;
 
 	@Before
 	public void setup() {
 		view = mock(BasicView.class);
 		model = mock(BasicModel.class);
-		activity = mock(BasicActivity.class);
+		activity = mock(FreeBasicActivity.class);
 
 		listener = ArgumentCaptor.forClass(ActionListener.class);
 		dataListener = ArgumentCaptor.forClass(DataActionListener.class);

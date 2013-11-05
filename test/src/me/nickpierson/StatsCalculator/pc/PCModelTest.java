@@ -11,6 +11,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -193,39 +194,39 @@ public class PCModelTest {
 
 	@Test
 	public void factorialReturnsCorrectValue() {
-		assertEquals(BigInteger.valueOf(120), model.calculateFact(5));
-		assertEquals(BigInteger.valueOf(479001600), model.calculateFact(12));
-		assertEquals(BigInteger.ONE, model.calculateFact(1));
-		assertEquals(BigInteger.ONE, model.calculateFact(0));
-		assertEquals(BigInteger.ZERO, model.calculateFact(-1));
+		assertEquals(BigInteger.valueOf(120), model.factorial(5));
+		assertEquals(BigInteger.valueOf(479001600), model.factorial(12));
+		assertEquals(BigInteger.ONE, model.factorial(1));
+		assertEquals(BigInteger.ONE, model.factorial(0));
+		assertEquals(BigInteger.ZERO, model.factorial(-1));
 	}
 
 	@Test
 	public void permutationReturnCorrectValue() {
-		assertEquals(BigInteger.valueOf(60), model.calculatePermutation(5, 3));
-		assertEquals(BigInteger.valueOf(151200), model.calculatePermutation(10, 6));
-		assertEquals(BigInteger.valueOf(5040), model.calculatePermutation(7, 7));
-		assertEquals(BigInteger.valueOf(5), model.calculatePermutation(5, 1));
-		assertEquals(BigInteger.ONE, model.calculatePermutation(6, 0));
-		assertEquals(BigInteger.ZERO, model.calculatePermutation(3, 4));
+		assertEquals(BigInteger.valueOf(60), model.permutation(5, 3));
+		assertEquals(BigInteger.valueOf(151200), model.permutation(10, 6));
+		assertEquals(BigInteger.valueOf(5040), model.permutation(7, 7));
+		assertEquals(BigInteger.valueOf(5), model.permutation(5, 1));
+		assertEquals(BigInteger.ONE, model.permutation(6, 0));
+		assertEquals(BigInteger.ZERO, model.permutation(3, 4));
 	}
 
 	@Test
 	public void combinationReturnsCorrectValue() {
-		assertEquals(BigInteger.valueOf(10), model.calculateCombination(5, 3));
-		assertEquals(BigInteger.valueOf(210), model.calculateCombination(10, 6));
-		assertEquals(BigInteger.ONE, model.calculateCombination(7, 7));
-		assertEquals(BigInteger.valueOf(5), model.calculateCombination(5, 1));
-		assertEquals(BigInteger.ONE, model.calculateCombination(6, 0));
-		assertEquals(BigInteger.ZERO, model.calculateCombination(3, 4));
+		assertEquals(BigInteger.valueOf(10), model.combination(5, 3));
+		assertEquals(BigInteger.valueOf(210), model.combination(10, 6));
+		assertEquals(BigInteger.ONE, model.combination(7, 7));
+		assertEquals(BigInteger.valueOf(5), model.combination(5, 1));
+		assertEquals(BigInteger.ONE, model.combination(6, 0));
+		assertEquals(BigInteger.ZERO, model.combination(3, 4));
 	}
 
 	@Test
 	public void indistinctPermutationReturnsCorrectValue() {
-		assertEquals(BigInteger.valueOf(60), model.calculateIndistinct(6, makeArrayList(3, 2)));
-		assertEquals(BigInteger.valueOf(2), model.calculateIndistinct(2, makeArrayList(1, 1)));
-		assertEquals(BigInteger.ONE, model.calculateIndistinct(1, makeArrayList(1)));
-		assertEquals(BigInteger.valueOf(120), model.calculateIndistinct(5, makeArrayList(0)));
+		assertEquals(BigInteger.valueOf(60), model.indistinctPermutation(6, makeArrayList(3, 2)));
+		assertEquals(BigInteger.valueOf(2), model.indistinctPermutation(2, makeArrayList(1, 1)));
+		assertEquals(BigInteger.ONE, model.indistinctPermutation(1, makeArrayList(1)));
+		assertEquals(BigInteger.valueOf(120), model.indistinctPermutation(5, makeArrayList(0)));
 	}
 
 	public ArrayList<Integer> makeArrayList(int... values) {

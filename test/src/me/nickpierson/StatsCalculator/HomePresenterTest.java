@@ -6,9 +6,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-import me.nickpierson.StatsCalculator.basic.BasicActivity;
-import me.nickpierson.StatsCalculator.pc.PCActivity;
 import me.nickpierson.StatsCalculator.utils.MyConstants;
+import me.nickpierson.StatsCalculatorFree.FreeHomeActivity;
+import me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity;
+import me.nickpierson.StatsCalculatorFree.pc.FreePCActivity;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -30,14 +31,14 @@ public class HomePresenterTest {
 
 	private HomeModel model;
 	private HomeView view;
-	private HomeActivity activity;
+	private FreeHomeActivity activity;
 	private ArgumentCaptor<ActionListener> listener;
 
 	@Before
 	public void setup() {
 		model = mock(HomeModel.class);
 		view = mock(HomeView.class);
-		activity = mock(HomeActivity.class);
+		activity = mock(FreeHomeActivity.class);
 
 		listener = ArgumentCaptor.forClass(ActionListener.class);
 	}
@@ -54,7 +55,7 @@ public class HomePresenterTest {
 
 		listener.getValue().fire();
 
-		verify(activity, times(2)).startActivity(new Intent(activity, BasicActivity.class));
+		verify(activity, times(2)).startActivity(new Intent(activity, FreeBasicActivity.class));
 	}
 
 	@Test
@@ -65,7 +66,7 @@ public class HomePresenterTest {
 
 		listener.getValue().fire();
 
-		verify(activity, times(2)).startActivity(new Intent(activity, PCActivity.class));
+		verify(activity, times(2)).startActivity(new Intent(activity, FreePCActivity.class));
 	}
 
 	@Test

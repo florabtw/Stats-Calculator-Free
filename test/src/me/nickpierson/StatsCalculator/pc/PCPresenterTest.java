@@ -44,10 +44,10 @@ public class PCPresenterTest {
 		when(view.getNVal()).thenReturn("nval");
 		when(view.getRVal()).thenReturn("rval");
 		when(view.getNVals()).thenReturn("nval,nval");
-		when(model.calculateFact(any(Integer.class))).thenReturn(BigInteger.ONE);
-		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(2));
-		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(3));
-		when(model.calculateIndistinct(any(Integer.class), anyListOf(Integer.class))).thenReturn(BigInteger.valueOf(4));
+		when(model.factorial(any(Integer.class))).thenReturn(BigInteger.ONE);
+		when(model.permutation(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(2));
+		when(model.combination(any(Integer.class), any(Integer.class))).thenReturn(BigInteger.valueOf(3));
+		when(model.indistinctPermutation(any(Integer.class), anyListOf(Integer.class))).thenReturn(BigInteger.valueOf(4));
 	}
 
 	public void createPresenter() {
@@ -207,7 +207,7 @@ public class PCPresenterTest {
 		int testNumber = 8;
 		BigInteger testResult = BigInteger.valueOf(40320);
 		String expectedResult = "40,320";
-		when(model.calculateFact(any(Integer.class))).thenReturn(testResult);
+		when(model.factorial(any(Integer.class))).thenReturn(testResult);
 		createPresenter();
 		HashMap<Enum<?>, Integer> map = new HashMap<Enum<?>, Integer>();
 		map.put(PCModel.Keys.N_VALUE, testNumber);
@@ -222,10 +222,10 @@ public class PCPresenterTest {
 	@Test
 	public void numbersOverOneBillionAreFormatted() {
 		BigInteger testNumber = BigInteger.valueOf(1000000001);
-		when(model.calculateFact(any(Integer.class))).thenReturn(testNumber);
-		when(model.calculatePermutation(any(Integer.class), any(Integer.class))).thenReturn(testNumber);
-		when(model.calculateCombination(any(Integer.class), any(Integer.class))).thenReturn(testNumber);
-		when(model.calculateIndistinct(any(Integer.class), anyListOf(Integer.class))).thenReturn(testNumber);
+		when(model.factorial(any(Integer.class))).thenReturn(testNumber);
+		when(model.permutation(any(Integer.class), any(Integer.class))).thenReturn(testNumber);
+		when(model.combination(any(Integer.class), any(Integer.class))).thenReturn(testNumber);
+		when(model.indistinctPermutation(any(Integer.class), anyListOf(Integer.class))).thenReturn(testNumber);
 		createPresenter();
 		HashMap<Enum<?>, Object> map = new HashMap<Enum<?>, Object>();
 		ArrayList<Integer> testNVals = new ArrayList<Integer>();
@@ -254,28 +254,28 @@ public class PCPresenterTest {
 	}
 
 	private void verifyNFact(int testNVal) {
-		verify(model).calculateFact(testNVal);
-		verify(view).setNFactorial(model.calculateFact(testNVal).toString());
+		verify(model).factorial(testNVal);
+		verify(view).setNFactorial(model.factorial(testNVal).toString());
 	}
 
 	private void verifyRFact(int testRVal) {
-		verify(model).calculateFact(testRVal);
-		verify(view).setRFactorial(model.calculateFact(testRVal).toString());
+		verify(model).factorial(testRVal);
+		verify(view).setRFactorial(model.factorial(testRVal).toString());
 	}
 
 	private void verifyCombination(int testNVal, int testRVal) {
-		verify(model).calculateCombination(testNVal, testRVal);
-		verify(view).setCombination(model.calculateCombination(testNVal, testRVal).toString());
+		verify(model).combination(testNVal, testRVal);
+		verify(view).setCombination(model.combination(testNVal, testRVal).toString());
 	}
 
 	private void verifyPermutation(int testNVal, int testRVal) {
-		verify(model).calculatePermutation(testNVal, testRVal);
-		verify(view).setPermutation(model.calculatePermutation(testNVal, testRVal).toString());
+		verify(model).permutation(testNVal, testRVal);
+		verify(view).setPermutation(model.permutation(testNVal, testRVal).toString());
 	}
 
 	private void verifyIndistinct(ArrayList<Integer> testNVals, int testNVal) {
-		verify(model).calculateIndistinct(testNVal, testNVals);
-		verify(view).setIndistinct(model.calculateIndistinct(testNVal, testNVals).toString());
+		verify(model).indistinctPermutation(testNVal, testNVals);
+		verify(view).setIndistinct(model.indistinctPermutation(testNVal, testNVals).toString());
 	}
 
 	@Test
