@@ -2,12 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="me.nickpierson.StatsCalculator"
     android:installLocation="auto"
-    android:versionCode="2"
-    android:versionName="1.1" >
+    android:versionCode="3"
+    android:versionName="1.2" >
 
     <uses-sdk
         android:minSdkVersion="8"
-        android:targetSdkVersion="18" />
+        android:targetSdkVersion="19" />
 
     <application
         android:allowBackup="true"
@@ -15,7 +15,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="me.nickpierson.StatsCalculator.HomeActivity"
+            android:name="me.nickpierson.StatsCalculatorFree.FreeHomeActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,30 +24,30 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="me.nickpierson.StatsCalculator.basic.BasicActivity"
+            android:name="me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity"
             android:label="@string/app_name"
-            android:parentActivityName="me.nickpierson.StatsCalculator.HomeActivity"
+            android:parentActivityName="me.nickpierson.StatsCalculatorFree.FreeHomeActivity"
             android:windowSoftInputMode="stateAlwaysHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.nickpierson.StatsCalculator.HomeActivity" />
+                android:value="me.nickpierson.StatsCalculatorFree.FreeHomeActivity" />
         </activity>
         <activity
-            android:name="me.nickpierson.StatsCalculator.pc.PCActivity"
+            android:name="me.nickpierson.StatsCalculatorFree.pc.FreePCActivity"
             android:label="@string/app_name"
-            android:parentActivityName="me.nickpierson.StatsCalculator.HomeActivity"
+            android:parentActivityName="me.nickpierson.StatsCalculatorFree.FreeHomeActivity"
             android:windowSoftInputMode="stateAlwaysHidden" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.nickpierson.StatsCalculator.HomeActivity" />
+                android:value="me.nickpierson.StatsCalculatorFree.FreeHomeActivity" />
         </activity>
         <activity
-            android:name="me.nickpierson.StatsCalculator.basic.reference.BasicReferenceActivity"
+            android:name="me.nickpierson.StatsCalculatorFree.basic.reference.FreeBasicReferenceActivity"
             android:label="@string/app_name"
-            android:parentActivityName="me.nickpierson.StatsCalculator.basic.BasicActivity" >
+            android:parentActivityName="me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="me.nickpierson.StatsCalculator.basic.BasicActivity" />
+                android:value="me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity" />
         </activity>
     </application>
 

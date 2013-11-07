@@ -2,57 +2,5 @@
 <resources>
 
     <string name="app_name">Stats Calculator</string>
-    <string name="save_list">Save List</string>
-    <string name="load_or_delete_list">Load/Delete List</string>
-    <string name="buttonError">Could not determine button. Please restart the app. If problem persists, please contact developer.</string>
-    <string name="basicInputHint">eg: 59.4x2,61.34,60x3,65.9</string>
-    <string name="sizeHeader">Size:</string>
-    <string name="sumHeader">Sum:</string>
-    <string name="meanHeader">Mean:</string>
-    <string name="medianHeader">Median:</string>
-    <string name="modeHeader">Mode:</string>
-    <string name="rangeHeader">Range:</string>
-    <string name="varianceSampleHeader">Variance (Sample):</string>
-    <string name="variancePopHeader">Variance (Pop.):</string>
-    <string name="stdDevSampleHeader">Std. Deviation (Sample):</string>
-    <string name="stdDevPopHeader">Std. Deviation (Pop.):</string>
-    <string name="one">1</string>
-    <string name="two">2</string>
-    <string name="three">3</string>
-    <string name="four">4</string>
-    <string name="five">5</string>
-    <string name="six">6</string>
-    <string name="period">.</string>
-    <string name="seven">7</string>
-    <string name="eight">8</string>
-    <string name="nine">9</string>
-    <string name="minus">-</string>
-    <string name="zero">0</string>
-    <string name="comma">,</string>
-    <string name="times">x</string>
-    <string name="pc_default_value">n/a</string>
-    <string name="pc_n">n =</string>
-    <string name="pc_r">r =</string>
-    <string name="pc_ns">n1,n2,n3,... =</string>
-    <string name="n_fact">n!</string>
-    <string name="r_fact">r!</string>
-    <string name="n_perm_r">nPr</string>
-    <string name="n_comb_r">nCr</string>
-    <string name="indistinct_perm">n! \u00F7\nn1!n2!n3!...</string>
-    <string name="request_list_name">What would you like to name the list?</string>
-    <string name="save">Save</string>
-    <string name="cancel">Cancel</string>
-    <string name="load">Load</string>
-    <string name="delete">Delete</string>
-    <string name="formula">formula</string>
-    <string name="reference_guide">Reference Guide</string>
-    <string name="descriptive_stats">Descriptive\nStats</string>
-    <string name="permutations_combinations">Permutations\n&amp;\nCombinations</string>
-    <string name="n_hint">Total size</string>
-    <string name="r_hint">Group size</string>
-    <string name="n_vals_hint">Duplicates (if any)</string>
-    <string name="save_list_hint">Make it memorable!</string>
-    <string name="done_button_desc">Done Button</string>
-    <string name="backspace_Desc">Backspace</string>
 
 </resources>
