@@ -15,8 +15,6 @@ public class FreePCActivity extends PCActivity {
 		view = new PCView(this);
 		FreePCPresenter.create(model, view);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 		setContentView(view.getView());
 	}
 

@@ -12,8 +12,6 @@ public class FreeBasicReferenceActivity extends ActionBarActivity {
 
 		BasicReferenceView view = new BasicReferenceView(this);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 		setContentView(view.getView());
 	}
 }

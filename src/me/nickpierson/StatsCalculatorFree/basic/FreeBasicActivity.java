@@ -15,8 +15,6 @@ public class FreeBasicActivity extends BasicActivity {
 		model = new BasicModel(this);
 		FreeBasicPresenter.create(this, model, view);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 		setContentView(view.getView());
 	}
 }
