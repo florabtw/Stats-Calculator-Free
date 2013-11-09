@@ -1,6 +1,6 @@
-package me.nickpierson.StatsCalculatorFree.basic.reference;
+package me.nickpierson.StatsCalculatorFree.reference;
 
-import me.nickpierson.StatsCalculator.basic.reference.BasicReferenceView;
+import me.nickpierson.StatsCalculator.reference.BasicReferenceView;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 

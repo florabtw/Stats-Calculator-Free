@@ -1,8 +1,8 @@
-package me.nickpierson.StatsCalculatorFree;
+package me.nickpierson.StatsCalculatorFree.home;
 
-import me.nickpierson.StatsCalculator.HomeActivity;
-import me.nickpierson.StatsCalculator.HomeModel;
-import me.nickpierson.StatsCalculator.HomeView;
+import me.nickpierson.StatsCalculator.home.HomeActivity;
+import me.nickpierson.StatsCalculator.home.HomeModel;
+import me.nickpierson.StatsCalculator.home.HomeView;
 import android.os.Bundle;
 
 public class FreeHomeActivity extends HomeActivity {

@@ -5,7 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import me.nickpierson.StatsCalculator.basic.BasicPresenterTest;
 import me.nickpierson.StatsCalculator.basic.BasicView;
-import me.nickpierson.StatsCalculatorFree.basic.reference.FreeBasicReferenceActivity;
+import me.nickpierson.StatsCalculatorFree.reference.FreeBasicReferenceActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
