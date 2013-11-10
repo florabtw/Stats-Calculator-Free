@@ -11,7 +11,7 @@ import org.robolectric.annotation.Config;
 public class FreePCPresenterTest extends PCPresenterTest {
 
 	@Override
-	public void createPresenter() {
+	public void setupPresenter() {
 		FreePCPresenter.create(model, view);
 	}
 

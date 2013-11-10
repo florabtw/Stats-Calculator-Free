@@ -11,7 +11,7 @@ import org.robolectric.annotation.Config;
 public class FreeBasicPresenterTest extends BasicPresenterTest {
 
 	@Override
-	public void createPresenter() {
+	public void setupPresenter() {
 		FreeBasicPresenter.create(activity, model, view);
 	}
 }
