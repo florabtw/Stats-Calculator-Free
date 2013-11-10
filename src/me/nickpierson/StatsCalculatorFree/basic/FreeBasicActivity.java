@@ -2,8 +2,9 @@ package me.nickpierson.StatsCalculatorFree.basic;
 
 import me.nickpierson.StatsCalculator.basic.BasicActivity;
 import me.nickpierson.StatsCalculator.basic.BasicModel;
-import me.nickpierson.StatsCalculator.basic.BasicView;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class FreeBasicActivity extends BasicActivity {
 
@@ -11,12 +12,20 @@ public class FreeBasicActivity extends BasicActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		view = new BasicView(this);
+		view = new FreeBasicView(this);
 		model = new BasicModel(this);
 		FreeBasicPresenter.create(this, model, view);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 		setContentView(view.getView());
+	}
+
+	@Override
+	public void keypadPress(View button) {
+		((FreeBasicView) view).keypadPress((Button) button);
+	}
+
+	@Override
+	public void backSpace(View button) {
+		((FreeBasicView) view).backspace();
 	}
 }
