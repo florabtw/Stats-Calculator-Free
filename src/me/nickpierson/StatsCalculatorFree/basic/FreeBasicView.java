@@ -33,6 +33,12 @@ public class FreeBasicView extends BasicView {
 		});
 	}
 
+	@Override
+	public void showResults() {
+		flFrame.removeAllViews();
+		flFrame.addView(lvResults);
+	}
+
 	public void keypadPress(Button button) {
 		/* Skips MVP */
 		keypadHelper.keypadPress(etInput, button.getText().charAt(0));

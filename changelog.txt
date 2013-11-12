@@ -1,0 +1,5 @@
+- Changed Perm & Comb screen to listview
+- Fixed results clearing when pressing home button on action bar in the
+  reference guide
+- Added calculations to Perm & Comb Screen:
+    - Permutation w/ repetition, Combination w/ repetition, and pigeonhole
