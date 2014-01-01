@@ -20,7 +20,7 @@ public class FreeBasicView extends BasicView {
 
 		resultsAdapter = new FreeBasicAdapter(activity, R.layout.basic_result_item);
 
-		resultsAdapter.addAll(Constants.BASIC_TITLES);
+		resultsAdapter.addMultiple(Constants.BASIC_TITLES);
 		lvResults.setAdapter(resultsAdapter);
 
 		keypadHelper = new KeypadHelper();
