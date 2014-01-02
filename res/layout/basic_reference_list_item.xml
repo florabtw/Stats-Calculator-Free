@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/list_item"
+    android:orientation="vertical" >
+
+    <TextView
+        android:id="@+id/basic_reference_tvTitle"
+        style="@style/basic_centered_textview" >
+    </TextView>
+
+    <ImageView
+        android:id="@+id/basic_reference_ivFormula"
+        style="@style/basic_centered"
+        android:layout_marginTop="15dp"
+        android:contentDescription="@string/formula" >
+    </ImageView>
+
+</LinearLayout>

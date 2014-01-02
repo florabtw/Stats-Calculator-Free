@@ -45,6 +45,10 @@ public class FreeBasicView extends BasicView {
 		flFrame.addView(lvResults);
 	}
 
+	public void menuReference() {
+		event(Types.MENU_REFERENCE);
+	}
+
 	public void keypadPress(Button button) {
 		/* Skips MVP */
 		keypadHelper.keypadPress(etInput, button.getText().charAt(0));
