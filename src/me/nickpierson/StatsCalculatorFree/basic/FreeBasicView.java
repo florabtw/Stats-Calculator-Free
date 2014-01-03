@@ -3,6 +3,7 @@ package me.nickpierson.StatsCalculatorFree.basic;
 import me.nickpierson.StatsCalculator.basic.BasicView;
 import me.nickpierson.StatsCalculator.utils.Constants;
 import me.nickpierson.StatsCalculator.utils.KeypadHelper;
+import me.nickpierson.StatsCalculatorFree.utils.FreeDefaultAdapter;
 import android.app.Activity;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -18,7 +19,7 @@ public class FreeBasicView extends BasicView {
 	public FreeBasicView(Activity activity) {
 		super(activity);
 
-		resultsAdapter = new FreeBasicAdapter(activity, R.layout.basic_result_item);
+		resultsAdapter = new FreeDefaultAdapter(activity, R.layout.basic_result_item, R.id.basic_tvResultTitle, R.id.basic_tvResultAnswer);
 
 		resultsAdapter.addMultiple(Constants.BASIC_TITLES);
 		lvResults.setAdapter(resultsAdapter);

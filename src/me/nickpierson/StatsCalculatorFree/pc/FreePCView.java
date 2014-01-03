@@ -3,6 +3,7 @@ package me.nickpierson.StatsCalculatorFree.pc;
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.pc.PCView;
 import me.nickpierson.StatsCalculator.utils.KeypadHelper;
+import me.nickpierson.StatsCalculatorFree.utils.FreeDefaultAdapter;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,7 @@ public class FreePCView extends PCView {
 	private ListView lvResults;
 
 	public FreePCView(Activity activity) {
-		super(activity, new FreePCAdapter(activity, R.layout.perm_comb_results_item));
+		super(activity, new FreeDefaultAdapter(activity, R.layout.perm_comb_results_item, R.id.pc_tvResultsTitle, R.id.pc_tvResultsResult));
 
 		lvResults = (ListView) LayoutInflater.from(activity).inflate(R.layout.results_list, null);
 		lvResults.setAdapter(resultsAdapter);
