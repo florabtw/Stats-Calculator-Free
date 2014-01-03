@@ -2,6 +2,7 @@ package me.nickpierson.StatsCalculatorFree.pc;
 
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.pc.PCView;
+import me.nickpierson.StatsCalculator.utils.Constants;
 import me.nickpierson.StatsCalculator.utils.KeypadHelper;
 import me.nickpierson.StatsCalculatorFree.utils.FreeDefaultAdapter;
 import android.app.Activity;
@@ -22,6 +23,7 @@ public class FreePCView extends PCView {
 
 		lvResults = (ListView) LayoutInflater.from(activity).inflate(R.layout.results_list, null);
 		lvResults.setAdapter(resultsAdapter);
+		resultsAdapter.addMultiple(Constants.PC_TITLES);
 		flFrame.addView(lvResults);
 
 		keypadHelper = new KeypadHelper();
