@@ -47,7 +47,7 @@
                 android:value="me.nickpierson.StatsCalculatorFree.home.FreeHomeActivity" />
         </activity>
         <activity
-            android:name="me.nickpierson.StatsCalculator.reference.BasicReferenceActivity"
+            android:name="me.nickpierson.StatsCalculatorFree.reference.FreeBasicReferenceActivity"
             android:label="@string/app_name"
             android:parentActivityName="me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity"
             android:theme="@style/NotHomeTheme" >
