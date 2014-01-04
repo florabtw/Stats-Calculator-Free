@@ -3,3 +3,4 @@
   reference guide
 - Added calculations to Perm & Comb Screen:
     - Permutation w/ repetition, Combination w/ repetition, and pigeonhole
+- Changed name to "Stats Calculator Free"
