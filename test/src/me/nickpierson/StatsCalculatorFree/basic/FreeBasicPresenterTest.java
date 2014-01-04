@@ -5,7 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import me.nickpierson.StatsCalculator.basic.BasicPresenterTest;
 import me.nickpierson.StatsCalculator.basic.BasicView;
-import me.nickpierson.StatsCalculatorFree.basic.reference.FreeBasicReferenceActivity;
+import me.nickpierson.StatsCalculatorFree.reference.FreeBasicReferenceActivity;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,13 +19,13 @@ import android.content.Intent;
 public class FreeBasicPresenterTest extends BasicPresenterTest {
 
 	@Override
-	public void createPresenter() {
+	public void setupPresenter() {
 		FreeBasicPresenter.create(activity, model, view);
 	}
 
 	@Test
 	public void whenMenuReferenceGuideIsClicked_ThenReferenceGuideIsShown() {
-		createPresenter();
+		setupPresenter();
 
 		verify(view).addListener(listener.capture(), eq(BasicView.Types.MENU_REFERENCE));
 

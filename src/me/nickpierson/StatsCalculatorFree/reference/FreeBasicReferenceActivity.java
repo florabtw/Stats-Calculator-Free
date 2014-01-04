@@ -1,6 +1,5 @@
-package me.nickpierson.StatsCalculatorFree.basic.reference;
+package me.nickpierson.StatsCalculatorFree.reference;
 
-import me.nickpierson.StatsCalculator.basic.reference.BasicReferenceView;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
@@ -10,10 +9,9 @@ public class FreeBasicReferenceActivity extends ActionBarActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		BasicReferenceView view = new BasicReferenceView(this);
-
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		FreeBasicReferenceView view = new FreeBasicReferenceView(this);
 
 		setContentView(view.getView());
 	}
+
 }

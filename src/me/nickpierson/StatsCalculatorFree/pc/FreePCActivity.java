@@ -2,8 +2,9 @@ package me.nickpierson.StatsCalculatorFree.pc;
 
 import me.nickpierson.StatsCalculator.pc.PCActivity;
 import me.nickpierson.StatsCalculator.pc.PCModel;
-import me.nickpierson.StatsCalculator.pc.PCView;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
 public class FreePCActivity extends PCActivity {
 
@@ -12,12 +13,20 @@ public class FreePCActivity extends PCActivity {
 		super.onCreate(savedInstanceState);
 
 		model = new PCModel();
-		view = new PCView(this);
+		view = new FreePCView(this);
 		FreePCPresenter.create(model, view);
 
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
 		setContentView(view.getView());
+	}
+
+	@Override
+	public void keypadPress(View button) {
+		((FreePCView) view).keypadPress((Button) button);
+	}
+
+	@Override
+	public void backSpace(View button) {
+		((FreePCView) view).backSpace();
 	}
 
 }
