@@ -1,9 +1,12 @@
 package me.nickpierson.StatsCalculatorFree.home;
 
+import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.home.HomeActivity;
 import me.nickpierson.StatsCalculator.home.HomeModel;
 import me.nickpierson.StatsCalculator.home.HomeView;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 public class FreeHomeActivity extends HomeActivity {
 
@@ -16,5 +19,22 @@ public class FreeHomeActivity extends HomeActivity {
 		FreeHomePresenter.create(this, model, view);
 
 		setContentView(view.getView());
+	}
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		getMenuInflater().inflate(R.menu.free_home, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == R.menu.free_home) {
+			((FreeHomeView) view).menuUpgrade();
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }
