@@ -16,7 +16,6 @@ import android.widget.ListView;
 public class FreePCView extends PCView {
 
 	private KeypadHelper keypadHelper;
-	private ListView lvResults;
 
 	public FreePCView(Activity activity) {
 		super(activity, new FreeDefaultAdapter(activity, R.layout.perm_comb_results_item, R.id.pc_tvResultsTitle, R.id.pc_tvResultsResult));
