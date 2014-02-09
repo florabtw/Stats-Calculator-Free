@@ -2,5 +2,6 @@
 <resources>
 
     <string name="app_name">Stats Calculator Free</string>
+    <string name="free_home_menu_upgrade">Pro version details</string>
 
 </resources>
