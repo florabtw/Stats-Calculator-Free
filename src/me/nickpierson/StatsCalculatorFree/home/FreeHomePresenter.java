@@ -38,10 +38,10 @@ public class FreeHomePresenter extends HomePresenter {
 			@Override
 			public void fire() {
 				Uri uri = Uri.parse(FreeConstants.UPGRADE_URL);
-				Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
+				Intent upgradeIntent = new Intent(Intent.ACTION_VIEW, uri);
 
 				try {
-					activity.startActivity(rateAppIntent);
+					activity.startActivity(upgradeIntent);
 				} catch (Exception e) {
 					view.showToast(FreeConstants.UPGRADE_ERROR);
 				}
