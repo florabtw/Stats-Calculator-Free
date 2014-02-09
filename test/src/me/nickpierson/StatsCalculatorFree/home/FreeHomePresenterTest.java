@@ -1,6 +1,7 @@
 package me.nickpierson.StatsCalculatorFree.home;
 
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doThrow;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -16,6 +17,7 @@ import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.net.Uri;
 
@@ -62,13 +64,27 @@ public class FreeHomePresenterTest extends HomePresenterTest {
 	@Test
 	public void whenProVersionMenuOptionIsPressed_ThenTheUserIsRedirectedToThePlayStore() {
 		Uri uri = Uri.parse(FreeConstants.UPGRADE_URL);
-		Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
+		Intent upgradeIntent = new Intent(Intent.ACTION_VIEW, uri);
 		createPresenter();
 
 		verify(freeView).addListener(listener.capture(), eq(FreeHomeView.FreeTypes.MENU_UPGRADE));
 
 		listener.getValue().fire();
 
-		verify(activity).startActivity(rateAppIntent);
+		verify(activity).startActivity(upgradeIntent);
+	}
+
+	@Test
+	public void whenProVersionMenuOptionIsPressedWithNoPlayStore_ThenTheUserIsShownAnError() {
+		Uri uri = Uri.parse(FreeConstants.UPGRADE_URL);
+		Intent upgradeIntent = new Intent(Intent.ACTION_VIEW, uri);
+		doThrow(new ActivityNotFoundException()).when(activity).startActivity(upgradeIntent);
+		createPresenter();
+
+		verify(freeView).addListener(listener.capture(), eq(FreeHomeView.FreeTypes.MENU_UPGRADE));
+
+		listener.getValue().fire();
+
+		verify(freeView).showToast(FreeConstants.UPGRADE_ERROR);
 	}
 }
