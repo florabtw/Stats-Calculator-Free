@@ -3,7 +3,6 @@ package me.nickpierson.StatsCalculatorFree.home;
 import me.nickpierson.StatsCalculator.R;
 import me.nickpierson.StatsCalculator.home.HomeActivity;
 import me.nickpierson.StatsCalculator.home.HomeModel;
-import me.nickpierson.StatsCalculator.home.HomeView;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,9 +13,9 @@ public class FreeHomeActivity extends HomeActivity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		view = new HomeView(this);
+		view = new FreeHomeView(this);
 		model = new HomeModel();
-		FreeHomePresenter.create(this, model, view);
+		FreeHomePresenter.create(this, model, (FreeHomeView) view);
 
 		setContentView(view.getView());
 	}
@@ -30,7 +29,7 @@ public class FreeHomeActivity extends HomeActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		int itemId = item.getItemId();
-		if (itemId == R.menu.free_home) {
+		if (itemId == R.id.menu_home_upgrade) {
 			((FreeHomeView) view).menuUpgrade();
 			return true;
 		} else {

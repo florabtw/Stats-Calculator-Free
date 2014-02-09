@@ -1,6 +1,7 @@
 package me.nickpierson.StatsCalculatorFree.home;
 
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import me.nickpierson.StatsCalculator.home.HomePresenterTest;
@@ -8,6 +9,7 @@ import me.nickpierson.StatsCalculator.home.HomeView;
 import me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity;
 import me.nickpierson.StatsCalculatorFree.pc.FreePCActivity;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.robolectric.RobolectricTestRunner;
@@ -19,16 +21,25 @@ import android.content.Intent;
 @RunWith(RobolectricTestRunner.class)
 public class FreeHomePresenterTest extends HomePresenterTest {
 
+	private FreeHomeView freeView;
+
 	@Override
+	@Before
+	public void setup() {
+		super.setup();
+
+		freeView = mock(FreeHomeView.class);
+	}
+
 	public void createPresenter() {
-		FreeHomePresenter.create(activity, model, view);
+		FreeHomePresenter.create(activity, model, freeView);
 	}
 
 	@Test
 	public void whenBasicButtonIsClicked_ThenBasicCalculatorIsOpened() {
 		createPresenter();
 
-		verify(view).addListener(listener.capture(), eq(HomeView.Types.DESCRIPTIVE_BUTTON));
+		verify(freeView).addListener(listener.capture(), eq(HomeView.Types.DESCRIPTIVE_BUTTON));
 
 		listener.getValue().fire();
 
@@ -39,11 +50,21 @@ public class FreeHomePresenterTest extends HomePresenterTest {
 	public void whenPermCombButtonIsClicked_ThenPermCombCalculatorIsOpened() {
 		createPresenter();
 
-		verify(view).addListener(listener.capture(), eq(HomeView.Types.PERM_COMB_BUTTON));
+		verify(freeView).addListener(listener.capture(), eq(HomeView.Types.PERM_COMB_BUTTON));
 
 		listener.getValue().fire();
 
 		verify(activity, times(2)).startActivity(new Intent(activity, FreePCActivity.class));
 	}
 
+	@Test
+	public void whenProVersionMenuOptionIsPressed_TheViewIsToldToDisplayADialogPopup() {
+		createPresenter();
+
+		verify(freeView).addListener(listener.capture(), eq(FreeHomeView.FreeTypes.MENU_UPGRADE));
+
+		listener.getValue().fire();
+
+		verify(freeView).showUpgradeDetails();
+	}
 }

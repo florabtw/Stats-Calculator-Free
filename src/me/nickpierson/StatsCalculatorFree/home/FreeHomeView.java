@@ -17,4 +17,8 @@ public class FreeHomeView extends HomeView {
 		event(FreeTypes.MENU_UPGRADE);
 	}
 
+	public void showUpgradeDetails() {
+		// TODO Auto-generated method stub
+		
+	}
 }
