@@ -8,6 +8,7 @@ import me.nickpierson.StatsCalculator.home.HomePresenterTest;
 import me.nickpierson.StatsCalculator.home.HomeView;
 import me.nickpierson.StatsCalculatorFree.basic.FreeBasicActivity;
 import me.nickpierson.StatsCalculatorFree.pc.FreePCActivity;
+import me.nickpierson.StatsCalculatorFree.utils.FreeConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import org.robolectric.RobolectricTestRunner;
 import org.robolectric.annotation.Config;
 
 import android.content.Intent;
+import android.net.Uri;
 
 @Config(manifest = Config.NONE)
 @RunWith(RobolectricTestRunner.class)
@@ -58,13 +60,15 @@ public class FreeHomePresenterTest extends HomePresenterTest {
 	}
 
 	@Test
-	public void whenProVersionMenuOptionIsPressed_TheViewIsToldToDisplayADialogPopup() {
+	public void whenProVersionMenuOptionIsPressed_ThenTheUserIsRedirectedToThePlayStore() {
+		Uri uri = Uri.parse(FreeConstants.UPGRADE_URL);
+		Intent rateAppIntent = new Intent(Intent.ACTION_VIEW, uri);
 		createPresenter();
 
 		verify(freeView).addListener(listener.capture(), eq(FreeHomeView.FreeTypes.MENU_UPGRADE));
 
 		listener.getValue().fire();
 
-		verify(freeView).showUpgradeDetails();
+		verify(activity).startActivity(rateAppIntent);
 	}
 }
