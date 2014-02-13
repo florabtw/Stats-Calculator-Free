@@ -4,7 +4,10 @@ import me.nickpierson.StatsCalculator.basic.BasicView;
 import me.nickpierson.StatsCalculator.utils.Constants;
 import me.nickpierson.StatsCalculator.utils.KeypadHelper;
 import me.nickpierson.StatsCalculatorFree.utils.FreeDefaultAdapter;
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
@@ -49,6 +52,12 @@ public class FreeBasicView extends BasicView {
 
 	public void menuReference() {
 		event(Types.MENU_REFERENCE);
+	}
+
+	@TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	@Override
+	public int getDialogTheme() {
+		return AlertDialog.THEME_HOLO_LIGHT;
 	}
 
 	public void keypadPress(Button button) {
