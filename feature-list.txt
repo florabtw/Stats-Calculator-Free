@@ -1,0 +1,4 @@
+- Changed name to "Stats Calculator Free"
+- Reference guide
+- Home Screen menu:
+	- Upgrade to Pro
